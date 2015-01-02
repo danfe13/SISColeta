@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	<f:view contentType="text/html; charset=UTF-8" encoding="UTF-8">
+		<ui:insert name="head">
+			<ui:include src="/template/head.xhtml" />
+		</ui:insert>
+		<h:body>
+		<p:growl id="growl"/>
+		<div id="wrapper">
+			<!-- Navigation -->
+			 	<ui:insert name="header">
+					<ui:include src="/template/header.xhtml" />
+				</ui:insert>
+				<ui:insert name="menu">
+					<ui:include src="/template/menuesquerdo.xhtml" />
+				</ui:insert> 
+				<section id="content" style="margin-left: 210px;">
+					<div id="page-wrapper">
+      					<ui:insert name="content"></ui:insert>
+      				</div>
+      			</section>
+				<ui:insert name="footer">
+					<ui:include src="/template/footer.xhtml" />
+				</ui:insert>
+		</div>
+		</h:body>
+	</f:view>
+</html>
