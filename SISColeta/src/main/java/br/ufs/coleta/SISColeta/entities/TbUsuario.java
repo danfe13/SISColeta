@@ -68,7 +68,7 @@ public class TbUsuario implements GenericEntity {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "tb_pessoa_id", nullable = false)
 	public TbPessoa getTbPessoa() {
 		return this.tbPessoa;
@@ -78,7 +78,7 @@ public class TbUsuario implements GenericEntity {
 		this.tbPessoa = tbPessoa;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "tb_perfil_id", nullable = false)
 	public TbPerfil getTbPerfil() {
 		return this.tbPerfil;
