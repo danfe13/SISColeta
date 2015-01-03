@@ -15,21 +15,15 @@
                         <h:outputText value="ID"/>
                         <h:outputText value="#{usuarioController.usuario.id}" title="ID"/>
                         <h:outputText value="Perfil"/>
-                        <h:outputText value="#{usuarioController.usuario.perfil.descricao}" title="Perfil"/>
+                        <h:outputText value="#{usuarioController.usuario.tbPerfil.descricao}" title="Perfil"/>
                         <h:outputText value="Login"/>
                         <h:outputText value="#{usuarioController.usuario.login}" title="Login"/>
                         <h:outputText value="CPF"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.cpf}" title="CPF"/>
+                        <h:outputText value="#{usuarioController.usuario.tbPessoa.cpf}" title="CPF"/>
                         <h:outputText value="Nome"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.nome}" title="Nome"/>
-                        <h:outputText value="Sobrenome"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.sobrenome}" title="Sobrenome"/>
-                        <h:outputText value="Nucleo"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.nucleo.descricao}" title="Nucleo"/>
-                        <h:outputText value="Cargo"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.cargo.descricao}" title="Cargo"/>
+                        <h:outputText value="#{usuarioController.usuario.tbPessoa.nome}" title="Nome"/>
                         <h:outputText value="Email"/>
-                        <h:outputText value="#{usuarioController.usuario.pessoa.email}" title="Email"/>
+                        <h:outputText value="#{usuarioController.usuario.tbPessoa.email}" title="Email"/>
                         
                         <h:outputText value="Ativo"/>
                         <h:outputText value="#{usuarioController.usuario.ativo ? 'Sim': 'Não'}" />

@@ -11,35 +11,19 @@
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="UsuarioEditForm">
                <h:panelGroup id="display2">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario.pessoa != null}">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario.tbPessoa != null}">
                         <p:outputLabel value="CPF" for="cpf" />
-                        <p:inputText id="cpf" value="#{usuarioController.usuario.pessoa.cpf}" title="CPF" >
+                        <p:inputText id="cpf" value="#{usuarioController.usuario.tbPessoa.cpf}" title="CPF" >
                         	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
 							<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
 						</p:inputText>	
                         <p:outputLabel value="Nome" for="nome" />
-                        <p:inputText id="nome" value="#{usuarioController.usuario.pessoa.nome}" title="Nome" />
-                        <p:outputLabel value="Sobrenome" for="sobrenome" />
-                        <p:inputText id="sobrenome" value="#{usuarioController.usuario.pessoa.sobrenome}" title="Sobrenome" />
+                        <p:inputText id="nome" value="#{usuarioController.usuario.tbPessoa.nome}" title="Nome" />
                         <p:outputLabel value="Email" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.usuario.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
+                        <p:inputText id="email" value="#{usuarioController.usuario.tbPessoa.email}" title="Email" validatorMessage="Email Inválido." >
                         	<f:passThroughAttribute name="type" value="email" />
 							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 						</p:inputText>	
-                        <p:outputLabel value="Cargo" for="cargo" />
-                        <p:selectOneMenu id="cargo" value="#{usuarioController.usuario.pessoa.cargo}" converter="generic">
-                            <f:selectItems value="#{cargoController.itemsAvailableSelectOne}"
-                                           var="cargoItem"
-                                           itemValue="#{cargoItem}"
-                                           itemLabel="#{cargoItem.descricao}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Nucleo" for="nucleo" />
-                         <p:selectOneMenu id="nucleo" value="#{usuarioController.usuario.pessoa.nucleo}" converter="generic">
-                            <f:selectItems value="#{nucleoController.itemsAvailableSelectOne}"
-                                           var="nucleoItem"
-                                           itemValue="#{nucleoItem}"
-                                           itemLabel="#{nucleoItem.descricao}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                 </h:panelGroup>
                 <h:panelGroup id="display">
@@ -47,7 +31,7 @@
                         <p:outputLabel value="Login" for="login" />
                         <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
                         <p:outputLabel value="Perfil" for="perfil" />
-                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.perfil}" converter="generic">
+                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic">
                             <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
                                            var="perfilItem"
                                            itemValue="#{perfilItem}"
