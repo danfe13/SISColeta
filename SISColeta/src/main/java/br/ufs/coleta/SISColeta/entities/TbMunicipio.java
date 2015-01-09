@@ -4,6 +4,7 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +19,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_municipio", schema = "public")
-public class TbMunicipio implements java.io.Serializable {
+public class TbMunicipio implements GenericEntity {
 
-	private int idtbMunicipio;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private TbEstado tbEstado;
 	private String descricao;
 	private Set<TbColeta> tbColetas = new HashSet<TbColeta>(0);
@@ -30,13 +35,13 @@ public class TbMunicipio implements java.io.Serializable {
 	}
 
 	public TbMunicipio(int idtbMunicipio, TbEstado tbEstado) {
-		this.idtbMunicipio = idtbMunicipio;
+		this.id = idtbMunicipio;
 		this.tbEstado = tbEstado;
 	}
 
 	public TbMunicipio(int idtbMunicipio, TbEstado tbEstado, String descricao,
 			Set<TbColeta> tbColetas, Set<TbInstituicao> tbInstituicaos) {
-		this.idtbMunicipio = idtbMunicipio;
+		this.id = idtbMunicipio;
 		this.tbEstado = tbEstado;
 		this.descricao = descricao;
 		this.tbColetas = tbColetas;
@@ -45,12 +50,12 @@ public class TbMunicipio implements java.io.Serializable {
 
 	@Id
 	@Column(name = "idtb_municipio", unique = true, nullable = false)
-	public int getIdtbMunicipio() {
-		return this.idtbMunicipio;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdtbMunicipio(int idtbMunicipio) {
-		this.idtbMunicipio = idtbMunicipio;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

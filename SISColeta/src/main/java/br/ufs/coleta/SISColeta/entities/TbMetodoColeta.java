@@ -4,6 +4,7 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,9 +17,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_metodo_coleta", schema = "public")
-public class TbMetodoColeta implements java.io.Serializable {
+public class TbMetodoColeta implements GenericEntity {
 
-	private int idtbMetodoColeta;
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private String descricao;
 	private Set<TbColeta> tbColetas = new HashSet<TbColeta>(0);
 
@@ -26,24 +28,24 @@ public class TbMetodoColeta implements java.io.Serializable {
 	}
 
 	public TbMetodoColeta(int idtbMetodoColeta) {
-		this.idtbMetodoColeta = idtbMetodoColeta;
+		this.id = idtbMetodoColeta;
 	}
 
 	public TbMetodoColeta(int idtbMetodoColeta, String descricao,
 			Set<TbColeta> tbColetas) {
-		this.idtbMetodoColeta = idtbMetodoColeta;
+		this.id = idtbMetodoColeta;
 		this.descricao = descricao;
 		this.tbColetas = tbColetas;
 	}
 
 	@Id
 	@Column(name = "idtb_metodo_coleta", unique = true, nullable = false)
-	public int getIdtbMetodoColeta() {
-		return this.idtbMetodoColeta;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdtbMetodoColeta(int idtbMetodoColeta) {
-		this.idtbMetodoColeta = idtbMetodoColeta;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Column(name = "descricao", length = 45)

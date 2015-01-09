@@ -32,12 +32,12 @@ $(function() {
                 'margin-left': '0px'
             });
             $('.sidebar').css({
-                'margin-left': '-210px'
+                'margin-left': '-180px'
             });
             $('.sidebar').hide();
         } else {
             $('#content').css({
-                'margin-left': '210px'
+                'margin-left': '180px'
             });
             $('.sidebar').show();
             $('.sidebar').css({

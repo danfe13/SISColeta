@@ -37,8 +37,8 @@ margin-top: 10px;
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        padding: 0 30px;
-        border-left: 1px solid #e7e7e7;
+        padding: 0 10px;
+        /*border-left: 1px solid #e7e7e7;*/
     }
 }
 
@@ -194,7 +194,7 @@ margin-top: 10px;
 
 @media(min-width:768px) {
     .sidebar {
-        width: 210px;
+        width: 180px;
 		height: 100%;
 		position: fixed;
 		background: #2a3542;
@@ -309,7 +309,13 @@ table.dataTable thead .sorting_desc:after {
     float: right;
     font-family: fontawesome;
 }
-
+.sidebar {
+width: 180px;
+height: 100%;
+position: fixed;
+background: #2a3542;
+display: block;
+}
 table.dataTable thead .sorting:after {
     content: "\f0dc";
     float: right;
@@ -448,3 +454,28 @@ table.dataTable thead .sorting:after {
 	margin: 2px;
 }
 
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td{
+	padding: 0px !important;
+}
+
+.ui-widget {
+	font-size: 1em !important;
+}
+
+.ui-corner-bottom{
+	-moz-border-radius-bottomleft: 0px !important;
+-webkit-border-bottom-left-radius: 0px !important;
+border-bottom-left-radius: 0px !important; 
+-moz-border-radius-bottomright: 0px !important;
+-webkit-border-bottom-right-radius: 0px !important;
+border-bottom-right-radius: 0px !important;
+}
+
+.ui-corner-top {
+-moz-border-radius-topleft: 0px !important;
+-webkit-border-top-left-radius: 0px !important;
+border-top-left-radius: 0px !important;
+-moz-border-radius-topright: 0px !important;
+-webkit-border-top-right-radius: 0px !important;
+border-top-right-radius: 0px !important;
+}

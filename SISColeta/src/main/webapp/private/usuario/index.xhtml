@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Usuario</ui:define>
+	<ui:define name="title">Usuário</ui:define>
 	<ui:define name="content">
 	<h:form id="UsuarioListForm">
 		<p:dataTable id="datalist" value="#{usuarioController.items}"
@@ -52,7 +52,7 @@
 					<f:facet name="header"><h:outputText value="Ativo" /></f:facet>
 					<h:outputText value="#{usuario.ativo ? 'Sim': 'Não'}" />
 				</p:column>
-				<p:column style="width:62px">
+				<p:column style="width:90px">
 					<p:commandLink update=":UsuarioSenhaForm" oncomplete="PF('UsuarioSenhaDialog').show()" action="#{usuarioController.prepareToNovaSenha(usuario)}" title="Alterar Senha" styleClass="ui-icon ui-icon-key">
 					</p:commandLink>
 					<p:commandLink update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" title="Visualizar" styleClass="ui-icon ui-icon-search">

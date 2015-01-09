@@ -4,6 +4,7 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,9 +17,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_perfil", schema = "public")
-public class TbPerfil implements java.io.Serializable {
+public class TbPerfil implements GenericEntity {
 
-	private int idtbPerfil;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private String descricao;
 	private Set<TbUsuario> tbUsuarios = new HashSet<TbUsuario>(0);
 
@@ -26,23 +31,23 @@ public class TbPerfil implements java.io.Serializable {
 	}
 
 	public TbPerfil(int idtbPerfil) {
-		this.idtbPerfil = idtbPerfil;
+		this.id = idtbPerfil;
 	}
 
 	public TbPerfil(int idtbPerfil, String descricao, Set<TbUsuario> tbUsuarios) {
-		this.idtbPerfil = idtbPerfil;
+		this.id = idtbPerfil;
 		this.descricao = descricao;
 		this.tbUsuarios = tbUsuarios;
 	}
 
 	@Id
 	@Column(name = "idtb_perfil", unique = true, nullable = false)
-	public int getIdtbPerfil() {
-		return this.idtbPerfil;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdtbPerfil(int idtbPerfil) {
-		this.idtbPerfil = idtbPerfil;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Column(name = "descricao", length = 45)

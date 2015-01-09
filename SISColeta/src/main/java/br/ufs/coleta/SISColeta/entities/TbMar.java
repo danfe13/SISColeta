@@ -4,6 +4,7 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +19,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_mar", schema = "public")
-public class TbMar implements java.io.Serializable {
+public class TbMar implements GenericEntity {
 
-	private int idtbMar;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private TbOceano tbOceano;
 	private String descricao;
 	private Set<TbAquatico> tbAquaticos = new HashSet<TbAquatico>(0);
@@ -29,13 +34,13 @@ public class TbMar implements java.io.Serializable {
 	}
 
 	public TbMar(int idtbMar, TbOceano tbOceano) {
-		this.idtbMar = idtbMar;
+		this.id = idtbMar;
 		this.tbOceano = tbOceano;
 	}
 
 	public TbMar(int idtbMar, TbOceano tbOceano, String descricao,
 			Set<TbAquatico> tbAquaticos) {
-		this.idtbMar = idtbMar;
+		this.id = idtbMar;
 		this.tbOceano = tbOceano;
 		this.descricao = descricao;
 		this.tbAquaticos = tbAquaticos;
@@ -43,12 +48,12 @@ public class TbMar implements java.io.Serializable {
 
 	@Id
 	@Column(name = "idtb_mar", unique = true, nullable = false)
-	public int getIdtbMar() {
-		return this.idtbMar;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdtbMar(int idtbMar) {
-		this.idtbMar = idtbMar;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

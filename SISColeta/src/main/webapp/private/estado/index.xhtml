@@ -1,0 +1,54 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/template/default.xhtml">
+	<ui:define name="title">Estado</ui:define>
+	<ui:define name="content">
+	<h:form id="EstadoListForm">
+		<p:dataTable id="datalist" value="#{estadoController.items}"
+					widgetVar="estadoTable"
+					var="estado" selection="#{estadoController.estado}"
+                    paginator="true"
+                    paginatorPosition="bottom"
+                    rowKey="#{estado.id}"
+                    rows="10"
+                    rowsPerPageTemplate="10,20,30,40,50"
+					emptyMessage="Nenhum resultado encontrado.">
+				
+				<f:facet name="header">
+					<p:outputPanel>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{estadoController.prepareCreate()}" update=":EstadoCreateForm" oncomplete="PF('EstadoCreateDialog').show()"/>
+	                </p:outputPanel>
+        		</f:facet>
+				<p:column sortBy="#{estado.id}" filterBy="#{estado.id}" filterMatchMode="contains" style="width:150px">
+					<f:facet name="header"><h:outputText value="ID" /></f:facet>
+					<h:outputText value="#{estado.id}" />
+				</p:column>	
+				<p:column sortBy="#{estado.descricao}" filterBy="#{estado.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<h:outputText value="#{estado.descricao}" />
+				</p:column>
+				<p:column style="width:62px">
+					<p:commandLink update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
+						<f:setPropertyActionListener value="#{estado}" target="#{estadoController.estado}" />
+					</p:commandLink>
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{estadoController.remover}">
+						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+						<f:setPropertyActionListener value="#{estado}" target="#{estadoController.estado}" />
+					</p:commandLink>
+       			</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+    		</p:confirmDialog>
+	</h:form>
+	<ui:include src="cadastrar.xhtml"/>
+	<ui:include src="editar.xhtml"/>
+	</ui:define>
+</ui:composition>

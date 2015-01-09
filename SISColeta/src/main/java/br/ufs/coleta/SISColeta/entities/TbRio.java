@@ -4,6 +4,7 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +19,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_rio", schema = "public")
-public class TbRio implements java.io.Serializable {
+public class TbRio implements GenericEntity {
 
-	private int idtbRio;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private TbBacia tbBacia;
 	private String descricao;
 	private Set<TbAquatico> tbAquaticos = new HashSet<TbAquatico>(0);
@@ -29,13 +34,13 @@ public class TbRio implements java.io.Serializable {
 	}
 
 	public TbRio(int idtbRio, TbBacia tbBacia) {
-		this.idtbRio = idtbRio;
+		this.id = idtbRio;
 		this.tbBacia = tbBacia;
 	}
 
 	public TbRio(int idtbRio, TbBacia tbBacia, String descricao,
 			Set<TbAquatico> tbAquaticos) {
-		this.idtbRio = idtbRio;
+		this.id = idtbRio;
 		this.tbBacia = tbBacia;
 		this.descricao = descricao;
 		this.tbAquaticos = tbAquaticos;
@@ -43,12 +48,12 @@ public class TbRio implements java.io.Serializable {
 
 	@Id
 	@Column(name = "idtb_rio", unique = true, nullable = false)
-	public int getIdtbRio() {
-		return this.idtbRio;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdtbRio(int idtbRio) {
-		this.idtbRio = idtbRio;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
