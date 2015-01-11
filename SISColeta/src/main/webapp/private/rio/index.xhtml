@@ -32,6 +32,10 @@
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
 					<h:outputText value="#{rio.descricao}" />
 				</p:column>
+				<p:column sortBy="#{rio.tbBacia.descricao}" filterBy="#{rio.tbBacia.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Bacia" /></f:facet>
+					<h:outputText value="#{rio.tbBacia.descricao}" />
+				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":RioEditForm" oncomplete="PF('RioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{rio}" target="#{rioController.rio}" />

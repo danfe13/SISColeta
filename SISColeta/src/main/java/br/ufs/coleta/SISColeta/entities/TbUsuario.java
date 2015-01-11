@@ -8,11 +8,15 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,13 +25,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_usuario", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM TbUsuario u "),
+	@NamedQuery(name="Usuario.findExistente", query="SELECT u FROM TbUsuario u JOIN FETCH u.tbPessoa WHERE 1 = 1 AND u.id <> :idUsuario AND ( UPPER(u.login) = UPPER(:login) OR u.tbPessoa.cpf = :cpf OR UPPER(u.tbPessoa.email) = UPPER(:email) )"),
+	@NamedQuery(name="Usuario.findByLogon", query="SELECT u FROM TbUsuario u JOIN FETCH u.tbPessoa WHERE ( UPPER(u.login) = UPPER(:login) OR u.tbPessoa.cpf = :login OR UPPER(u.tbPessoa.email) = UPPER(:login) )"),
+})
 public class TbUsuario implements GenericEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private TbPessoa tbPessoa;
 	private TbPerfil tbPerfil;
 	private String login;
@@ -59,6 +68,7 @@ public class TbUsuario implements GenericEntity {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_usuario", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -79,7 +89,7 @@ public class TbUsuario implements GenericEntity {
 	}
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "tb_perfil_id", nullable = false)
+	@JoinColumn(name="tb_perfil_id", referencedColumnName = "idtb_perfil",  nullable=false)
 	public TbPerfil getTbPerfil() {
 		return this.tbPerfil;
 	}
@@ -133,5 +143,30 @@ public class TbUsuario implements GenericEntity {
 	public void setTbColecaos(Set<TbColecao> tbColecaos) {
 		this.tbColecaos = tbColecaos;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbUsuario)) {
+            return false;
+        }
+        TbUsuario other = (TbUsuario) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+	
+	@Override
+    public String toString() {
+        return "ufs.entity.Usuario[ idUsuario=" + id + " ]";
+    }
 
 }

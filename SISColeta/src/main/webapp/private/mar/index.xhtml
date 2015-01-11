@@ -32,6 +32,10 @@
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
 					<h:outputText value="#{mar.descricao}" />
 				</p:column>
+				<p:column sortBy="#{mar.tbOceano.descricao}" filterBy="#{mar.tbOceano.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Oceano" /></f:facet>
+					<h:outputText value="#{mar.tbOceano.descricao}" />
+				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":MarEditForm" oncomplete="PF('MarEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{mar}" target="#{marController.mar}" />

@@ -22,6 +22,10 @@ import javax.persistence.Table;
 @Table(name = "tb_retirada_colecao", schema = "public")
 public class TbRetiradaColecao implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TbRetiradaColecaoId id;
 	private TbColecao tbColecao;
 	private TbRetirada tbRetirada;

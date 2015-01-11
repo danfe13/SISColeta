@@ -7,7 +7,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ public class TbBacia implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String descricao;
 	private Set<TbRio> tbRios = new HashSet<TbRio>(0);
 
@@ -41,6 +42,7 @@ public class TbBacia implements GenericEntity {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_bacia", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -59,7 +61,7 @@ public class TbBacia implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbBacia")
+	@OneToMany(mappedBy = "tbBacia")
 	public Set<TbRio> getTbRios() {
 		return this.tbRios;
 	}
@@ -67,5 +69,25 @@ public class TbBacia implements GenericEntity {
 	public void setTbRios(Set<TbRio> tbRios) {
 		this.tbRios = tbRios;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbPerfil)) {
+            return false;
+        }
+        TbBacia other = (TbBacia) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

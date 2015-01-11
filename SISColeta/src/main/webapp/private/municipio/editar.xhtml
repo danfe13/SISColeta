@@ -8,15 +8,22 @@
 
     <ui:composition>
 
-        <p:dialog id="PerfilEditDlg" widgetVar="PerfilEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
-            <h:form id="PerfilEditForm">
+        <p:dialog id="MunicipioEditDlg" widgetVar="MunicipioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
+            <h:form id="MunicipioEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{perfilController.perfil != null}">
+                    <p:panelGrid columns="2" rendered="#{municipioController.municipio != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{perfilController.perfil.descricao}" title="Descrição" />
+                        <p:inputText id="descricao" value="#{municipioController.municipio.descricao}" title="Descrição" />
+                        <p:outputLabel value="Estado" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{municipioController.municipio.tbEstado}" converter="generic">
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="municipioItem"
+                                           itemValue="#{municipioItem}"
+                                           itemLabel="#{municipioItem.descricao}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{perfilController.cadastrar()}" value="Salvar" update="display,:PerfilListForm:datalist" oncomplete="PF('PerfilEditDialog').hide();"/>
-                    <p:commandButton value="Cancelar" onclick="PerfilEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{municipioController.cadastrar()}" value="Salvar" update="display,:MunicipioListForm:datalist" oncomplete="PF('MunicipioEditDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="MunicipioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

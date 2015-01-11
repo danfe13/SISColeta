@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class TbAquatico implements GenericEntity {
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private Integer id;
 	private TbMar tbMar;
 	private TbRio tbRio;
 	private Set<TbHabitat> tbHabitats = new HashSet<TbHabitat>(0);
@@ -82,5 +82,25 @@ public class TbAquatico implements GenericEntity {
 	public void setTbHabitats(Set<TbHabitat> tbHabitats) {
 		this.tbHabitats = tbHabitats;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbPerfil)) {
+            return false;
+        }
+        TbAquatico other = (TbAquatico) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

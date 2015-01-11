@@ -14,6 +14,13 @@
                     <p:panelGrid columns="2" rendered="#{marController.mar != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
                         <p:inputText id="descricao" value="#{marController.mar.descricao}" title="Descrição" />
+                        <p:outputLabel value="Oceano" for="oceano" />
+                        <p:selectOneMenu id="oceano" value="#{marController.mar.tbOceano}" converter="generic">
+                            <f:selectItems value="#{oceanoController.itemsAvailableSelectOne}"
+                                           var="oceanoItem"
+                                           itemValue="#{oceanoItem}"
+                                           itemLabel="#{oceanoItem.descricao}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{marController.cadastrar()}" value="Salvar" update="display,:MarListForm:datalist" oncomplete="PF('MarEditDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="MarEditDialog.hide()"/>

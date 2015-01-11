@@ -6,39 +6,43 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Perfil</ui:define>
+	<ui:define name="title">Municipio</ui:define>
 	<ui:define name="content">
-	<h:form id="PerfilListForm">
-		<p:dataTable id="datalist" value="#{perfilController.items}"
-					widgetVar="perfilTable"
-					var="perfil" selection="#{perfilController.perfil}"
+	<h:form id="MunicipioListForm">
+		<p:dataTable id="datalist" value="#{municipioController.items}"
+					widgetVar="municipioTable"
+					var="municipio" selection="#{municipioController.municipio}"
                     paginator="true"
                     paginatorPosition="bottom"
-                    rowKey="#{perfil.id}"
+                    rowKey="#{municipio.id}"
                     rows="10"
                     rowsPerPageTemplate="10,20,30,40,50"
 					emptyMessage="Nenhum resultado encontrado.">
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{perfilController.prepareCreate()}" update=":PerfilCreateForm" oncomplete="PF('PerfilCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{municipioController.prepareCreate()}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
-				<p:column sortBy="#{perfil.id}" filterBy="#{perfil.id}" filterMatchMode="contains" style="width:150px">
+				<p:column sortBy="#{municipio.id}" filterBy="#{municipio.id}" filterMatchMode="contains" style="width:150px">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
-					<h:outputText value="#{perfil.id}" />
+					<h:outputText value="#{municipio.id}" />
 				</p:column>	
-				<p:column sortBy="#{perfil.descricao}" filterBy="#{perfil.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{municipio.descricao}" filterBy="#{municipio.descricao}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
-					<h:outputText value="#{perfil.descricao}" />
+					<h:outputText value="#{municipio.descricao}" />
+				</p:column>
+				<p:column sortBy="#{municipio.tbEstado.descricao}" filterBy="#{municipio.tbEstado.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
+					<h:outputText value="#{municipio.tbEstado.descricao}" />
 				</p:column>
 				<p:column style="width:62px">
-					<p:commandLink update=":PerfilEditForm" oncomplete="PF('PerfilEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
-						<f:setPropertyActionListener value="#{perfil}" target="#{perfilController.perfil}" />
+					<p:commandLink update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
+						<f:setPropertyActionListener value="#{municipio}" target="#{municipioController.municipio}" />
 					</p:commandLink>
-					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{perfilController.remover}">
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{municipioController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
-						<f:setPropertyActionListener value="#{perfil}" target="#{perfilController.perfil}" />
+						<f:setPropertyActionListener value="#{municipio}" target="#{municipioController.municipio}" />
 					</p:commandLink>
        			</p:column>
 			</p:dataTable>

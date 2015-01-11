@@ -11,6 +11,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TbRetiradaColecaoId implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int tbColecaoId;
 	private int tbRetiradaId;
 

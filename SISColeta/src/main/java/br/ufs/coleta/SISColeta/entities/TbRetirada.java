@@ -4,9 +4,12 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +23,10 @@ import javax.persistence.Table;
 @Table(name = "tb_retirada", schema = "public")
 public class TbRetirada implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idtbRetirada;
 	private TbDestinatario tbDestinatario;
 	private String modoEnvio;
@@ -48,6 +55,7 @@ public class TbRetirada implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_retirada", unique = true, nullable = false)
 	public int getIdtbRetirada() {
 		return this.idtbRetirada;

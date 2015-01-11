@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ public class TbRio implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private TbBacia tbBacia;
 	private String descricao;
 	private Set<TbAquatico> tbAquaticos = new HashSet<TbAquatico>(0);
@@ -47,6 +49,7 @@ public class TbRio implements GenericEntity {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_rio", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -56,8 +59,8 @@ public class TbRio implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_bacia_id", nullable = false)
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="tb_bacia_id", referencedColumnName = "idtb_bacia",  nullable=false)
 	public TbBacia getTbBacia() {
 		return this.tbBacia;
 	}
@@ -75,7 +78,7 @@ public class TbRio implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbRio")
+	@OneToMany(mappedBy = "tbRio")
 	public Set<TbAquatico> getTbAquaticos() {
 		return this.tbAquaticos;
 	}
@@ -83,5 +86,25 @@ public class TbRio implements GenericEntity {
 	public void setTbAquaticos(Set<TbAquatico> tbAquaticos) {
 		this.tbAquaticos = tbAquaticos;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbPerfil)) {
+            return false;
+        }
+        TbRio other = (TbRio) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

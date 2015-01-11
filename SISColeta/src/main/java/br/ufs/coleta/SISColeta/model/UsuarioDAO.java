@@ -35,8 +35,8 @@ public class UsuarioDAO extends GenericDAO<TbUsuario, Long> {
     	if(usuario.getId() == null){
     		usuario.setId(0);
     	}
-    	TypedQuery<TbUsuario> query = em.createNamedQuery("TbUsuario.findExistente", TbUsuario.class);
-    	query.setParameter("idTbUsuario", usuario.getId());
+    	TypedQuery<TbUsuario> query = em.createNamedQuery("Usuario.findExistente", TbUsuario.class);
+    	query.setParameter("idUsuario", usuario.getId());
     	query.setParameter("login", usuario.getLogin());
     	query.setParameter("cpf", usuario.getTbPessoa().getCpf());
     	query.setParameter("email", usuario.getTbPessoa().getEmail());

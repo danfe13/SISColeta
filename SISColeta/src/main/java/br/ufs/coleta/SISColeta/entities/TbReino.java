@@ -4,9 +4,12 @@ package br.ufs.coleta.SISColeta.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,6 +21,10 @@ import javax.persistence.Table;
 @Table(name = "tb_reino", schema = "public")
 public class TbReino implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idtbReino;
 	private String descricao;
 	private Set<TbEspecie> tbEspecies = new HashSet<TbEspecie>(0);
@@ -36,6 +43,7 @@ public class TbReino implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_reino", unique = true, nullable = false)
 	public int getIdtbReino() {
 		return this.idtbReino;

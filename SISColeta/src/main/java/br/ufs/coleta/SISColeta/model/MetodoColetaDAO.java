@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.ufs.coleta.SISColeta.entities.TbMetodoColeta;
-import br.ufs.coleta.SISColeta.entities.TbRio;
 
 /**
  *

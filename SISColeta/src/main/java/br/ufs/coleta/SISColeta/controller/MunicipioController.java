@@ -1,7 +1,7 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbEstado;
-import br.ufs.coleta.SISColeta.model.EstadoDAO;
+import br.ufs.coleta.SISColeta.entities.TbMunicipio;
+import br.ufs.coleta.SISColeta.model.MunicipioDAO;
 
 import java.util.List;
 
@@ -18,18 +18,18 @@ public class MunicipioController extends GenericController {
 	 */
 	private static final long serialVersionUID = 1L;
 	@EJB
-    private EstadoDAO municipioDAO;
-    private List<TbEstado> items = null;
-    private TbEstado municipio;
+    private MunicipioDAO municipioDAO;
+    private List<TbMunicipio> items = null;
+    private TbMunicipio municipio;
 
     public MunicipioController() {
     }
 
-    public TbEstado getEstado() {
+    public TbMunicipio getMunicipio() {
         return municipio;
     }
 
-    public void setEstado(TbEstado selected) {
+    public void setMunicipio(TbMunicipio selected) {
         this.municipio = selected;
     }
 
@@ -39,12 +39,12 @@ public class MunicipioController extends GenericController {
     protected void initializeEmbeddableKey() {
     }
 
-    private EstadoDAO getDAO() {
+    private MunicipioDAO getDAO() {
         return municipioDAO;
     }
 
-    public TbEstado prepareCreate() {
-        municipio = new TbEstado();
+    public TbMunicipio prepareCreate() {
+        municipio = new TbMunicipio();
         initializeEmbeddableKey();
         return municipio;
     }
@@ -60,18 +60,18 @@ public class MunicipioController extends GenericController {
     	municipio = null;
     }
 
-    public List<TbEstado> getItems() {
+    public List<TbMunicipio> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbEstado> getItemsAvailableSelectMany() {
+    public List<TbMunicipio> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbEstado> getItemsAvailableSelectOne() {
+    public List<TbMunicipio> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

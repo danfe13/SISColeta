@@ -3,9 +3,12 @@ package br.ufs.coleta.SISColeta.entities;
 // Generated 02/01/2015 16:46:54 by Hibernate Tools 4.0.0
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -21,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "tb_recebimento", schema = "public")
 public class TbRecebimento implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idtbRecebimento;
 	private TbRetiradaColecao tbRetiradaColecao;
 	private Date dataRecebimento;
@@ -45,6 +52,7 @@ public class TbRecebimento implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "idtb_recebimento", unique = true, nullable = false)
 	public int getIdtbRecebimento() {
 		return this.idtbRecebimento;
