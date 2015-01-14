@@ -1,7 +1,9 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.TbEstado;
+import br.ufs.coleta.SISColeta.entities.TbMunicipio;
 import br.ufs.coleta.SISColeta.model.EstadoDAO;
+import br.ufs.coleta.SISColeta.model.MunicipioDAO;
 
 import java.util.List;
 
@@ -19,7 +21,10 @@ public class EstadoController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private EstadoDAO estadoDAO;
+	@EJB
+	private MunicipioDAO municipioDAO;
     private List<TbEstado> items = null;
+    private List<TbMunicipio> municipios = null;
     private TbEstado estado;
 
     public EstadoController() {
@@ -66,6 +71,13 @@ public class EstadoController extends GenericController {
         } 
         return items;
     }
+    
+    public List<TbMunicipio> getMunicipios() {
+    	if(this.estado != null){
+    		this.municipios = municipioDAO.getMunicipioByEstado(this.estado.getId());
+    	}
+    	return municipios;
+    } 
 
     public List<TbEstado> getItemsAvailableSelectMany() {
         return getDAO().findAll();

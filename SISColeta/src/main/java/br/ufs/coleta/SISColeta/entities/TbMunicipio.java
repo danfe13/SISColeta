@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,13 +23,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_municipio", schema = "public")
+@NamedQueries({
+    @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM TbMunicipio m"),
+    @NamedQuery(name = "Municipio.findByIdEstado", query = "SELECT m FROM TbMunicipio m WHERE m.tbEstado.id = :id"),})
 public class TbMunicipio implements GenericEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private TbEstado tbEstado;
 	private String descricao;
 	private Set<TbColeta> tbColetas = new HashSet<TbColeta>(0);
@@ -40,7 +45,7 @@ public class TbMunicipio implements GenericEntity {
 		this.id = idtbMunicipio;
 		this.tbEstado = tbEstado;
 	}
-
+	
 	public TbMunicipio(int idtbMunicipio, TbEstado tbEstado, String descricao,
 			Set<TbColeta> tbColetas, Set<TbInstituicao> tbInstituicaos) {
 		this.id = idtbMunicipio;
@@ -62,7 +67,7 @@ public class TbMunicipio implements GenericEntity {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "tb_estado_id", nullable = false)
+	@JoinColumn(name = "tb_estado_id", referencedColumnName = "idtb_estado", nullable = false)
 	public TbEstado getTbEstado() {
 		return this.tbEstado;
 	}
@@ -80,7 +85,7 @@ public class TbMunicipio implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbMunicipio")
+	@OneToMany(mappedBy = "tbMunicipio")
 	public Set<TbColeta> getTbColetas() {
 		return this.tbColetas;
 	}
@@ -89,7 +94,7 @@ public class TbMunicipio implements GenericEntity {
 		this.tbColetas = tbColetas;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbMunicipio")
+	@OneToMany(mappedBy = "tbMunicipio")
 	public Set<TbInstituicao> getTbInstituicaos() {
 		return this.tbInstituicaos;
 	}
@@ -97,5 +102,25 @@ public class TbMunicipio implements GenericEntity {
 	public void setTbInstituicaos(Set<TbInstituicao> tbInstituicaos) {
 		this.tbInstituicaos = tbInstituicaos;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbMunicipio)) {
+            return false;
+        }
+        TbMunicipio other = (TbMunicipio) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

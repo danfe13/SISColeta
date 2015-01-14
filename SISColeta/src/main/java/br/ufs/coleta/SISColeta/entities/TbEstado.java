@@ -3,11 +3,11 @@ package br.ufs.coleta.SISColeta.entities;
 // Generated 02/01/2015 16:46:54 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,9 +25,9 @@ public class TbEstado implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String descricao;
-	private Set<TbMunicipio> tbMunicipios = new HashSet<TbMunicipio>(0);
+	private List<TbMunicipio> tbMunicipios;
 
 	public TbEstado() {
 	}
@@ -37,7 +37,7 @@ public class TbEstado implements GenericEntity {
 	}
 
 	public TbEstado(int idtbEstado, String descricao,
-			Set<TbMunicipio> tbMunicipios) {
+			List<TbMunicipio> tbMunicipios) {
 		this.id = idtbEstado;
 		this.descricao = descricao;
 		this.tbMunicipios = tbMunicipios;
@@ -63,13 +63,33 @@ public class TbEstado implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbEstado")
-	public Set<TbMunicipio> getTbMunicipios() {
+	@OneToMany(mappedBy = "tbEstado")
+	public List<TbMunicipio> getTbMunicipios() {
 		return this.tbMunicipios;
 	}
 
-	public void setTbMunicipios(Set<TbMunicipio> tbMunicipios) {
+	public void setTbMunicipios(List<TbMunicipio> tbMunicipios) {
 		this.tbMunicipios = tbMunicipios;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbEstado)) {
+            return false;
+        }
+        TbEstado other = (TbEstado) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

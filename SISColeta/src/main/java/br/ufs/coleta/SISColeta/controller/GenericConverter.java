@@ -23,8 +23,8 @@ public class GenericConverter implements Converter,Serializable{
 
     public String getAsString(FacesContext ctx, UIComponent component, Object value) {
 
-        if (value != null
-                && !"".equals(value)) {
+        if ((value != null
+                && !"".equals(value))&&(!value.equals("null"))) {
 
             GenericEntity entity = (GenericEntity) value;
 

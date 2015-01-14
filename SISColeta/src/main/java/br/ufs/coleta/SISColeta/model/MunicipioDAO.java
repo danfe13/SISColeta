@@ -5,12 +5,14 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.TbMunicipio;
-
 /**
  *
  * @author danilo
@@ -28,5 +30,12 @@ public class MunicipioDAO extends GenericDAO<TbMunicipio, Long> {
     public MunicipioDAO() {
     	super(TbMunicipio.class);
     }
+    
+    public List<TbMunicipio> getMunicipioByEstado(Integer id) {
+    	TypedQuery<TbMunicipio> query = em.createNamedQuery("Municipio.findByIdEstado", TbMunicipio.class);
+    	query.setParameter("id", id);	
+    	List<TbMunicipio> results = query.getResultList();
+    	return results;
+	}
     
 }

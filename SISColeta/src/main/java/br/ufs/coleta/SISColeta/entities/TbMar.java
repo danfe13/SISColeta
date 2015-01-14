@@ -27,7 +27,7 @@ public class TbMar implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private TbOceano tbOceano;
 	private String descricao;
 	private Set<TbAquatico> tbAquaticos = new HashSet<TbAquatico>(0);
@@ -59,8 +59,8 @@ public class TbMar implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_oceano_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tb_oceano_id", referencedColumnName = "idtb_oceano", nullable = false)
 	public TbOceano getTbOceano() {
 		return this.tbOceano;
 	}
@@ -86,5 +86,25 @@ public class TbMar implements GenericEntity {
 	public void setTbAquaticos(Set<TbAquatico> tbAquaticos) {
 		this.tbAquaticos = tbAquaticos;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbMar)) {
+            return false;
+        }
+        TbMar other = (TbMar) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

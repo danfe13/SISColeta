@@ -27,7 +27,7 @@ public class TbInstituicao implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private TbMunicipio tbMunicipio;
 	private String nome;
 	private String endereco;
@@ -66,8 +66,8 @@ public class TbInstituicao implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_municipio_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tb_municipio_id", referencedColumnName = "idtb_municipio", nullable = false)
 	public TbMunicipio getTbMunicipio() {
 		return this.tbMunicipio;
 	}
@@ -112,7 +112,7 @@ public class TbInstituicao implements GenericEntity {
 		this.cep = cep;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbInstituicao")
+	@OneToMany(mappedBy = "tbInstituicao")
 	public Set<TbDestinatario> getTbDestinatarios() {
 		return this.tbDestinatarios;
 	}
@@ -120,5 +120,25 @@ public class TbInstituicao implements GenericEntity {
 	public void setTbDestinatarios(Set<TbDestinatario> tbDestinatarios) {
 		this.tbDestinatarios = tbDestinatarios;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbInstituicao)) {
+            return false;
+        }
+        TbInstituicao other = (TbInstituicao) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

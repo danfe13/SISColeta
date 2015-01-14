@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +24,7 @@ public class TbOceano implements GenericEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String descricao;
 	private Set<TbMar> tbMars = new HashSet<TbMar>(0);
 
@@ -62,7 +61,7 @@ public class TbOceano implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbOceano")
+	@OneToMany(mappedBy = "tbOceano")
 	public Set<TbMar> getTbMars() {
 		return this.tbMars;
 	}
@@ -70,5 +69,25 @@ public class TbOceano implements GenericEntity {
 	public void setTbMars(Set<TbMar> tbMars) {
 		this.tbMars = tbMars;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TbOceano)) {
+            return false;
+        }
+        TbOceano other = (TbOceano) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

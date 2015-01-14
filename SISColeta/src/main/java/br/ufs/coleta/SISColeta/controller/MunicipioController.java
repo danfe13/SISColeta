@@ -61,9 +61,6 @@ public class MunicipioController extends GenericController {
     }
 
     public List<TbMunicipio> getItems() {
-        if (items == null) {
-    		items = getDAO().findAll();
-        } 
         return items;
     }
 

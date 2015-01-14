@@ -97,7 +97,7 @@ public class TbRio implements GenericEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TbPerfil)) {
+        if (!(object instanceof TbRio)) {
             return false;
         }
         TbRio other = (TbRio) object;
