@@ -27,6 +27,33 @@
       <!-- The datasource is deployed as WEB-INF/SISColeta-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/SISColeta-ds.xml -->
       <jta-data-source>java:/coleta_ds</jta-data-source>
+      <class>br.ufs.coleta.SISColeta.entities.TbAquatico</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbColecao</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbUsuario</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbBacia</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbColecaoImagem</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbColeta</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbDestinatario</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbEspecie</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbEspecieImagem</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbEstado</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbRio</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbFamilia</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbGenero</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbHabitat</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbInstituicao</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbMar</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbMetodoColeta</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbMunicipio</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbOceano</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbOrdem</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbPerfil</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbPessoa</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbRecebimento</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbReino</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbRetirada</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbRetiradaColecao</class>
+      <class>br.ufs.coleta.SISColeta.entities.TbRetiradaColecaoId</class>
       <properties>
          <!-- Properties for Hibernate -->
          	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

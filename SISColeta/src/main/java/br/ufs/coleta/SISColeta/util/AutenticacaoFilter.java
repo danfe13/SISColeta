@@ -70,14 +70,8 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
 			if (usuario.getTbPerfil().getDescricao().equals("ROLE_ADMIN")) {
 				papeis.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			}
-			else if (usuario.getTbPerfil().getDescricao().equals("ROLE_PROFESSOR")) {
-				papeis.add(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
-			}
-			else if (usuario.getTbPerfil().getDescricao().equals("ROLE_OPERACIONAL")) {
-				papeis.add(new SimpleGrantedAuthority("ROLE_OPERACIONAL"));
-			}
-			else if (usuario.getTbPerfil().getDescricao().equals("ROLE_INFO")) {
-				papeis.add(new SimpleGrantedAuthority("ROLE_INFO"));
+			else if (usuario.getTbPerfil().getDescricao().equals("ROLE_ALUNO")) {
+				papeis.add(new SimpleGrantedAuthority("ROLE_ALUNO"));
 			}
 			else{
 				throw new AuthenticationServiceException("Ocorreu uma falha no sistema. Favor informar administrador do sistema");
