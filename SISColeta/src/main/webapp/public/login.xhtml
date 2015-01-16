@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>Login - SGE</title>
+        <title>Login - SISColeta</title>
         <h:outputStylesheet library="default" name="bootstrap/css/bootstrap.css" />
 		<h:outputStylesheet library="default" name="css/sb-admin-2.css" />
 		<h:outputStylesheet library="default" name="css/plugins/metisMenu/metisMenu.min.css" />
@@ -16,7 +16,7 @@
             <center>
                 <h:outputText value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
             </center>
-            <form action="/SGE/j_spring_security_check" method="post">
+            <form action="/SISColeta/j_spring_security_check" method="post">
                 <div class="form-group">
 					<label for="usuario">Usuário *</label>
 					<input type="text" id="usuario" name="j_username" required="true" class="form-control" />
