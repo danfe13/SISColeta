@@ -34,7 +34,7 @@
 				</p:column>
 				<p:column sortBy="#{destinatario.tbInstituicao.nome}" filterBy="#{destinatario.tbInstituicao.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Instituição" /></f:facet>
-					<h:outputText value="#{destinatario.tbInstituicao.nome" />
+					<h:outputText value="#{destinatario.tbInstituicao.nome}" />
 				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":DestinatarioEditForm" oncomplete="PF('DestinatarioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">

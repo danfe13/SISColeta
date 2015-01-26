@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbOceano;
+import br.ufs.coleta.SISColeta.entities.Oceano;
 import br.ufs.coleta.SISColeta.model.OceanoDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class OceanoController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private OceanoDAO oceanoDAO;
-    private List<TbOceano> items = null;
-    private TbOceano oceano;
+    private List<Oceano> items = null;
+    private Oceano oceano;
 
     public OceanoController() {
     }
 
-    public TbOceano getOceano() {
+    public Oceano getOceano() {
         return oceano;
     }
 
-    public void setOceano(TbOceano selected) {
+    public void setOceano(Oceano selected) {
         this.oceano = selected;
     }
 
@@ -43,8 +43,8 @@ public class OceanoController extends GenericController {
         return oceanoDAO;
     }
 
-    public TbOceano prepareCreate() {
-        oceano = new TbOceano();
+    public Oceano prepareCreate() {
+        oceano = new Oceano();
         initializeEmbeddableKey();
         return oceano;
     }
@@ -60,18 +60,18 @@ public class OceanoController extends GenericController {
     	oceano = null;
     }
 
-    public List<TbOceano> getItems() {
+    public List<Oceano> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbOceano> getItemsAvailableSelectMany() {
+    public List<Oceano> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbOceano> getItemsAvailableSelectOne() {
+    public List<Oceano> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

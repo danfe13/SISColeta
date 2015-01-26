@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbMunicipio;
+import br.ufs.coleta.SISColeta.entities.Municipio;
 import br.ufs.coleta.SISColeta.model.MunicipioDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class MunicipioController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private MunicipioDAO municipioDAO;
-    private List<TbMunicipio> items = null;
-    private TbMunicipio municipio;
+    private List<Municipio> items = null;
+    private Municipio municipio;
 
     public MunicipioController() {
     }
 
-    public TbMunicipio getMunicipio() {
+    public Municipio getMunicipio() {
         return municipio;
     }
 
-    public void setMunicipio(TbMunicipio selected) {
+    public void setMunicipio(Municipio selected) {
         this.municipio = selected;
     }
 
@@ -43,8 +43,8 @@ public class MunicipioController extends GenericController {
         return municipioDAO;
     }
 
-    public TbMunicipio prepareCreate() {
-        municipio = new TbMunicipio();
+    public Municipio prepareCreate() {
+        municipio = new Municipio();
         initializeEmbeddableKey();
         return municipio;
     }
@@ -60,15 +60,15 @@ public class MunicipioController extends GenericController {
     	municipio = null;
     }
 
-    public List<TbMunicipio> getItems() {
+    public List<Municipio> getItems() {
         return items;
     }
 
-    public List<TbMunicipio> getItemsAvailableSelectMany() {
+    public List<Municipio> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbMunicipio> getItemsAvailableSelectOne() {
+    public List<Municipio> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

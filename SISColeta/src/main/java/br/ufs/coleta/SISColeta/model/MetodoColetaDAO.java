@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbMetodoColeta;
+import br.ufs.coleta.SISColeta.entities.MetodoColeta;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class MetodoColetaDAO extends GenericDAO<TbMetodoColeta, Long> {
+public class MetodoColetaDAO extends GenericDAO<MetodoColeta, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class MetodoColetaDAO extends GenericDAO<TbMetodoColeta, Long> {
     }
 
     public MetodoColetaDAO() {
-    	super(TbMetodoColeta.class);
+    	super(MetodoColeta.class);
     }
     
 }

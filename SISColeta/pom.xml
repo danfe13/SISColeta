@@ -341,6 +341,11 @@
         	<artifactId>spring-webmvc-struts</artifactId>
         	<version>2.5.6.SEC03</version>
         </dependency>
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-annotations</artifactId>
+        	<version>3.5.6-Final</version>
+        </dependency>
     </dependencies>
 
     <build>

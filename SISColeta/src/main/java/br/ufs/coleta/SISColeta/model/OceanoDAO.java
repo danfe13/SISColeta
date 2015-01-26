@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbOceano;
+import br.ufs.coleta.SISColeta.entities.Oceano;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class OceanoDAO extends GenericDAO<TbOceano, Long> {
+public class OceanoDAO extends GenericDAO<Oceano, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class OceanoDAO extends GenericDAO<TbOceano, Long> {
     }
 
     public OceanoDAO() {
-    	super(TbOceano.class);
+    	super(Oceano.class);
     }
     
 }

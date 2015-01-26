@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbDestinatario;
+import br.ufs.coleta.SISColeta.entities.Destinatario;
 import br.ufs.coleta.SISColeta.model.DestinatarioDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class DestinatarioController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private DestinatarioDAO destinatarioDAO;
-    private List<TbDestinatario> items = null;
-    private TbDestinatario destinatario;
+    private List<Destinatario> items = null;
+    private Destinatario destinatario;
 
     public DestinatarioController() {
     }
 
-    public TbDestinatario getDestinatario() {
+    public Destinatario getDestinatario() {
         return destinatario;
     }
 
-    public void setDestinatario(TbDestinatario selected) {
+    public void setDestinatario(Destinatario selected) {
         this.destinatario = selected;
     }
 
@@ -43,8 +43,8 @@ public class DestinatarioController extends GenericController {
         return destinatarioDAO;
     }
 
-    public TbDestinatario prepareCreate() {
-        destinatario = new TbDestinatario();
+    public Destinatario prepareCreate() {
+        destinatario = new Destinatario();
         initializeEmbeddableKey();
         return destinatario;
     }
@@ -60,18 +60,18 @@ public class DestinatarioController extends GenericController {
     	destinatario = null;
     }
 
-    public List<TbDestinatario> getItems() {
+    public List<Destinatario> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbDestinatario> getItemsAvailableSelectMany() {
+    public List<Destinatario> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbDestinatario> getItemsAvailableSelectOne() {
+    public List<Destinatario> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

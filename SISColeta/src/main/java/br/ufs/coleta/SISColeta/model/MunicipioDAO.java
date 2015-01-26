@@ -12,13 +12,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.ufs.coleta.SISColeta.entities.TbMunicipio;
+import br.ufs.coleta.SISColeta.entities.Municipio;
 /**
  *
  * @author danilo
  */
 @Stateless
-public class MunicipioDAO extends GenericDAO<TbMunicipio, Long> {
+public class MunicipioDAO extends GenericDAO<Municipio, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -28,13 +28,13 @@ public class MunicipioDAO extends GenericDAO<TbMunicipio, Long> {
     }
 
     public MunicipioDAO() {
-    	super(TbMunicipio.class);
+    	super(Municipio.class);
     }
     
-    public List<TbMunicipio> getMunicipioByEstado(Integer id) {
-    	TypedQuery<TbMunicipio> query = em.createNamedQuery("Municipio.findByIdEstado", TbMunicipio.class);
+    public List<Municipio> getMunicipioByEstado(Integer id) {
+    	TypedQuery<Municipio> query = em.createNamedQuery("Municipio.findByIdEstado", Municipio.class);
     	query.setParameter("id", id);	
-    	List<TbMunicipio> results = query.getResultList();
+    	List<Municipio> results = query.getResultList();
     	return results;
 	}
     

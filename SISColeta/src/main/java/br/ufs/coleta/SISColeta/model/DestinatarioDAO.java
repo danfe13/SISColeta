@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbDestinatario;
+import br.ufs.coleta.SISColeta.entities.Destinatario;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class DestinatarioDAO extends GenericDAO<TbDestinatario, Long> {
+public class DestinatarioDAO extends GenericDAO<Destinatario, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class DestinatarioDAO extends GenericDAO<TbDestinatario, Long> {
     }
 
     public DestinatarioDAO() {
-    	super(TbDestinatario.class);
+    	super(Destinatario.class);
     }
     
 }

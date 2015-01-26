@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbBacia;
+import br.ufs.coleta.SISColeta.entities.Bacia;
 import br.ufs.coleta.SISColeta.model.BaciaDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class BaciaController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private BaciaDAO baciaDAO;
-    private List<TbBacia> items = null;
-    private TbBacia bacia;
+    private List<Bacia> items = null;
+    private Bacia bacia;
 
     public BaciaController() {
     }
 
-    public TbBacia getBacia() {
+    public Bacia getBacia() {
         return bacia;
     }
 
-    public void setBacia(TbBacia selected) {
+    public void setBacia(Bacia selected) {
         this.bacia = selected;
     }
 
@@ -43,8 +43,8 @@ public class BaciaController extends GenericController {
         return baciaDAO;
     }
 
-    public TbBacia prepareCreate() {
-        bacia = new TbBacia();
+    public Bacia prepareCreate() {
+        bacia = new Bacia();
         initializeEmbeddableKey();
         return bacia;
     }
@@ -60,18 +60,18 @@ public class BaciaController extends GenericController {
     	bacia = null;
     }
 
-    public List<TbBacia> getItems() {
+    public List<Bacia> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbBacia> getItemsAvailableSelectMany() {
+    public List<Bacia> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbBacia> getItemsAvailableSelectOne() {
+    public List<Bacia> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

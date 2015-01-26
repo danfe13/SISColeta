@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbMar;
+import br.ufs.coleta.SISColeta.entities.Mar;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class MarDAO extends GenericDAO<TbMar, Long> {
+public class MarDAO extends GenericDAO<Mar, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class MarDAO extends GenericDAO<TbMar, Long> {
     }
 
     public MarDAO() {
-    	super(TbMar.class);
+    	super(Mar.class);
     }
     
 }

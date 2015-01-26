@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbMetodoColeta;
+import br.ufs.coleta.SISColeta.entities.MetodoColeta;
 import br.ufs.coleta.SISColeta.model.MetodoColetaDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class MetodoColetaController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private MetodoColetaDAO metodoColetaDAO;
-    private List<TbMetodoColeta> items = null;
-    private TbMetodoColeta metodoColeta;
+    private List<MetodoColeta> items = null;
+    private MetodoColeta metodoColeta;
 
     public MetodoColetaController() {
     }
 
-    public TbMetodoColeta getMetodoColeta() {
+    public MetodoColeta getMetodoColeta() {
         return metodoColeta;
     }
 
-    public void setMetodoColeta(TbMetodoColeta selected) {
+    public void setMetodoColeta(MetodoColeta selected) {
         this.metodoColeta = selected;
     }
 
@@ -43,8 +43,8 @@ public class MetodoColetaController extends GenericController {
         return metodoColetaDAO;
     }
 
-    public TbMetodoColeta prepareCreate() {
-        metodoColeta = new TbMetodoColeta();
+    public MetodoColeta prepareCreate() {
+        metodoColeta = new MetodoColeta();
         initializeEmbeddableKey();
         return metodoColeta;
     }
@@ -60,18 +60,18 @@ public class MetodoColetaController extends GenericController {
     	metodoColeta = null;
     }
 
-    public List<TbMetodoColeta> getItems() {
+    public List<MetodoColeta> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbMetodoColeta> getItemsAvailableSelectMany() {
+    public List<MetodoColeta> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbMetodoColeta> getItemsAvailableSelectOne() {
+    public List<MetodoColeta> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

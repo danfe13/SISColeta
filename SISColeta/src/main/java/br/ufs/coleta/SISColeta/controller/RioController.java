@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbRio;
+import br.ufs.coleta.SISColeta.entities.Rio;
 import br.ufs.coleta.SISColeta.model.RioDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class RioController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private RioDAO rioDAO;
-    private List<TbRio> items = null;
-    private TbRio rio;
+    private List<Rio> items = null;
+    private Rio rio;
 
     public RioController() {
     }
 
-    public TbRio getRio() {
+    public Rio getRio() {
         return rio;
     }
 
-    public void setRio(TbRio selected) {
+    public void setRio(Rio selected) {
         this.rio = selected;
     }
 
@@ -43,8 +43,8 @@ public class RioController extends GenericController {
         return rioDAO;
     }
 
-    public TbRio prepareCreate() {
-        rio = new TbRio();
+    public Rio prepareCreate() {
+        rio = new Rio();
         initializeEmbeddableKey();
         return rio;
     }
@@ -60,18 +60,18 @@ public class RioController extends GenericController {
     	rio = null;
     }
 
-    public List<TbRio> getItems() {
+    public List<Rio> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbRio> getItemsAvailableSelectMany() {
+    public List<Rio> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbRio> getItemsAvailableSelectOne() {
+    public List<Rio> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

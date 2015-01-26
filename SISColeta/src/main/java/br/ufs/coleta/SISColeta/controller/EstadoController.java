@@ -1,7 +1,7 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbEstado;
-import br.ufs.coleta.SISColeta.entities.TbMunicipio;
+import br.ufs.coleta.SISColeta.entities.Estado;
+import br.ufs.coleta.SISColeta.entities.Municipio;
 import br.ufs.coleta.SISColeta.model.EstadoDAO;
 import br.ufs.coleta.SISColeta.model.MunicipioDAO;
 
@@ -23,18 +23,18 @@ public class EstadoController extends GenericController {
     private EstadoDAO estadoDAO;
 	@EJB
 	private MunicipioDAO municipioDAO;
-    private List<TbEstado> items = null;
-    private List<TbMunicipio> municipios = null;
-    private TbEstado estado;
+    private List<Estado> items = null;
+    private List<Municipio> municipios = null;
+    private Estado estado;
 
     public EstadoController() {
     }
 
-    public TbEstado getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(TbEstado selected) {
+    public void setEstado(Estado selected) {
         this.estado = selected;
     }
 
@@ -48,8 +48,8 @@ public class EstadoController extends GenericController {
         return estadoDAO;
     }
 
-    public TbEstado prepareCreate() {
-        estado = new TbEstado();
+    public Estado prepareCreate() {
+        estado = new Estado();
         initializeEmbeddableKey();
         return estado;
     }
@@ -65,25 +65,25 @@ public class EstadoController extends GenericController {
     	estado = null;
     }
 
-    public List<TbEstado> getItems() {
+    public List<Estado> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
     
-    public List<TbMunicipio> getMunicipios() {
+    public List<Municipio> getMunicipios() {
     	if(this.estado != null){
     		this.municipios = municipioDAO.getMunicipioByEstado(this.estado.getId());
     	}
     	return municipios;
     } 
 
-    public List<TbEstado> getItemsAvailableSelectMany() {
+    public List<Estado> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbEstado> getItemsAvailableSelectOne() {
+    public List<Estado> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

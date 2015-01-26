@@ -1,7 +1,7 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbPessoa;
-import br.ufs.coleta.SISColeta.entities.TbUsuario;
+import br.ufs.coleta.SISColeta.entities.Pessoa;
+import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.PessoaDAO;
 import br.ufs.coleta.SISColeta.model.UsuarioDAO;
 import br.ufs.coleta.SISColeta.util.HashGenerator;
@@ -28,40 +28,40 @@ public class UsuarioController extends GenericController {
     private UsuarioDAO usuarioDAO;
 	@EJB
     private PessoaDAO pessoaDAO;
-    private List<TbUsuario> items = null;
-    private TbUsuario usuario;
-    private TbUsuario usuarioLogado;
+    private List<Usuario> items = null;
+    private Usuario usuario;
+    private Usuario usuarioLogado;
     private String confirmacaosenha;
-	private TbPessoa pessoa;
+	private Pessoa pessoa;
 
 	public UsuarioController() {
     }
 	
-	public TbPessoa getPessoa() {
+	public Pessoa getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(TbPessoa pessoa) {
+	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
 	
-	public TbUsuario getUsuarioLogado() {
+	public Usuario getUsuarioLogado() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        usuarioLogado = (TbUsuario) session.getAttribute("usuarioLogado");
+        usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 
         return usuarioLogado;
     }
 
-    public void setUsuarioLogado(TbUsuario usuario) {
+    public void setUsuarioLogado(Usuario usuario) {
         this.usuarioLogado = usuario;
     }
 
-    public TbUsuario getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(TbUsuario selected) {
+    public void setUsuario(Usuario selected) {
         this.usuario = selected;
     }
     
@@ -88,12 +88,12 @@ public class UsuarioController extends GenericController {
     }
 
     public void prepareCreate() {
-        usuario = new TbUsuario();
-        pessoa = new TbPessoa();
+        usuario = new Usuario();
+        pessoa = new Pessoa();
         initializeEmbeddableKey();
     }
     
-    public void prepareToNovaSenha(TbUsuario usuario){
+    public void prepareToNovaSenha(Usuario usuario){
     	this.usuario = usuario;
     	this.usuario.setSenha(null);
     }
@@ -101,7 +101,7 @@ public class UsuarioController extends GenericController {
     public void cadastrar(){
     	usuario.setTbPessoa(pessoa);
     	if(this.validarUsuario(usuario) && this.validarSenha(usuario)){
-	    	TbPessoa p = getDAOPessoa().save(pessoa);
+	    	Pessoa p = getDAOPessoa().save(pessoa);
 	    	usuario.setTbPessoa(p);
 	    	usuario.setSenha(HashGenerator.gerar(usuario.getSenha()));
 	    	getDAOUser().save(usuario);
@@ -134,24 +134,24 @@ public class UsuarioController extends GenericController {
     	pessoa = null;
     }
 
-    public List<TbUsuario> getItems() {
+    public List<Usuario> getItems() {
         if (items == null) {
     		items = getDAOUser().findAll();
         } 
         return items;
     }
 
-    public List<TbUsuario> getItemsAvailableSelectMany() {
+    public List<Usuario> getItemsAvailableSelectMany() {
         return getDAOUser().findAll();
     }
 
-    public List<TbUsuario> getItemsAvailableSelectOne() {
+    public List<Usuario> getItemsAvailableSelectOne() {
         return getDAOUser().findAll();
     }
     
-    private boolean validarUsuario(TbUsuario usuario) {
+    private boolean validarUsuario(Usuario usuario) {
 		boolean resultado = true;
-		TbUsuario usuarioExistente = getDAOUser().getExistente(usuario);
+		Usuario usuarioExistente = getDAOUser().getExistente(usuario);
 		if (usuarioExistente != null) {
 			if (usuarioExistente.getLogin().toLowerCase().equals(usuario.getLogin().toLowerCase())) {
 				adicionarMensagemErro("Já existe um usuário com este login.");
@@ -171,7 +171,7 @@ public class UsuarioController extends GenericController {
 		return resultado;
 	}
     
-    private boolean validarSenha(TbUsuario usuario){
+    private boolean validarSenha(Usuario usuario){
     	if (!usuario.getSenha().equals(this.confirmacaosenha)) {
 			adicionarMensagemErro("A senha digitada e sua confirmação estão diferentes.");
 			return false;

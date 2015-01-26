@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbMar;
+import br.ufs.coleta.SISColeta.entities.Mar;
 import br.ufs.coleta.SISColeta.model.MarDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class MarController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private MarDAO marDAO;
-    private List<TbMar> items = null;
-    private TbMar mar;
+    private List<Mar> items = null;
+    private Mar mar;
 
     public MarController() {
     }
 
-    public TbMar getMar() {
+    public Mar getMar() {
         return mar;
     }
 
-    public void setMar(TbMar selected) {
+    public void setMar(Mar selected) {
         this.mar = selected;
     }
 
@@ -43,8 +43,8 @@ public class MarController extends GenericController {
         return marDAO;
     }
 
-    public TbMar prepareCreate() {
-        mar = new TbMar();
+    public Mar prepareCreate() {
+        mar = new Mar();
         initializeEmbeddableKey();
         return mar;
     }
@@ -60,18 +60,18 @@ public class MarController extends GenericController {
     	mar = null;
     }
 
-    public List<TbMar> getItems() {
+    public List<Mar> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbMar> getItemsAvailableSelectMany() {
+    public List<Mar> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbMar> getItemsAvailableSelectOne() {
+    public List<Mar> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

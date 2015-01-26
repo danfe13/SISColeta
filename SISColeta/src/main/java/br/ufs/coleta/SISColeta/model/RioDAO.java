@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbRio;
+import br.ufs.coleta.SISColeta.entities.Rio;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class RioDAO extends GenericDAO<TbRio, Long> {
+public class RioDAO extends GenericDAO<Rio, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class RioDAO extends GenericDAO<TbRio, Long> {
     }
 
     public RioDAO() {
-    	super(TbRio.class);
+    	super(Rio.class);
     }
     
 }

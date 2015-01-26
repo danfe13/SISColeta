@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.ufs.coleta.SISColeta.entities.TbPerfil;
+import br.ufs.coleta.SISColeta.entities.Perfil;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class PerfilDAO extends GenericDAO<TbPerfil, Long> {
+public class PerfilDAO extends GenericDAO<Perfil, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -26,7 +26,7 @@ public class PerfilDAO extends GenericDAO<TbPerfil, Long> {
     }
 
     public PerfilDAO() {
-    	super(TbPerfil.class);
+    	super(Perfil.class);
     }
     
 }

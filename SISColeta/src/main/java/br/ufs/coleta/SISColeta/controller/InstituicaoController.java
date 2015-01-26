@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbInstituicao;
+import br.ufs.coleta.SISColeta.entities.Instituicao;
 import br.ufs.coleta.SISColeta.model.InstituicaoDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class InstituicaoController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private InstituicaoDAO instituicaoDAO;
-    private List<TbInstituicao> items = null;
-    private TbInstituicao instituicao;
+    private List<Instituicao> items = null;
+    private Instituicao instituicao;
 
     public InstituicaoController() {
     }
 
-    public TbInstituicao getInstituicao() {
+    public Instituicao getInstituicao() {
         return instituicao;
     }
 
-    public void setInstituicao(TbInstituicao selected) {
+    public void setInstituicao(Instituicao selected) {
         this.instituicao = selected;
     }
 
@@ -43,8 +43,8 @@ public class InstituicaoController extends GenericController {
         return instituicaoDAO;
     }
 
-    public TbInstituicao prepareCreate() {
-        instituicao = new TbInstituicao();
+    public Instituicao prepareCreate() {
+        instituicao = new Instituicao();
         initializeEmbeddableKey();
         return instituicao;
     }
@@ -60,18 +60,18 @@ public class InstituicaoController extends GenericController {
     	instituicao = null;
     }
 
-    public List<TbInstituicao> getItems() {
+    public List<Instituicao> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbInstituicao> getItemsAvailableSelectMany() {
+    public List<Instituicao> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbInstituicao> getItemsAvailableSelectOne() {
+    public List<Instituicao> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

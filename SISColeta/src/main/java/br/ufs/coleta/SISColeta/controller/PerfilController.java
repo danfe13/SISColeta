@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.controller;
 
-import br.ufs.coleta.SISColeta.entities.TbPerfil;
+import br.ufs.coleta.SISColeta.entities.Perfil;
 import br.ufs.coleta.SISColeta.model.PerfilDAO;
 
 import java.util.List;
@@ -19,17 +19,17 @@ public class PerfilController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private PerfilDAO perfilDAO;
-    private List<TbPerfil> items = null;
-    private TbPerfil perfil;
+    private List<Perfil> items = null;
+    private Perfil perfil;
 
     public PerfilController() {
     }
 
-    public TbPerfil getPerfil() {
+    public Perfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(TbPerfil selected) {
+    public void setPerfil(Perfil selected) {
         this.perfil = selected;
     }
 
@@ -43,8 +43,8 @@ public class PerfilController extends GenericController {
         return perfilDAO;
     }
 
-    public TbPerfil prepareCreate() {
-        perfil = new TbPerfil();
+    public Perfil prepareCreate() {
+        perfil = new Perfil();
         initializeEmbeddableKey();
         return perfil;
     }
@@ -60,18 +60,18 @@ public class PerfilController extends GenericController {
     	perfil = null;
     }
 
-    public List<TbPerfil> getItems() {
+    public List<Perfil> getItems() {
         if (items == null) {
     		items = getDAO().findAll();
         } 
         return items;
     }
 
-    public List<TbPerfil> getItemsAvailableSelectMany() {
+    public List<Perfil> getItemsAvailableSelectMany() {
         return getDAO().findAll();
     }
 
-    public List<TbPerfil> getItemsAvailableSelectOne() {
+    public List<Perfil> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
 

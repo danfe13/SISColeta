@@ -24,21 +24,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.ufs.coleta.SISColeta.entities.TbUsuario;
+import br.ufs.coleta.SISColeta.entities.Usuario;
 
 public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("coleta_ds");
     private EntityManager em;
     
-    public TbUsuario Logon(String login) {
+    public Usuario Logon(String login) {
     	em = factory.createEntityManager();
-        TbUsuario usuario = null;
+        Usuario usuario = null;
         try {
             Query query = em.createQuery("SELECT u FROM TbUsuario u WHERE u.login = :login");
             query.setParameter("login", login);
 
-            usuario = (TbUsuario) query.getSingleResult();
+            usuario = (Usuario) query.getSingleResult();
 
         } catch (NoResultException e) {
             return null;
@@ -55,7 +55,7 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
         String login = request.getParameter("j_username");
         String senha = request.getParameter("j_password");
 		
-		TbUsuario usuario = this.Logon(login);
+		Usuario usuario = this.Logon(login);
 		
 		List<SimpleGrantedAuthority> papeis = new ArrayList<SimpleGrantedAuthority>();
 		String cript = HashGenerator.gerar(senha);
