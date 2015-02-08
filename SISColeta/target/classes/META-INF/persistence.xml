@@ -53,6 +53,8 @@
       <class>br.ufs.coleta.SISColeta.entities.Retirada</class>
       <class>br.ufs.coleta.SISColeta.entities.RetiradaColecao</class>
       <class>br.ufs.coleta.SISColeta.entities.RetiradaColecaoId</class>
+      <class>br.ufs.coleta.SISColeta.entities.Subfamilia</class>
+      <class>br.ufs.coleta.SISColeta.entities.TipoAquaticoLocal</class>
       <properties>
          <!-- Properties for Hibernate -->
          	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

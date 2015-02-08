@@ -62,8 +62,8 @@ public class Especie implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_subfamilia_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tb_subfamilia_id",referencedColumnName = "idtb_subfamilia", nullable = false)
 	public Subfamilia getTbSubfamilia() {
 		return this.subfamilia;
 	}
@@ -107,5 +107,25 @@ public class Especie implements GenericEntity {
 	public void setTbColecaos(Set<Colecao> colecaos) {
 		this.colecaos = colecaos;
 	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Especie)) {
+            return false;
+        }
+        Especie other = (Especie) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

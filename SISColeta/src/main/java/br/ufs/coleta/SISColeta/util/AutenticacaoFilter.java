@@ -35,7 +35,7 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
     	em = factory.createEntityManager();
         Usuario usuario = null;
         try {
-            Query query = em.createQuery("SELECT u FROM TbUsuario u WHERE u.login = :login");
+            Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login");
             query.setParameter("login", login);
 
             usuario = (Usuario) query.getSingleResult();
@@ -56,7 +56,6 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
         String senha = request.getParameter("j_password");
 		
 		Usuario usuario = this.Logon(login);
-		
 		List<SimpleGrantedAuthority> papeis = new ArrayList<SimpleGrantedAuthority>();
 		String cript = HashGenerator.gerar(senha);
 		if (usuario == null) {
