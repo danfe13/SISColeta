@@ -32,13 +32,13 @@
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					<h:outputText value="#{instituicao.nome}" />
 				</p:column>
-				<p:column sortBy="#{instituicao.tbMunicipio.descricao}" filterBy="#{instituicao.tbMunicipio.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{instituicao.tbMunicipio.nome}" filterBy="#{instituicao.tbMunicipio.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Municipio" /></f:facet>
-					<h:outputText value="#{instituicao.tbMunicipio.descricao}" />
+					<h:outputText value="#{instituicao.tbMunicipio.nome}" />
 				</p:column>
-				<p:column sortBy="#{instituicao.tbMunicipio.tbEstado.descricao}" filterBy="#{instituicao.tbMunicipio.tbEstado.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{instituicao.tbMunicipio.tbEstado.nome}" filterBy="#{instituicao.tbMunicipio.tbEstado.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-					<h:outputText value="#{instituicao.tbMunicipio.tbEstado.descricao}" />
+					<h:outputText value="#{instituicao.tbMunicipio.tbEstado.nome}" />
 				</p:column>
 				<p:column sortBy="#{instituicao.endereco}" filterBy="#{instituicao.endereco}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Endereço" /></f:facet>

@@ -61,7 +61,7 @@ public class Pessoa implements GenericEntity{
 		this.id = id;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	public Usuario getTbUsuario() {
 		return this.usuario;

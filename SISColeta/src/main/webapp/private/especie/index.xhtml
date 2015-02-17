@@ -1,0 +1,61 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/template/default.xhtml">
+	<ui:define name="title">Especie</ui:define>
+	<ui:define name="content">
+	<h:form id="EspecieListForm">
+		<p:dataTable id="datalist" value="#{especieController.items}"
+					widgetVar="especieTable"
+					var="especie" selection="#{especieController.especie}"
+                    paginator="true"
+                    paginatorPosition="bottom"
+                    rowKey="#{especie.id}"
+                    rows="10"
+                    rowsPerPageTemplate="10,20,30,40,50"
+					emptyMessage="Nenhum resultado encontrado.">
+				
+				<f:facet name="header">
+					<p:outputPanel>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{especieController.prepareCreate()}" update=":EspecieCreateForm" oncomplete="PF('EspecieCreateDialog').show()"/>
+	                </p:outputPanel>
+        		</f:facet>
+				<p:column sortBy="#{especie.id}" filterBy="#{especie.id}" filterMatchMode="contains" style="width:150px">
+					<f:facet name="header"><h:outputText value="ID" /></f:facet>
+					<h:outputText value="#{especie.id}" />
+				</p:column>	
+				<p:column sortBy="#{especie.nomeCientifico}" filterBy="#{especie.nomeCientifico}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Nome Científico" /></f:facet>
+					<h:outputText value="#{especie.nomeCientifico}" />
+				</p:column>
+				<p:column sortBy="#{especie.nomePopular}" filterBy="#{especie.nomePopular}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Nome Popular" /></f:facet>
+					<h:outputText value="#{especie.nomePopular}" />
+				</p:column>
+				<p:column style="width:62px">
+					<p:commandLink update=":EspecieEditForm" oncomplete="PF('EspecieEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
+						<f:setPropertyActionListener value="#{especie}" target="#{especieController.especie}" />
+					</p:commandLink>
+					<p:link outcome="especieimagem" styleClass="fa fa-picture-o" >
+						<f:param name="id" value="#{especie.id}"  />
+					</p:link>
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{especieController.remover}">
+						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+						<f:setPropertyActionListener value="#{especie}" target="#{especieController.especie}" />
+					</p:commandLink>
+       			</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+    		</p:confirmDialog>
+	</h:form>
+	<ui:include src="cadastrar.xhtml"/>
+	<ui:include src="editar.xhtml"/>
+	</ui:define>
+</ui:composition>

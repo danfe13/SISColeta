@@ -32,6 +32,10 @@
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
 					<h:outputText value="#{ordem.descricao}" />
 				</p:column>
+				<p:column sortBy="#{ordem.tbClasse.descricao}" filterBy="#{ordem.tbClasse.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<h:outputText value="#{ordem.tbClasse.descricao}" />
+				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":OrdemEditForm" oncomplete="PF('OrdemEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{ordem}" target="#{ordemController.ordem}" />

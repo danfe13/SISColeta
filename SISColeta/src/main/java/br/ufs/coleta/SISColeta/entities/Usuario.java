@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -58,6 +60,7 @@ public class Usuario implements GenericEntity {
 		this.colecaos = colecaos;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_usuario", unique = true, nullable = false)
 	public Integer getId() {
@@ -68,7 +71,7 @@ public class Usuario implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_perfil_id", nullable = false)
 	public Perfil getTbPerfil() {
 		return this.perfil;
@@ -115,7 +118,7 @@ public class Usuario implements GenericEntity {
 		this.coletas = coletas;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "tbUsuario")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "tbUsuario")
 	public Pessoa getTbPessoa() {
 		return this.pessoa;
 	}

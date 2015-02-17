@@ -5,9 +5,13 @@ package br.ufs.coleta.SISColeta.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +19,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_especie_imagem", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="EspecieImagem.findByEspecie", query="SELECT ei FROM EspecieImagem ei JOIN FETCH ei.tbEspecie WHERE ei.tbEspecie.id = :id"),
+})
 public class EspecieImagem implements GenericEntity{
 
 	/**
@@ -23,7 +30,7 @@ public class EspecieImagem implements GenericEntity{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Especie especie;
-	private String imagem;
+	private byte[] imagem;
 
 	public EspecieImagem() {
 	}
@@ -34,12 +41,13 @@ public class EspecieImagem implements GenericEntity{
 	}
 
 	public EspecieImagem(int idtbEspecieImagem, Especie especie,
-			String imagem) {
+			byte[] imagem) {
 		this.id = idtbEspecieImagem;
 		this.especie = especie;
 		this.imagem = imagem;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_especie_imagem", unique = true, nullable = false)
 	public Integer getId() {
@@ -61,11 +69,11 @@ public class EspecieImagem implements GenericEntity{
 	}
 
 	@Column(name = "imagem")
-	public String getImagem() {
+	public byte[] getImagem() {
 		return this.imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 	

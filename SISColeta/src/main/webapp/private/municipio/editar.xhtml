@@ -13,13 +13,13 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{municipioController.municipio != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{municipioController.municipio.descricao}" title="Descrição" />
+                        <p:inputText id="descricao" value="#{municipioController.municipio.nome}" title="Descrição" />
                         <p:outputLabel value="Estado" for="estado" />
                         <p:selectOneMenu id="estado" value="#{municipioController.municipio.tbEstado}" converter="generic">
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"
-                                           itemLabel="#{municipioItem.descricao}"/>
+                                           itemLabel="#{municipioItem.nome}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{municipioController.cadastrar()}" value="Salvar" update="display,:MunicipioListForm:datalist" oncomplete="PF('MunicipioEditDialog').hide();"/>

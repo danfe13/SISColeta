@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,6 +42,7 @@ public class Classe implements GenericEntity {
 		this.ordems = ordems;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_classe", unique = true, nullable = false)
 	public Integer getId() {

@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,6 +45,7 @@ public class Estado implements GenericEntity{
 		this.municipios = municipios;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_estado", unique = true, nullable = false)
 	public Integer getId() {

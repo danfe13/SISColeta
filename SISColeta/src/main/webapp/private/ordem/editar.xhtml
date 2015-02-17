@@ -14,7 +14,16 @@
                     <p:panelGrid columns="2" rendered="#{ordemController.ordem != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
                         <p:inputText id="descricao" value="#{ordemController.ordem.descricao}" title="Descrição" />
+                    	<p:outputLabel value="Classe" for="classe" />
+                    	<p:selectOneMenu id="classe" value="#{classeController.classe}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Classe" />
+                            <f:selectItems value="#{classeController.itemsAvailableSelectOne}"
+                                           var="classeItem"
+                                           itemValue="#{classeItem}"
+                                           itemLabel="#{classeItem.descricao}"/>          
+                    	</p:selectOneMenu>
                     </p:panelGrid>
+                     
                     <p:commandButton actionListener="#{ordemController.cadastrar()}" value="Salvar" update="display,:OrdemListForm:datalist" oncomplete="PF('OrdemEditDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="OrdemEditDialog.hide()"/>
                 </h:panelGroup>

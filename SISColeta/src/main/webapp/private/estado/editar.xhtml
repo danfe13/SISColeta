@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{estadoController.estado != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{estadoController.estado.descricao}" title="Descrição" />
+                        <p:inputText id="descricao" value="#{estadoController.estado.nome}" title="Descrição" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{estadoController.cadastrar()}" value="Salvar" update="display,:EstadoListForm:datalist" oncomplete="PF('EstadoEditDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="EstadoEditDialog.hide()"/>

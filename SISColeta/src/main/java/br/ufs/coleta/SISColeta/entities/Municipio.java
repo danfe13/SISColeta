@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -48,6 +50,7 @@ public class Municipio implements GenericEntity {
 		this.instituicaos = instituicaos;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_municipio", unique = true, nullable = false)
 	public Integer getId() {
@@ -58,7 +61,7 @@ public class Municipio implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_estado_id", nullable = false)
 	public Estado getTbEstado() {
 		return this.estado;

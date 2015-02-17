@@ -28,13 +28,13 @@
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{municipio.id}" />
 				</p:column>	
-				<p:column sortBy="#{municipio.descricao}" filterBy="#{municipio.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{municipio.nome}" filterBy="#{municipio.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
-					<h:outputText value="#{municipio.descricao}" />
+					<h:outputText value="#{municipio.nome}" />
 				</p:column>
-				<p:column sortBy="#{municipio.tbEstado.descricao}" filterBy="#{municipio.tbEstado.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{municipio.tbEstado.nome}" filterBy="#{municipio.tbEstado.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
-					<h:outputText value="#{municipio.tbEstado.descricao}" />
+					<h:outputText value="#{municipio.tbEstado.nome}" />
 				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":MunicipioEditForm" oncomplete="PF('MunicipioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">

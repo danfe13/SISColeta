@@ -28,9 +28,9 @@
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{estado.id}" />
 				</p:column>	
-				<p:column sortBy="#{estado.descricao}" filterBy="#{estado.descricao}" filterMatchMode="contains">
+				<p:column sortBy="#{estado.nome}" filterBy="#{estado.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
-					<h:outputText value="#{estado.descricao}" />
+					<h:outputText value="#{estado.nome}" />
 				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":EstadoEditForm" oncomplete="PF('EstadoEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">

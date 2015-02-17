@@ -32,6 +32,14 @@
 					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
 					<h:outputText value="#{familia.descricao}" />
 				</p:column>
+				<p:column sortBy="#{familia.tbOrdem.descricao}" filterBy="#{familia.tbOrdem.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<h:outputText value="#{familia.tbOrdem.descricao}" />
+				</p:column>
+				<p:column sortBy="#{familia.tbOrdem.tbClasse.descricao}" filterBy="#{familia.tbOrdem.tbClasse.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<h:outputText value="#{familia.tbOrdem.tbClasse.descricao}" />
+				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":FamiliaEditForm" oncomplete="PF('FamiliaEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{familia}" target="#{familiaController.familia}" />

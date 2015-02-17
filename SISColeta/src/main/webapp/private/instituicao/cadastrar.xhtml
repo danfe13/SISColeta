@@ -20,7 +20,7 @@
                             <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
                                            var="estadoItem"
                                            itemValue="#{estadoItem}"
-                                           itemLabel="#{estadoItem.descricao}"/>
+                                           itemLabel="#{estadoItem.nome}"/>
                             <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
                         </p:selectOneMenu>
                         <p:outputLabel value="Cidade" for="cidade" />
@@ -29,7 +29,7 @@
                             <f:selectItems value="#{estadoController.municipios}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"
-                                           itemLabel="#{municipioItem.descricao}"/>
+                                           itemLabel="#{municipioItem.nome}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Endereço" for="endereco" />
                         <p:inputText id="endereco" value="#{instituicaoController.instituicao.endereco}" title="Endereco" />
