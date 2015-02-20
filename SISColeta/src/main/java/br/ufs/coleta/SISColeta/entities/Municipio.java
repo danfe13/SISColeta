@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +23,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_municipio", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Municipio.findByMunicipio", query="SELECT m FROM Municipio m WHERE m.tbEstado.id = :id"),
+})
 public class Municipio implements GenericEntity {
 
 	/**

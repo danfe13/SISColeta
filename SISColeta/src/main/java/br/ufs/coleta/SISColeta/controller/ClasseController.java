@@ -1,7 +1,9 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Classe;
+import br.ufs.coleta.SISColeta.entities.Ordem;
 import br.ufs.coleta.SISColeta.model.ClasseDAO;
+import br.ufs.coleta.SISColeta.model.OrdemDAO;
 
 import java.util.List;
 
@@ -19,7 +21,10 @@ public class ClasseController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private ClasseDAO classeDAO;
+	@EJB
+	private OrdemDAO ordemDAO;
     private List<Classe> items = null;
+    private List<Ordem> ordem = null;
     private Classe classe;
 
     public ClasseController() {
@@ -74,5 +79,12 @@ public class ClasseController extends GenericController {
     public List<Classe> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
+    
+    public List<Ordem> getOrdem() {
+    	if(this.classe != null){
+    		this.ordem = ordemDAO.getbyClasse(this.classe.getId());
+    	}
+    	return this.ordem;
+    } 
 
 }

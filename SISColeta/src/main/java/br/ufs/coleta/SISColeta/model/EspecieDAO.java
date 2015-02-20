@@ -16,7 +16,7 @@ import br.ufs.coleta.SISColeta.entities.Especie;
  * @author danilo
  */
 @Stateless
-public class EspecieDAO extends GenericDAO<Especie, Long> {
+public class EspecieDAO extends GenericDAO<Especie, Integer> {
 	@PersistenceContext
     private EntityManager em;
 

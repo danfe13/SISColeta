@@ -5,11 +5,15 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Familia;
+import br.ufs.coleta.SISColeta.entities.Ordem;
 
 /**
  *
@@ -28,5 +32,12 @@ public class FamiliaDAO extends GenericDAO<Familia, Long> {
     public FamiliaDAO() {
     	super(Familia.class);
     }
+    
+    public List<Familia> getbyOrdem(Integer id) {
+    	TypedQuery<Familia> query = em.createNamedQuery("Ordem.findByOrdem", Familia.class);
+    	query.setParameter("id", id);	
+    	List<Familia> results = query.getResultList();
+    	return results;
+	}
     
 }

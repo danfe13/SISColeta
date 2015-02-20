@@ -1,26 +1,14 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Especie;
-import br.ufs.coleta.SISColeta.entities.EspecieImagem;
 import br.ufs.coleta.SISColeta.model.EspecieDAO;
-import br.ufs.coleta.SISColeta.model.EspecieImagemDAO;
-import br.ufs.coleta.SISColeta.util.HashGenerator;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "especieController")
 @SessionScoped
@@ -30,11 +18,8 @@ public class EspecieController extends GenericController {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String diretorio = "imagens_especies/";
 	@EJB
     private EspecieDAO especieDAO;
-	@EJB
-	private EspecieImagemDAO especieimagemDAO;
     private List<Especie> items = null;
     private Especie especie;
 

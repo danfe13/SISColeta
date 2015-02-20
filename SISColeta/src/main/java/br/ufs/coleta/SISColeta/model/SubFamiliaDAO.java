@@ -5,9 +5,12 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Subfamilia;
 
@@ -28,5 +31,12 @@ public class SubFamiliaDAO extends GenericDAO<Subfamilia, Long> {
     public SubFamiliaDAO() {
     	super(Subfamilia.class);
     }
+    
+    public List<Subfamilia> getbyFamilia(Integer id) {
+    	TypedQuery<Subfamilia> query = em.createNamedQuery("Subfamilia.findByFamilia", Subfamilia.class);
+    	query.setParameter("id", id);	
+    	List<Subfamilia> results = query.getResultList();
+    	return results;
+	}
     
 }

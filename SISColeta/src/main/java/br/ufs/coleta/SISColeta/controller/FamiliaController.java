@@ -1,7 +1,10 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Familia;
+import br.ufs.coleta.SISColeta.entities.Ordem;
+import br.ufs.coleta.SISColeta.entities.Subfamilia;
 import br.ufs.coleta.SISColeta.model.FamiliaDAO;
+import br.ufs.coleta.SISColeta.model.SubFamiliaDAO;
 
 import java.util.List;
 
@@ -19,7 +22,10 @@ public class FamiliaController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private FamiliaDAO familiaDAO;
+	@EJB
+    private SubFamiliaDAO subfamiliaDAO;
     private List<Familia> items = null;
+    private List<Subfamilia> subfamilia = null;
     private Familia familia;
 
     public FamiliaController() {
@@ -74,5 +80,12 @@ public class FamiliaController extends GenericController {
     public List<Familia> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
+    
+    public List<Subfamilia> getSubfamilia() {
+    	if(this.familia != null){
+    		this.subfamilia = subfamiliaDAO.getbyFamilia(this.familia.getId());
+    	}
+    	return this.subfamilia;
+    } 
 
 }

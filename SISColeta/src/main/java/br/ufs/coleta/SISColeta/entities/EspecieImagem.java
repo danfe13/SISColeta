@@ -30,7 +30,8 @@ public class EspecieImagem implements GenericEntity{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Especie especie;
-	private byte[] imagem;
+	private String imagem;
+	private String extensao;
 
 	public EspecieImagem() {
 	}
@@ -41,7 +42,7 @@ public class EspecieImagem implements GenericEntity{
 	}
 
 	public EspecieImagem(int idtbEspecieImagem, Especie especie,
-			byte[] imagem) {
+			String imagem) {
 		this.id = idtbEspecieImagem;
 		this.especie = especie;
 		this.imagem = imagem;
@@ -69,12 +70,31 @@ public class EspecieImagem implements GenericEntity{
 	}
 
 	@Column(name = "imagem")
-	public byte[] getImagem() {
+	public String getImagem() {
 		return this.imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	
+	@Column(name = "extensao")
+	public String getExtensao() {
+		return this.extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		if(extensao.equalsIgnoreCase("jpg")){
+			this.extensao = "jpeg";
+		}
+		else if(extensao.equalsIgnoreCase("jpeg")){
+			this.extensao = "jpeg";
+		}
+		else if (extensao.equalsIgnoreCase("gif")){
+			this.extensao = "gif";
+		}
+		else 	
+			this.extensao = "png";
 	}
 	
 	@Override

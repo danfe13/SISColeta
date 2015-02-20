@@ -1,6 +1,7 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.EspecieImagem;
+import br.ufs.coleta.SISColeta.model.EspecieDAO;
 import br.ufs.coleta.SISColeta.model.EspecieImagemDAO;
 import br.ufs.coleta.SISColeta.util.HashGenerator;
 
@@ -11,16 +12,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 
-import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -37,6 +37,8 @@ public class EspecieImagemController extends GenericController {
 	private static final String diretorio = "imagens_especies/";
 	@EJB
 	private EspecieImagemDAO especieimagemDAO;
+	@EJB
+	private EspecieDAO especieDAO;
     private List<EspecieImagem> items = null;
     private EspecieImagem especieimagem;
     private Integer idEspecie;
@@ -110,37 +112,31 @@ public class EspecieImagemController extends GenericController {
     {
 	    try
 	    {
-	    	
-		    //Cria um arquivo UploadFile, para receber o arquivo do evento
 		    UploadedFile arq = event.getFile();
 		    String nomeArquivo = arq.getFileName();
-		    String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf("."), nomeArquivo.length());
-		    nomeArquivo = HashGenerator.gerar(arq.getFileName()+String.valueOf(getDAO().count()));
+		    String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".")+1, nomeArquivo.length());
 		    
-		    FacesContext context = FacesContext.getCurrentInstance();
-		   /* ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-		    String diretorio = servletContext.getRealPath("/resources/");
-		    diretorio = diretorio+"/especie/"+nomeArquivo; */
-		    //Essa parte comentada deve ser usada caso queira salvar
-		    //o arquivo em um local do servidor.
+		    Date data = new Date(System.currentTimeMillis());
+		    nomeArquivo = HashGenerator.gerar(arq.getFileName()+data.getTime());
 		    
 		    InputStream in = new BufferedInputStream(arq.getInputstream());
 		    File file = new File(diretorio+nomeArquivo);
-		    //O método file.getAbsolutePath() fornece o caminho do arquivo criado
-		    //Pode ser usado para ligar algum objeto do banco ao arquivo enviado
-		    String caminho = file.getAbsolutePath();
+		    
 		    FileOutputStream fout = new FileOutputStream(file);
 		    while(in.available() != 0)
 		    {
 		    	fout.write(in.read());
 		    }
 		    fout.close();
-		   /* especieimagem.setTbEspecie(getItems().get(0).getTbEspecie());
 		    
-		    especieimagemDAO.save(especieimagem);
-		    */
-		    FacesMessage msg = new FacesMessage("O Arquivo ", arq.getFileName() + " salvo em banco de dados.");
-		    FacesContext.getCurrentInstance().addMessage("msgUpdate", msg);
+		    EspecieImagem ei = new EspecieImagem();
+		    
+		    ei.setExtensao(extensao);
+		    ei.setImagem(nomeArquivo);
+		    ei.setTbEspecie(especieDAO.find(idEspecie));
+		    especieimagemDAO.save(ei);
+		    ei = null;
+		    
 	    }
 	    catch(Exception ex)
 	    {
@@ -148,23 +144,14 @@ public class EspecieImagemController extends GenericController {
 	    }
     }
     
-    public StreamedContent getFoto() throws FileNotFoundException {
-        String fotoNome = "baeabee0771b6b990d1d9f4d2ca58eb6";
- 
-        if(FacesContext.getCurrentInstance().getRenderResponse() || fotoNome == null)
-            return new DefaultStreamedContent();
- 
-        else
-            return recuperarFotoDisco(fotoNome);
-    }
-    
-    public static StreamedContent recuperarFotoDisco(String fotoNome) throws FileNotFoundException{
-    	FacesContext context = FacesContext.getCurrentInstance();
-	 /*   ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-	    String diretorio = servletContext.getRealPath("/resources/");
-	    diretorio = diretorio+"/especie/"+fotoNome; */
-	    
-        return new DefaultStreamedContent(new FileInputStream(new File(diretorio+fotoNome)), "image/jpeg");
+    public StreamedContent getImagem() throws FileNotFoundException{  
+    	  ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    	  String nome = externalContext.getRequestParameterMap().get("nome");
+    	  String extensao = externalContext.getRequestParameterMap().get("extensao");
+    	  if(FacesContext.getCurrentInstance().getRenderResponse() || nome == null)
+              return new DefaultStreamedContent();
+    	  else
+    		  return new DefaultStreamedContent(new FileInputStream(new File(diretorio+nome)), "image/"+extensao);
     }
 
 }

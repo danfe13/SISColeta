@@ -32,7 +32,7 @@ public class MunicipioDAO extends GenericDAO<Municipio, Long> {
     }
     
     public List<Municipio> getMunicipioByEstado(Integer id) {
-    	TypedQuery<Municipio> query = em.createNamedQuery("Municipio.findByIdEstado", Municipio.class);
+    	TypedQuery<Municipio> query = em.createNamedQuery("Municipio.findByMunicipio", Municipio.class);
     	query.setParameter("id", id);	
     	List<Municipio> results = query.getResultList();
     	return results;

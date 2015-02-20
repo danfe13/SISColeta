@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
         <p:dialog id="EspecieCreateDlg" widgetVar="EspecieCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="EspecieCreateForm">
                 <h:panelGroup id="display">
@@ -16,8 +15,42 @@
                         <p:inputText id="nomecientifico" value="#{especieController.especie.nomeCientifico}" title="Nome Cientifico" />
                         <p:outputLabel value="Nome Popular" for="nomepopular" />
                         <p:inputText id="nomepopular" value="#{especieController.especie.nomePopular}" title="Nome Popular" />
+                    	<p:outputLabel value="Classe" for="classe" />
+                        <p:selectOneMenu id="classe" value="#{classeController.classe}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Classe" />
+                            <f:selectItems value="#{classeController.itemsAvailableSelectOne}"
+                                           var="classeItem"
+                                           itemValue="#{classeItem}"
+                                           itemLabel="#{classeItem.descricao}"/>
+                            <p:ajax update="ordem" event="change"  listener="#{classeController.getOrdem}" />            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Ordem" for="ordem" />
+                        <p:selectOneMenu id="ordem" value="#{ordemController.ordem}" converter="generic">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Ordem" />
+                            <f:selectItems value="#{classeController.ordem}"
+                            			   var="ordemItem"
+                                           itemValue="#{ordemItem}"
+                                           itemLabel="#{ordemItem.descricao}"/>
+                            <p:ajax update="familia" event="change"  listener="#{ordemController.getFamilia}" /> 
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Familia" for="familia" />
+                        <p:selectOneMenu id="familia" value="#{familiaController.familia}" converter="generic">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Familia" />
+                            <f:selectItems value="#{ordemController.familia}"
+                            			   var="familiaItem"
+                                           itemValue="#{familiaItem}"
+                                           itemLabel="#{familiaItem.descricao}"/>
+                             <p:ajax update="subfamilia" event="change"  listener="#{familiaController.getSubfamilia}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="SubFamilia" for="subfamilia" />
+                        <p:selectOneMenu id="subfamilia" value="#{especieController.especie.tbSubfamilia}" converter="generic">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione SubFamilia" />
+                            <f:selectItems value="#{familiaController.subfamilia}"
+                            			   var="subfamiliaItem"
+                                           itemValue="#{subfamiliaItem}"
+                                           itemLabel="#{subfamiliaItem.descricao}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    
                     <p:commandButton actionListener="#{especieController.cadastrar()}" value="Salvar" update="display,:EspecieListForm:datalist" oncomplete="PF('EspecieCreateDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="EspecieCreateDialog.hide()"/>
                 </h:panelGroup>
