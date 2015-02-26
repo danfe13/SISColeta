@@ -52,7 +52,7 @@
 					<f:facet name="header"><h:outputText value="Ativo" /></f:facet>
 					<h:outputText value="#{usuario.ativo ? 'Sim': 'Não'}" />
 				</p:column>
-				<p:column style="width:90px">
+				<p:column style="width:120px">
 					<p:commandLink update=":UsuarioSenhaForm" oncomplete="PF('UsuarioSenhaDialog').show()" action="#{usuarioController.prepareToNovaSenha(usuario)}" title="Alterar Senha" styleClass="ui-icon ui-icon-key">
 					</p:commandLink>
 					<p:commandLink update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" title="Visualizar" styleClass="ui-icon ui-icon-search">

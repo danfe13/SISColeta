@@ -2,35 +2,73 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:p="http://primefaces.org/ui">
-			<div class="sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="/SISColeta/private/index.xhtml"><i class="fa fa-dashboard fa-fw"></i> Home</a>
-                        </li>
-                        <li>
-                            <a href="/SISColeta/private/especie/index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i> Especie</a>
-                            <ul class="sub" style="display: none;">
-		                          <li><a href="http://thevectorlab.net/flatlab/boxed_page.html">Boxed Page</a></li>
-		                          <li><a href="http://thevectorlab.net/flatlab/horizontal_menu.html">Horizontal Menu</a></li>
-		                          <li><a href="http://thevectorlab.net/flatlab/language_switch_bar.html">Language Switch Bar</a></li>
-		                          <li><a href="http://thevectorlab.net/flatlab/email_template.html" target="_blank">Email Template</a></li>
-		                      </ul>
-                        </li>
-                        <li>
-                            <a href="/SISColeta/private/Especie/index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i> Cargos</a>
-                        </li>
-                        <li>
-                            <a href="/SISColeta/private/Especie/index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i> Cargos</a>
-                        </li>
-                        <li>
-                            <a href="/SISColeta/private/Especie/index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i> Cargos</a>
-                        </li>
-                        <li>
-                            <a href="/SISColeta/private/Especie/index.xhtml"><i class="fa fa-bar-chart-o fa-fw"></i> Cargos</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
+
+<aside class="main-sidebar">
+	<section class="sidebar" style="height: auto;">
+		<ul class="sidebar-menu">
+            <li class="header">MENU</li>
+            <li>
+              <a href="/SISColeta/private/index.jsf">
+                <i class="fa fa-home"></i> <span>Home</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bug"></i>
+                <span>Táxon</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/SISColeta/private/especie/index.jsf"><i class="fa fa-circle-o"></i> Espécies</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Sub-Familias</a></li>
+                <li><a href="/SISColeta/private/familia/index.jsf"><i class="fa fa-circle-o"></i> Familias</a></li>
+                <li><a href="/SISColeta/private/ordem/index.jsf"><i class="fa fa-circle-o"></i> Ordens</a></li>
+                <li><a href="/SISColeta/private/classe/index.jsf"><i class="fa fa-circle-o"></i> Classes</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>Coleta</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/SISColeta/private/especie/index.jsf"><i class="fa fa-circle-o"></i> Coleção</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Metodos Coleta</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-retweet"></i>
+                <span>Emprestimos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/SISColeta/private/especie/index.jsf"><i class="fa fa-circle-o"></i> Realizados</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Recebidos</a></li>
+                <li><a href="/SISColeta/private/destinatario/index.jsf"><i class="fa fa-circle-o"></i> Destinatários</a></li>
+                <li><a href="/SISColeta/private/instituicao/index.jsf"><i class="fa fa-circle-o"></i> Instituições</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart-o"></i>
+                <span>Relatórios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/SISColeta/private/especie/index.jsf"><i class="fa fa-circle-o"></i> Gráfico 1</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Gráfico 2</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Gráfico 3</a></li>
+                <li><a href="/SISColeta/private/subfamilia/index.jsf"><i class="fa fa-circle-o"></i> Gráfico 4</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/SISColeta/private/usuario/index.jsf">
+                <i class="fa fa-users"></i> <span>Usuários</span>
+              </a>
+            </li>
+          </ul>
+   </section>
+</aside>
 </ui:composition>

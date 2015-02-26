@@ -8,21 +8,29 @@
 		<ui:insert name="head">
 			<ui:include src="/template/head.xhtml" />
 		</ui:insert>
-		<h:body>
+		<h:body styleClass="skin-blue wysihtml5-supported">
 		<p:growl id="growl"/>
-		<div id="wrapper">
-			<!-- Navigation -->
+		<div class="wrapper">
 			 	<ui:insert name="header">
 					<ui:include src="/template/header.xhtml" />
 				</ui:insert>
 				<ui:insert name="menu">
 					<ui:include src="/template/menuesquerdo.xhtml" />
 				</ui:insert> 
-				<section id="content" style="margin-left: 180px;">
-					<div id="page-wrapper">
+				<div class="content-wrapper" style="min-height: 918px">
+					<section class="content-header">
+			          <h1>
+			            <ui:insert name="cabecalho"></ui:insert>
+			            <small><ui:insert name="sub-cabecalho"></ui:insert></small>
+			          </h1>
+			          <ol class="breadcrumb">
+			            <ui:insert name="breadcrumb"></ui:insert>
+			          </ol>
+			        </section>
+					<div class="content">
       					<ui:insert name="content"></ui:insert>
       				</div>
-      			</section>
+      			</div>
 				<ui:insert name="footer">
 					<ui:include src="/template/footer.xhtml" />
 				</ui:insert>

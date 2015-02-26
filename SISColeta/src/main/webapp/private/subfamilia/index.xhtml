@@ -21,7 +21,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{subfamiliaController.prepareCreate()}" update=":SubFamiliaCreateForm" oncomplete="PF('SubFamiliaCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{subfamiliaController.prepareCreate()}" update=":SubFamiliaCreateForm" oncomplete="PF('SubFamiliaCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{subfamilia.id}" filterBy="#{subfamilia.id}" filterMatchMode="contains" style="width:150px">

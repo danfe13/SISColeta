@@ -1,0 +1,50 @@
+/* Datatable */
+.ui-datatable .ui-column-filter {
+    width: 90% !important;
+}
+
+.ui-datatable .ui-datatable-header {
+    text-align: left !important;
+}
+
+.ui-widget-content .ui-icon{
+	float:left;
+	margin: 2px;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td{
+	/* padding: 0px !important; */
+}
+
+.ui-widget {
+	font-size: 1em !important;
+}
+
+.ui-corner-bottom{
+	-moz-border-radius-bottomleft: 0px !important;
+-webkit-border-bottom-left-radius: 0px !important;
+border-bottom-left-radius: 0px !important; 
+-moz-border-radius-bottomright: 0px !important;
+-webkit-border-bottom-right-radius: 0px !important;
+border-bottom-right-radius: 0px !important;
+}
+
+.ui-corner-top {
+-moz-border-radius-topleft: 0px !important;
+-webkit-border-top-left-radius: 0px !important;
+border-top-left-radius: 0px !important;
+-moz-border-radius-topright: 0px !important;
+-webkit-border-top-right-radius: 0px !important;
+border-top-right-radius: 0px !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	background-image: none !important;
+}
+
+.ui-paginator {
+	margin: 0px;
+	text-align: right;
+	padding: 2px;
+}
+
