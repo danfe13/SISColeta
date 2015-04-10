@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,6 +26,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_usuario", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u "),
+	@NamedQuery(name="Usuario.findExistente", query="SELECT u FROM Usuario u JOIN FETCH u.tbPessoa WHERE 1 = 1 AND u.id <> :idUsuario AND ( UPPER(u.login) = UPPER(:login) OR u.tbPessoa.cpf = :cpf OR UPPER(u.tbPessoa.email) = UPPER(:email) )"),
+})
 public class Usuario implements GenericEntity {
 
 	/**

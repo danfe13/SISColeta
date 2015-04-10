@@ -7,6 +7,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
 	<ui:define name="title">Mar</ui:define>
+	<ui:define name="cabecalho">Mar</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Configuração</a></li>
+            <li class="active">Mar</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="MarListForm">
 		<p:dataTable id="datalist" value="#{marController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{marController.prepareCreate()}" update=":MarCreateForm" oncomplete="PF('MarCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{marController.prepareCreate()}" update=":MarCreateForm" oncomplete="PF('MarCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{mar.id}" filterBy="#{mar.id}" filterMatchMode="contains" style="width:150px">

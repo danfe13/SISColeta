@@ -6,7 +6,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">MetodoColeta</ui:define>
+	<ui:define name="title">Metodo de Coleta</ui:define>
+	<ui:define name="cabecalho">Metodo de Coleta</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Coleta</a></li>
+            <li class="active">Metodo de Coleta</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="MetodoColetaListForm">
 		<p:dataTable id="datalist" value="#{metodoColetaController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{metodoColetaController.prepareCreate()}" update=":MetodoColetaCreateForm" oncomplete="PF('MetodoColetaCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{metodoColetaController.prepareCreate()}" update=":MetodoColetaCreateForm" oncomplete="PF('MetodoColetaCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{metodoColeta.id}" filterBy="#{metodoColeta.id}" filterMatchMode="contains" style="width:150px">

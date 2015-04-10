@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import br.ufs.coleta.SISColeta.entities.Pessoa;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 
 /**
@@ -31,15 +32,15 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     	super(Usuario.class);
     }
     
-    public Usuario getExistente(Usuario usuario) {
+    public Usuario getExistente(Usuario usuario, Pessoa pessoa) {
     	if(usuario.getId() == null){
     		usuario.setId(0);
     	}
     	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findExistente", Usuario.class);
     	query.setParameter("idUsuario", usuario.getId());
     	query.setParameter("login", usuario.getLogin());
-    	query.setParameter("cpf", usuario.getTbPessoa().getCpf());
-    	query.setParameter("email", usuario.getTbPessoa().getEmail());
+    	query.setParameter("cpf", pessoa.getCpf());
+    	query.setParameter("email", pessoa.getEmail());
     	try{
     		Usuario results = query.getSingleResult();
     		return results;

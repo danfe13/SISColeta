@@ -6,7 +6,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">SubFamilia</ui:define>
+	<ui:define name="title">SubFamília</ui:define>
+	<ui:define name="cabecalho">SubFamília</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Táxon</a></li>
+            <li class="active">SubFamília</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="SubFamiliaListForm">
 		<p:dataTable id="datalist" value="#{subfamiliaController.items}"
@@ -29,11 +35,11 @@
 					<h:outputText value="#{subfamilia.id}" />
 				</p:column>	
 				<p:column sortBy="#{subfamilia.descricao}" filterBy="#{subfamilia.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="SubFamilia" /></f:facet>
+					<f:facet name="header"><h:outputText value="SubFamília" /></f:facet>
 					<h:outputText value="#{subfamilia.descricao}" />
 				</p:column>
 				<p:column sortBy="#{subfamilia.tbFamilia.descricao}" filterBy="#{subfamilia.tbFamilia.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Familia" /></f:facet>
+					<f:facet name="header"><h:outputText value="Família" /></f:facet>
 					<h:outputText value="#{subfamilia.tbFamilia.descricao}" />
 				</p:column>
 				<p:column sortBy="#{subfamilia.tbFamilia.tbOrdem.descricao}" filterBy="#{subfamilia.tbFamilia.tbOrdem.descricao}" filterMatchMode="contains">

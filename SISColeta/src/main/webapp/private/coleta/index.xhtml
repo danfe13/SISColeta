@@ -7,6 +7,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
 	<ui:define name="title">Coleta</ui:define>
+	<ui:define name="cabecalho">Coleta</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Táxon</a></li>
+            <li class="active">Coleta</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="ColetaListForm">
 		<p:dataTable id="datalist" value="#{coletaController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{coletaController.prepareCreate()}" update=":ColetaCreateForm" oncomplete="PF('ColetaCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{coletaController.prepareCreate()}" update=":ColetaCreateForm" oncomplete="PF('ColetaCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:150px">

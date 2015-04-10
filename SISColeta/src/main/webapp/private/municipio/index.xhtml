@@ -7,6 +7,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
 	<ui:define name="title">Municipio</ui:define>
+	<ui:define name="cabecalho">Municipio</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Configuração</a></li>
+            <li class="active">Municipio</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="MunicipioListForm">
 		<p:dataTable id="datalist" value="#{municipioController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{municipioController.prepareCreate()}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{municipioController.prepareCreate()}" update=":MunicipioCreateForm" oncomplete="PF('MunicipioCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{municipio.id}" filterBy="#{municipio.id}" filterMatchMode="contains" style="width:150px">

@@ -61,7 +61,7 @@
 					<p:commandLink update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuario}" />
 					</p:commandLink>
-					<p:commandLink update=":growl,datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{usuarioController.remover}">
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{usuarioController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuario}" />
 					</p:commandLink>

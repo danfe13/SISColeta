@@ -6,27 +6,34 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Login - SISColeta</title>
-        <h:outputStylesheet library="default" name="bootstrap/css/bootstrap.css" />
-		<h:outputStylesheet library="default" name="css/sb-admin-2.css" />
-		<h:outputStylesheet library="default" name="css/plugins/metisMenu/metisMenu.min.css" />
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+        <h:outputStylesheet library="default" name="bootstrap/css/bootstrap.min.css" />
+		<h:outputStylesheet library="default" name="dist/css/AdminLTE.min.css" />
 		<h:outputStylesheet library="default" name="font-awesome-4.1.0/css/font-awesome.css" />
     </h:head>
-    <h:body onLoad="#{loginController.verificaAutenticidade}">
-        <p:dialog header="Login" visible="true" closable="false" draggable="false" resizable="false" width="420">
-            <center>
-                <h:outputText value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
-            </center>
-            <form action="/SISColeta/j_spring_security_check" method="post">
-                <div class="form-group">
-					<label for="usuario">Usuário *</label>
-					<input type="text" id="usuario" name="j_username" required="true" class="form-control" />
-				</div>
-				<div class="form-group">
-					<label for="senha">Senha *</label>
-					<input type="password" id="senha" name="j_password" required="true" class="form-control" />
-				</div>
-				<input type="submit" value="Login" class="btn btn-lg btn-primary btn-block" />
-            </form>
-        </p:dialog>
-    </h:body>
+    <h:body styleClass="login-page" onLoad="#{loginController.verificaAutenticidade}">
+    <div class="login-box">
+      <div class="login-logo">
+        <b>SIS</b>Coleta
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg">Faça Login para acessar o sistema</p>
+        <form action="/SISColeta/j_spring_security_check" method="post">
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" name="j_username" placeholder="Login"/>
+            <span class="fa fa-user form-control-feedback" style="margin-top: 10px"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="j_password" placeholder="Senha"/>
+            <span class="fa fa-lock form-control-feedback" style="margin-top: 10px"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Acessar</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+  </h:body>
 </html>

@@ -6,7 +6,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Familia</ui:define>
+	<ui:define name="title">Família</ui:define>
+	<ui:define name="cabecalho">Família</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Táxon</a></li>
+            <li class="active">Família</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="FamiliaListForm">
 		<p:dataTable id="datalist" value="#{familiaController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{familiaController.prepareCreate()}" update=":FamiliaCreateForm" oncomplete="PF('FamiliaCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{familiaController.prepareCreate()}" update=":FamiliaCreateForm" oncomplete="PF('FamiliaCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{familia.id}" filterBy="#{familia.id}" filterMatchMode="contains" style="width:150px">
@@ -29,15 +35,15 @@
 					<h:outputText value="#{familia.id}" />
 				</p:column>	
 				<p:column sortBy="#{familia.descricao}" filterBy="#{familia.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<f:facet name="header"><h:outputText value="Família" /></f:facet>
 					<h:outputText value="#{familia.descricao}" />
 				</p:column>
 				<p:column sortBy="#{familia.tbOrdem.descricao}" filterBy="#{familia.tbOrdem.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
 					<h:outputText value="#{familia.tbOrdem.descricao}" />
 				</p:column>
 				<p:column sortBy="#{familia.tbOrdem.tbClasse.descricao}" filterBy="#{familia.tbOrdem.tbClasse.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Descrição" /></f:facet>
+					<f:facet name="header"><h:outputText value="Classe" /></f:facet>
 					<h:outputText value="#{familia.tbOrdem.tbClasse.descricao}" />
 				</p:column>
 				<p:column style="width:62px">

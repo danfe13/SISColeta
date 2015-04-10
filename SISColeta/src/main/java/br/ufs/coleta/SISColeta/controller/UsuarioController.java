@@ -99,20 +99,20 @@ public class UsuarioController extends GenericController {
     }
     
     public void cadastrar(){
-    	usuario.setTbPessoa(pessoa);
-    	if(this.validarUsuario(usuario) && this.validarSenha(usuario)){
-	    	Pessoa p = getDAOPessoa().save(pessoa);
-	    	usuario.setTbPessoa(p);
+    	if(this.validarUsuario(usuario, pessoa) && this.validarSenha(usuario)){
 	    	usuario.setSenha(HashGenerator.gerar(usuario.getSenha()));
-	    	getDAOUser().save(usuario);
+	    	Usuario u = getDAOUser().save(usuario);
+	    	pessoa.setTbUsuario(u);
+	    	getDAOPessoa().save(pessoa);
 	    	items = null;
-	    	p = null;
+	    	u = null;
     	}
     }
     
     public void editar(){
-    	if(this.validarUsuario(usuario)){
+    	if(this.validarUsuario(usuario, usuario.getTbPessoa())){
 	    	getDAOUser().save(usuario);
+	    	getDAOPessoa().save(usuario.getTbPessoa());
 	    	items = null;
     	}
     }
@@ -127,8 +127,8 @@ public class UsuarioController extends GenericController {
     
     public void remover(){
     	pessoa = this.usuario.getTbPessoa();
-    	getDAOUser().remove(this.usuario);
     	getDAOPessoa().remove(this.pessoa);
+    	getDAOUser().remove(this.usuario);
     	items = null;
     	usuario = null;
     	pessoa = null;
@@ -149,22 +149,22 @@ public class UsuarioController extends GenericController {
         return getDAOUser().findAll();
     }
     
-    private boolean validarUsuario(Usuario usuario) {
+    private boolean validarUsuario(Usuario usuario, Pessoa pessoa) {
 		boolean resultado = true;
-		Usuario usuarioExistente = getDAOUser().getExistente(usuario);
+		Usuario usuarioExistente = getDAOUser().getExistente(usuario, pessoa);
 		if (usuarioExistente != null) {
 			if (usuarioExistente.getLogin().toLowerCase().equals(usuario.getLogin().toLowerCase())) {
 				adicionarMensagemErro("Já existe um usuário com este login.");
 			}
-			if (usuarioExistente.getTbPessoa().getEmail().toLowerCase().equals(usuario.getTbPessoa().getEmail().toLowerCase())) {
+			if (usuarioExistente.getTbPessoa().getEmail().toLowerCase().equals(pessoa.getEmail().toLowerCase())) {
 				adicionarMensagemErro("Já existe um usuário com este e-mail.");
 			}
-			if (usuarioExistente.getTbPessoa().getCpf().toLowerCase().equals(usuario.getTbPessoa().getCpf())) {
+			if (usuarioExistente.getTbPessoa().getCpf().toLowerCase().equals(pessoa.getCpf())) {
 				adicionarMensagemErro("Já existe um usuário com este CPF.");
 			}
 			resultado = false;
 		}
-		if (!isCPFValido(usuario.getTbPessoa().getCpf())) {
+		if (!isCPFValido(pessoa.getCpf())) {
 			adicionarMensagemErro("O CPF informado é inválido.");
 			resultado = false;
 		}

@@ -9,7 +9,7 @@
 			<ui:include src="/template/head.xhtml" />
 		</ui:insert>
 		<h:body styleClass="skin-blue wysihtml5-supported">
-		<p:growl id="growl"/>
+		
 		<div class="wrapper">
 			 	<ui:insert name="header">
 					<ui:include src="/template/header.xhtml" />
@@ -28,6 +28,7 @@
 			          </ol>
 			        </section>
 					<div class="content">
+						<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
       					<ui:insert name="content"></ui:insert>
       				</div>
       			</div>

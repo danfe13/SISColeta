@@ -6,7 +6,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Destinatario</ui:define>
+	<ui:define name="title">Destinatário</ui:define>
+	<ui:define name="cabecalho">Destinatário</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Emprestimo</a></li>
+            <li class="active">Destinatário</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="DestinatarioListForm">
 		<p:dataTable id="datalist" value="#{destinatarioController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{destinatarioController.prepareCreate()}" update=":DestinatarioCreateForm" oncomplete="PF('DestinatarioCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{destinatarioController.prepareCreate()}" update=":DestinatarioCreateForm" oncomplete="PF('DestinatarioCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{destinatario.id}" filterBy="#{destinatario.id}" filterMatchMode="contains" style="width:150px">

@@ -15,7 +15,7 @@
 	
 	<ui:define name="content">
 	<h:form id="EspecieImagemListForm">
-		<p:dataGrid var="especieimagem" value="#{especieimagemController.items}" columns="3" layout="grid"
+		<p:dataGrid var="especieimagem" value="#{especieimagemController.items}" columns="4" layout="grid"
         rows="12" paginator="true" id="especiesimagens"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="6,12,16">
@@ -27,7 +27,7 @@
         </f:facet>
         <p:panel header="#{especieimagem.id}" style="text-align:center">
             <h:panelGrid columns="1" style="width:100%">
-                <p:graphicImage value="#{especieimagemController.imagem}" width="800px" height="400px">
+                <p:graphicImage value="#{especieimagemController.imagem}" width="350px" height="250px">
                 	<f:param name="nome" value="#{especieimagem.imagem}" />
                 	<f:param name="extensao" value="#{especieimagem.extensao}" />
             	</p:graphicImage> 
