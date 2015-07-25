@@ -7,7 +7,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
 	<ui:define name="title">Ordem</ui:define>
-	
+	<ui:define name="cabecalho">Ordem</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Táxon</a></li>
+            <li class="active">Ordem</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="OrdemListForm">
 		<p:dataTable id="datalist" value="#{ordemController.items}"
@@ -22,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{ordemController.prepareCreate()}" update=":OrdemCreateForm" oncomplete="PF('OrdemCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{ordemController.prepareCreate()}" update=":OrdemCreateForm" oncomplete="PF('OrdemCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{ordem.id}" filterBy="#{ordem.id}" filterMatchMode="contains" style="width:150px">

@@ -8,12 +8,20 @@
 
     <ui:composition>
 
-        <p:dialog id="InstituicaoEditDlg" widgetVar="InstituicaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
-            <h:form id="InstituicaoEditForm">
+        <p:dialog id="ColetaEditDlg" widgetVar="ColetaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
+            <h:form id="ColetaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{instituicaoController.instituicao != null}">
-                       <p:outputLabel value="Nome" for="nome" />
-                        <p:inputText id="nome" value="#{instituicaoController.instituicao.nome}" title="Nome" />
+                    <p:panelGrid columns="2" rendered="#{coletaController.coleta != null}">
+                        <p:outputLabel value="Datum" for="datum" />
+                        <p:inputText id="datum" value="#{coletaController.coleta.datum}" title="Datum" />
+                        <p:outputLabel value="Metodo Coleta" for="metodocoleta" />
+                        <p:selectOneMenu id="metodocoleta" value="#{coletaController.coleta.tbMetodoColeta}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Metodo Coleta" />
+                            <f:selectItems value="#{metodoColetaController.itemsAvailableSelectOne}"
+                                           var="metodocoletaItem"
+                                           itemValue="#{metodocoletaItem}"
+                                           itemLabel="#{metodocoletaItem.descricao}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="Estado" for="estado" />
                         <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic">
                         	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
@@ -21,25 +29,44 @@
                                            var="estadoItem"
                                            itemValue="#{estadoItem}"
                                            itemLabel="#{estadoItem.nome}"/>
-                             <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" /> 
+                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
                         </p:selectOneMenu>
                         <p:outputLabel value="Cidade" for="cidade" />
-                        <p:selectOneMenu id="cidade" value="#{instituicaoController.instituicao.tbMunicipio}" converter="generic">
+                        <p:selectOneMenu id="cidade" value="#{coletaController.coleta.tbMunicipio}" converter="generic">
                       		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
                             <f:selectItems value="#{estadoController.municipios}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"
                                            itemLabel="#{municipioItem.nome}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Endereço" for="endereco" />
-                        <p:inputText id="endereco" value="#{instituicaoController.instituicao.endereco}" title="Endereco" />
-                        <p:outputLabel value="Bairro" for="bairro" />
-                        <p:inputText id="bairro" value="#{instituicaoController.instituicao.bairro}" title="Bairro" />
-                        <p:outputLabel value="CEP" for="cep" />
-                        <p:inputText id="cep" value="#{instituicaoController.instituicao.cep}" title="CEP" />
+                        <p:outputLabel value="Latitude" for="latitude" />
+                        <p:inputText id="latitude" value="#{coletaController.coleta.latitude}" title="Latitude" />
+                        <p:outputLabel value="Dir. Latitude" for="dirlatitude" />
+                        <p:selectOneMenu id="dirlatitude" value="#{coletaController.coleta.direcaoLatitude}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="N" itemLabel="Norte" />
+                      		<f:selectItem itemValue="S" itemLabel="Sul" />
+                      		<f:selectItem itemValue="E" itemLabel="Leste" />
+                      		<f:selectItem itemValue="W" itemLabel="Oeste" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Longitude" for="longitude" />
+                        <p:inputText id="longitude" value="#{coletaController.coleta.longitude}" title="Longitude" />
+                        <p:outputLabel value="Dir. Longitude" for="dirlongitude" />
+                        <p:selectOneMenu id="dirlongitude" value="#{coletaController.coleta.direcaoLongitude}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="N" itemLabel="Norte" />
+                      		<f:selectItem itemValue="S" itemLabel="Sul" />
+                      		<f:selectItem itemValue="E" itemLabel="Leste" />
+                      		<f:selectItem itemValue="W" itemLabel="Oeste" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Data Inicio" for="datainicio" />
+                        <p:calendar id="datainicio" value="#{coletaController.coleta.dataInicio}" pattern="dd/MM/yyyy HH:mm:ss" title="Data Inicio"/>
+                        <p:outputLabel value="Data Fim" for="datafim" />
+                        <p:calendar id="datafim" value="#{coletaController.coleta.dataFim}" pattern="dd/MM/yyyy HH:mm:ss" title="Data Fim"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{instituicaoController.cadastrar()}" value="Salvar" update="display,:InstituicaoListForm:datalist" oncomplete="PF('InstituicaoEditDialog').hide();"/>
-                    <p:commandButton value="Cancelar" onclick="InstituicaoEditDialog.hide()"/>
+                    
+                     <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" update="display,:ColetaListForm:datalist" oncomplete="PF('ColetaEditDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="ColetaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

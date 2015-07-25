@@ -7,6 +7,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
 	<ui:define name="title">Rio</ui:define>
+	<ui:define name="cabecalho">Rio</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Coleta</a></li>
+            <li class="active">Rio</li>
+	</ui:define>
 	<ui:define name="content">
 	<h:form id="RioListForm">
 		<p:dataTable id="datalist" value="#{rioController.items}"
@@ -21,7 +27,7 @@
 				
 				<f:facet name="header">
 					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{rioController.prepareCreate()}" update=":RioCreateForm" oncomplete="PF('RioCreateDialog').show()"/>
+						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{rioController.prepareCreate()}" update=":RioCreateForm" oncomplete="PF('RioCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
 				<p:column sortBy="#{rio.id}" filterBy="#{rio.id}" filterMatchMode="contains" style="width:150px">

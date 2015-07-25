@@ -34,7 +34,7 @@ public class EspecieImagemController extends GenericController {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String diretorio = "imagens_especies/";
+	private static final String diretorio = "imagens_especies";
 	@EJB
 	private EspecieImagemDAO especieimagemDAO;
 	@EJB
@@ -112,6 +112,12 @@ public class EspecieImagemController extends GenericController {
     {
 	    try
 	    {
+	    	File dir = new File(diretorio);
+	    	
+	    	if(!dir.exists()){
+	    		dir.mkdir();
+	    	}
+	    	
 		    UploadedFile arq = event.getFile();
 		    String nomeArquivo = arq.getFileName();
 		    String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".")+1, nomeArquivo.length());
@@ -120,7 +126,7 @@ public class EspecieImagemController extends GenericController {
 		    nomeArquivo = HashGenerator.gerar(arq.getFileName()+data.getTime());
 		    
 		    InputStream in = new BufferedInputStream(arq.getInputstream());
-		    File file = new File(diretorio+nomeArquivo);
+		    File file = new File(diretorio+"/"+nomeArquivo);
 		    
 		    FileOutputStream fout = new FileOutputStream(file);
 		    while(in.available() != 0)
@@ -151,7 +157,7 @@ public class EspecieImagemController extends GenericController {
     	  if(FacesContext.getCurrentInstance().getRenderResponse() || nome == null)
               return new DefaultStreamedContent();
     	  else
-    		  return new DefaultStreamedContent(new FileInputStream(new File(diretorio+nome)), "image/"+extensao);
+    		  return new DefaultStreamedContent(new FileInputStream(new File(diretorio+"/"+nome)), "image/"+extensao);
     }
 
 }

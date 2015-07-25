@@ -39,7 +39,7 @@
 					<h:outputText value="#{coleta.datum}" />
 				</p:column>
 				<p:column sortBy="#{coleta.tbMetodoColeta.descricao}" filterBy="#{coleta.tbMetodoColeta.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Met.Coleta" /></f:facet>
+					<f:facet name="header"><h:outputText value="Met. Coleta" /></f:facet>
 					<h:outputText value="#{coleta.tbMetodoColeta.descricao}" />
 				</p:column>
 				<p:column sortBy="#{coleta.tbMunicipio.nome}" filterBy="#{coleta.tbMunicipio.nome}" filterMatchMode="contains">
@@ -91,5 +91,6 @@
     		</p:confirmDialog>
 	</h:form>
 	<ui:include src="cadastrar.xhtml"/>
+	<ui:include src="editar.xhtml"/>
 	</ui:define>
 </ui:composition>

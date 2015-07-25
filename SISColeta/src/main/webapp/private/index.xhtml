@@ -132,31 +132,10 @@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                   <div class="row">
-                    <div class="col-md-9 col-sm-8">
                       <div class="pad">
                         <!-- Map will be created here -->
-                        <div id="world-map-markers" style="height: 325px;"></div>
+                        <div id="map"></div>
                       </div>
-                    </div><!-- /.col -->
-                    <div class="col-md-3 col-sm-4">
-                      <div class="pad box-pane-right bg-green" style="min-height: 280px">
-                        <div class="description-block margin-bottom">
-                          <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                          <h5 class="description-header">36</h5>
-                          <span class="description-text">Rio Sergipe</span>
-                        </div><!-- /.description-block -->
-                        <div class="description-block margin-bottom">
-                          <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                          <h5 class="description-header">23</h5>
-                          <span class="description-text">Rio São Francisco</span>
-                        </div><!-- /.description-block -->
-                        <div class="description-block">
-                          <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                          <h5 class="description-header">17</h5>
-                          <span class="description-text">Rio Tocantins</span>
-                        </div><!-- /.description-block -->
-                      </div>
-                    </div><!-- /.col -->
                   </div><!-- /.row -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -227,6 +206,12 @@
               </div><!-- /.box -->
             </div><!-- /.col -->
           </div><!-- /.row -->
+          <h:outputStylesheet library="default" name="plugins/leaflet/leaflet.css" target="head"/>
+          <h:outputScript library="default" name="plugins/leaflet/leaflet.js" target="head"/>
+          <h:outputScript library="default" name="plugins/leaflet/map.js" target="body"/>
+          <h:outputScript library="default" name="plugins/jQuery/jQuery-2.1.3.min.js" target="head"/>
+          <h:outputScript library="default" name="plugins/jQueryUI/jquery-ui-1.10.3.min.js" target="head"/>
           <h:outputScript library="default" name="dist/js/pages/dashboard2.js" target="head"/>
+          
 	</ui:define>
 </ui:composition>

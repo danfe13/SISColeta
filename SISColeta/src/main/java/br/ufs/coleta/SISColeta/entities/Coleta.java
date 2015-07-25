@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,53 +34,68 @@ public class Coleta implements GenericEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private MetodoColeta metodoColeta;
 	private Municipio municipio;
-	private TipoHabitat tipoHabitat;
+	private Usuario usuario;
+	private String codColeta;
 	private String datum;
 	private Date dataInicio;
 	private Date dataFim;
-	private Double latitude;
-	private Double longitude;
+	private Double altitude;
+	private Double latitudeGrau;
 	private Character direcaoLatitude;
+	private Integer latitudeMinuto;
+	private Integer latitudeSegundo;
+	private Double longitudeGrau;
 	private Character direcaoLongitude;
+	private Integer longitudeMinuto;
+	private Integer longitudeSegundo;
+	private String observacao;
+	private String clima;
+	private Double TAr;
+	private Double TAgua;
+	private Double velAgua;
+	private Double phAgua;
+	private Double condutividade;
+	private String transparencia;
+	private Double salinidade;
+	private Double oxiDissolvido;
+	private Integer mataCiliarMd;
+	private Integer mataCiliarMe;
+	private Integer vegetacaoRiparianaMd;
+	private Integer vegetacaoRiparianaMe;
 	private Set<Colecao> colecaos = new HashSet<Colecao>(0);
 	private Aquatico aquatico;
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private Set<Coletor> tbColetors = new HashSet<Coletor>(0);
+	private Set<CaracRio> tbCaracRios = new HashSet<CaracRio>(0);
+	private Set<Substrato> tbSubstratos = new HashSet<Substrato>(0);
+	private Set<MetodoColeta> tbMetodoColetas = new HashSet<MetodoColeta>(0);
 
 	public Coleta() {
 	}
 
-	public Coleta(int idtbColeta, MetodoColeta metodoColeta,
-			Municipio municipio, TipoHabitat tipoHabitat) {
-		this.id = idtbColeta;
-		this.metodoColeta = metodoColeta;
+	public Coleta(Integer id,
+			Municipio municipio) {
+		this.id = id;
 		this.municipio = municipio;
-		this.tipoHabitat = tipoHabitat;
 	}
 
-	public Coleta(int idtbColeta, MetodoColeta metodoColeta,
-			Municipio municipio, TipoHabitat tipoHabitat, String datum,
-			Date dataInicio, Date dataFim, Double latitude, Double longitude,
+	public Coleta(Integer id,
+			Municipio municipio, String datum,
+			Date dataInicio, Date dataFim,
 			Character direcaoLatitude, Character direcaoLongitude,
-			Set<Colecao> colecaos, Aquatico aquatico,
-			Set<Usuario> usuarios) {
-		this.id = idtbColeta;
-		this.metodoColeta = metodoColeta;
+			Set<Colecao> colecaos, Aquatico aquatico) {
+		this.id = id;
 		this.municipio = municipio;
-		this.tipoHabitat = tipoHabitat;
 		this.datum = datum;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
-		this.latitude = latitude;
-		this.longitude = longitude;
 		this.direcaoLatitude = direcaoLatitude;
 		this.direcaoLongitude = direcaoLongitude;
 		this.colecaos = colecaos;
 		this.aquatico = aquatico;
-		this.usuarios = usuarios;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_coleta", unique = true, nullable = false)
 	public Integer getId() {
@@ -89,17 +106,7 @@ public class Coleta implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_metodo_coleta_id", nullable = false)
-	public MetodoColeta getTbMetodoColeta() {
-		return this.metodoColeta;
-	}
-
-	public void setTbMetodoColeta(MetodoColeta metodoColeta) {
-		this.metodoColeta = metodoColeta;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_municipio_id", nullable = false)
 	public Municipio getTbMunicipio() {
 		return this.municipio;
@@ -109,14 +116,50 @@ public class Coleta implements GenericEntity {
 		this.municipio = municipio;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_tipo_habitat_id", nullable = false)
-	public TipoHabitat getTbTipoHabitat() {
-		return this.tipoHabitat;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbColeta")
+	public Set<Colecao> getTbColecaos() {
+		return this.colecaos;
 	}
 
-	public void setTbTipoHabitat(TipoHabitat tipoHabitat) {
-		this.tipoHabitat = tipoHabitat;
+	public void setTbColecaos(Set<Colecao> colecaos) {
+		this.colecaos = colecaos;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tb_usuario_id", nullable = false)
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "tbColeta")
+	public Aquatico getTbAquatico() {
+		return this.aquatico;
+	}
+
+	public void setTbAquatico(Aquatico aquatico) {
+		this.aquatico = aquatico;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "coleta")
+	public Set<Coletor> getTbColetors() {
+		return this.tbColetors;
+	}
+
+	public void setTbColetors(Set<Coletor> tbColetors) {
+		this.tbColetors = tbColetors;
+	}
+	
+	@Column(name = "cod_coleta", length = 20)
+	public String getCodColeta() {
+		return this.codColeta;
+	}
+
+	public void setCodColeta(String codColeta) {
+		this.codColeta = codColeta;
 	}
 
 	@Column(name = "datum", length = 20)
@@ -148,22 +191,22 @@ public class Coleta implements GenericEntity {
 		this.dataFim = dataFim;
 	}
 
-	@Column(name = "latitude", precision = 17, scale = 17)
-	public Double getLatitude() {
-		return this.latitude;
+	@Column(name = "altitude", precision = 17, scale = 17)
+	public Double getAltitude() {
+		return this.altitude;
 	}
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
+	public void setAltitude(Double altitude) {
+		this.altitude = altitude;
 	}
 
-	@Column(name = "longitude", precision = 17, scale = 17)
-	public Double getLongitude() {
-		return this.longitude;
+	@Column(name = "latitude_grau", precision = 17, scale = 17)
+	public Double getLatitudeGrau() {
+		return this.latitudeGrau;
 	}
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
+	public void setLatitudeGrau(Double latitudeGrau) {
+		this.latitudeGrau = latitudeGrau;
 	}
 
 	@Column(name = "direcao_latitude", length = 1)
@@ -175,6 +218,33 @@ public class Coleta implements GenericEntity {
 		this.direcaoLatitude = direcaoLatitude;
 	}
 
+	@Column(name = "latitude_minuto")
+	public Integer getLatitudeMinuto() {
+		return this.latitudeMinuto;
+	}
+
+	public void setLatitudeMinuto(Integer latitudeMinuto) {
+		this.latitudeMinuto = latitudeMinuto;
+	}
+
+	@Column(name = "latitude_segundo")
+	public Integer getLatitudeSegundo() {
+		return this.latitudeSegundo;
+	}
+
+	public void setLatitudeSegundo(Integer latitudeSegundo) {
+		this.latitudeSegundo = latitudeSegundo;
+	}
+
+	@Column(name = "longitude_grau", precision = 17, scale = 17)
+	public Double getLongitudeGrau() {
+		return this.longitudeGrau;
+	}
+
+	public void setLongitudeGrau(Double longitudeGrau) {
+		this.longitudeGrau = longitudeGrau;
+	}
+
 	@Column(name = "direcao_longitude", length = 1)
 	public Character getDirecaoLongitude() {
 		return this.direcaoLongitude;
@@ -184,32 +254,178 @@ public class Coleta implements GenericEntity {
 		this.direcaoLongitude = direcaoLongitude;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbColeta")
-	public Set<Colecao> getTbColecaos() {
-		return this.colecaos;
+	@Column(name = "longitude_minuto")
+	public Integer getLongitudeMinuto() {
+		return this.longitudeMinuto;
 	}
 
-	public void setTbColecaos(Set<Colecao> colecaos) {
-		this.colecaos = colecaos;
+	public void setLongitudeMinuto(Integer longitudeMinuto) {
+		this.longitudeMinuto = longitudeMinuto;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "tbColeta")
-	public Aquatico getTbAquatico() {
-		return this.aquatico;
+	@Column(name = "longitude_segundo")
+	public Integer getLongitudeSegundo() {
+		return this.longitudeSegundo;
 	}
 
-	public void setTbAquatico(Aquatico aquatico) {
-		this.aquatico = aquatico;
+	public void setLongitudeSegundo(Integer longitudeSegundo) {
+		this.longitudeSegundo = longitudeSegundo;
 	}
 
+	@Column(name = "observacao")
+	public String getObservacao() {
+		return this.observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	@Column(name = "clima", length = 20)
+	public String getClima() {
+		return this.clima;
+	}
+
+	public void setClima(String clima) {
+		this.clima = clima;
+	}
+
+	@Column(name = "t_ar", precision = 17, scale = 17)
+	public Double getTAr() {
+		return this.TAr;
+	}
+
+	public void setTAr(Double TAr) {
+		this.TAr = TAr;
+	}
+
+	@Column(name = "t_agua", precision = 17, scale = 17)
+	public Double getTAgua() {
+		return this.TAgua;
+	}
+
+	public void setTAgua(Double TAgua) {
+		this.TAgua = TAgua;
+	}
+
+	@Column(name = "vel_agua", precision = 17, scale = 17)
+	public Double getVelAgua() {
+		return this.velAgua;
+	}
+
+	public void setVelAgua(Double velAgua) {
+		this.velAgua = velAgua;
+	}
+
+	@Column(name = "ph_agua", precision = 17, scale = 17)
+	public Double getPhAgua() {
+		return this.phAgua;
+	}
+
+	public void setPhAgua(Double phAgua) {
+		this.phAgua = phAgua;
+	}
+
+	@Column(name = "condutividade", precision = 17, scale = 17)
+	public Double getCondutividade() {
+		return this.condutividade;
+	}
+
+	public void setCondutividade(Double condutividade) {
+		this.condutividade = condutividade;
+	}
+
+	@Column(name = "transparencia", length = 20)
+	public String getTransparencia() {
+		return this.transparencia;
+	}
+
+	public void setTransparencia(String transparencia) {
+		this.transparencia = transparencia;
+	}
+
+	@Column(name = "salinidade", precision = 17, scale = 17)
+	public Double getSalinidade() {
+		return this.salinidade;
+	}
+
+	public void setSalinidade(Double salinidade) {
+		this.salinidade = salinidade;
+	}
+
+	@Column(name = "oxi_dissolvido", precision = 17, scale = 17)
+	public Double getOxiDissolvido() {
+		return this.oxiDissolvido;
+	}
+
+	public void setOxiDissolvido(Double oxiDissolvido) {
+		this.oxiDissolvido = oxiDissolvido;
+	}
+
+	@Column(name = "mata_ciliar_md")
+	public Integer getMataCiliarMd() {
+		return this.mataCiliarMd;
+	}
+
+	public void setMataCiliarMd(Integer mataCiliarMd) {
+		this.mataCiliarMd = mataCiliarMd;
+	}
+
+	@Column(name = "mata_ciliar_me")
+	public Integer getMataCiliarMe() {
+		return this.mataCiliarMe;
+	}
+
+	public void setMataCiliarMe(Integer mataCiliarMe) {
+		this.mataCiliarMe = mataCiliarMe;
+	}
+
+	@Column(name = "vegetacao_ripariana_md")
+	public Integer getVegetacaoRiparianaMd() {
+		return this.vegetacaoRiparianaMd;
+	}
+
+	public void setVegetacaoRiparianaMd(Integer vegetacaoRiparianaMd) {
+		this.vegetacaoRiparianaMd = vegetacaoRiparianaMd;
+	}
+
+	@Column(name = "vegetacao_ripariana_me")
+	public Integer getVegetacaoRiparianaMe() {
+		return this.vegetacaoRiparianaMe;
+	}
+
+	public void setVegetacaoRiparianaMe(Integer vegetacaoRiparianaMe) {
+		this.vegetacaoRiparianaMe = vegetacaoRiparianaMe;
+	}
+	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "tb_coletor", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_usuario_id", nullable = false, updatable = false) })
-	public Set<Usuario> getTbUsuarios() {
-		return this.usuarios;
+	@JoinTable(name = "tb_metodo_coletas", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_metodo_coleta_id", nullable = false, updatable = false) })
+	public Set<MetodoColeta> getTbMetodoColetas() {
+		return this.tbMetodoColetas;
 	}
 
-	public void setTbUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setTbMetodoColetas(Set<MetodoColeta> tbMetodoColetas) {
+		this.tbMetodoColetas = tbMetodoColetas;
+	}
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "tb_carac_coleta", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_carac_rio_id", nullable = false, updatable = false) })
+	public Set<CaracRio> getTbCaracRios() {
+		return this.tbCaracRios;
+	}
+
+	public void setTbCaracRios(Set<CaracRio> tbCaracRios) {
+		this.tbCaracRios = tbCaracRios;
+	}
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "tb_substratos", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_substrato_id", nullable = false, updatable = false) })
+	public Set<Substrato> getTbSubstratos() {
+		return this.tbSubstratos;
+	}
+
+	public void setTbSubstratos(Set<Substrato> tbSubstratos) {
+		this.tbSubstratos = tbSubstratos;
 	}
 	
 	@Override

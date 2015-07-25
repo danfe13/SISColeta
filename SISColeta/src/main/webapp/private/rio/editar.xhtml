@@ -14,14 +14,14 @@
                     <p:panelGrid columns="2" rendered="#{rioController.rio != null}">
                         <p:outputLabel value="Descrição" for="descricao" />
                         <p:inputText id="descricao" value="#{rioController.rio.descricao}" title="Descrição" />
-                    </p:panelGrid>
-                    <p:outputLabel value="Bacia" for="bacia" />
+                    	<p:outputLabel value="Bacia" for="bacia" />
                         <p:selectOneMenu id="bacia" value="#{rioController.rio.tbBacia}" converter="generic">
                             <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
                                            var="baciaItem"
                                            itemValue="#{baciaItem}"
                                            itemLabel="#{baciaItem.descricao}"/>
                         </p:selectOneMenu>
+                    </p:panelGrid>
                     <p:commandButton actionListener="#{rioController.cadastrar()}" value="Salvar" update="display,:RioListForm:datalist" oncomplete="PF('RioEditDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="RioEditDialog.hide()"/>
                 </h:panelGroup>

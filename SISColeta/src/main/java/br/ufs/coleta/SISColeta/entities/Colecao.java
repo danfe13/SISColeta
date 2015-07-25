@@ -29,10 +29,9 @@ public class Colecao implements GenericEntity {
 	private Coleta coleta;
 	private Especie especie;
 	private Usuario usuario;
+	private Destino destino;
+	private Unidade unidade;
 	private Integer quantidade;
-	private Integer unidade;
-	private Integer destinacao;
-	private String observacao;
 	private Set<RetiradaColecao> retiradaColecaos = new HashSet<RetiradaColecao>(
 			0);
 	private Set<ColecaoImagem> colecaoImagems = new HashSet<ColecaoImagem>(
@@ -41,17 +40,19 @@ public class Colecao implements GenericEntity {
 	public Colecao() {
 	}
 
-	public Colecao(int idtbColecao, Coleta coleta, Especie especie,
-			Usuario usuario) {
+	public Colecao(Integer idtbColecao, Coleta coleta, Especie especie,
+			Usuario usuario, Destino destino, Unidade unidade) {
 		this.id = idtbColecao;
 		this.coleta = coleta;
 		this.especie = especie;
 		this.usuario = usuario;
+		this.destino = destino;
+		this.unidade = unidade;
 	}
 
-	public Colecao(int idtbColecao, Coleta coleta, Especie especie,
-			Usuario usuario, Integer quantidade, Integer unidade,
-			Integer destinacao, String observacao,
+	public Colecao(Integer idtbColecao, Coleta coleta, Especie especie,
+			Usuario usuario, Integer quantidade, Unidade unidade,
+			Destino destino,
 			Set<RetiradaColecao> retiradaColecaos,
 			Set<ColecaoImagem> colecaoImagems) {
 		this.id = idtbColecao;
@@ -60,8 +61,7 @@ public class Colecao implements GenericEntity {
 		this.usuario = usuario;
 		this.quantidade = quantidade;
 		this.unidade = unidade;
-		this.destinacao = destinacao;
-		this.observacao = observacao;
+		this.destino = destino;
 		this.retiradaColecaos = retiradaColecaos;
 		this.colecaoImagems = colecaoImagems;
 	}
@@ -115,31 +115,24 @@ public class Colecao implements GenericEntity {
 		this.quantidade = quantidade;
 	}
 
-	@Column(name = "unidade")
-	public Integer getUnidade() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tb_unidade_id", nullable = false)
+	public Unidade getUnidade() {
 		return this.unidade;
 	}
 
-	public void setUnidade(Integer unidade) {
+	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
 	}
 
-	@Column(name = "destinacao")
-	public Integer getDestinacao() {
-		return this.destinacao;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tb_destino_id", nullable = false)
+	public Destino getDestino() {
+		return this.destino;
 	}
 
-	public void setDestinacao(Integer destinacao) {
-		this.destinacao = destinacao;
-	}
-
-	@Column(name = "observacao")
-	public String getObservacao() {
-		return this.observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setDestino(Destino destino) {
+		this.destino = destino;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbColecao")

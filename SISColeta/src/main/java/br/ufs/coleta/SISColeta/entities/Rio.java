@@ -59,7 +59,7 @@ public class Rio implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_bacia_id", nullable = false)
 	public Bacia getTbBacia() {
 		return this.bacia;
