@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +24,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tb_recebimento", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Recebimento.findByRetirada", query="SELECT r FROM Recebimento r WHERE r.tbRetiradaColecao.tbColecao.id = :idcolecao AND r.tbRetiradaColecao.tbRetirada.id = :idretirada"),
+})
 public class Recebimento implements GenericEntity {
 
 	/**

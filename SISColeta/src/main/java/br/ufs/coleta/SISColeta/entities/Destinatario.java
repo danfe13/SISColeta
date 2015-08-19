@@ -64,7 +64,7 @@ public class Destinatario implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_instituicao_id", nullable = false)
 	public Instituicao getTbInstituicao() {
 		return this.instituicao;

@@ -65,7 +65,7 @@ public class RetiradaColecao implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_colecao_id", nullable = false, insertable = false, updatable = false)
 	public Colecao getTbColecao() {
 		return this.colecao;

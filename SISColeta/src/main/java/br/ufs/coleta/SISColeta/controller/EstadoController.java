@@ -86,5 +86,9 @@ public class EstadoController extends GenericController {
     public List<Estado> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
+    
+    public void insertEstado(Estado estado){
+    	this.estado = estado;
+    }
 
 }

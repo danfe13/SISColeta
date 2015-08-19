@@ -30,7 +30,6 @@ public class Mar implements GenericEntity {
 	private Integer id;
 	private Oceano oceano;
 	private String descricao;
-	private Set<Aquatico> aquaticos = new HashSet<Aquatico>(0);
 
 	public Mar() {
 	}
@@ -39,12 +38,10 @@ public class Mar implements GenericEntity {
 		this.id = idtbMar;
 	}
 
-	public Mar(int idtbMar, Oceano oceano, String descricao,
-			Set<Aquatico> aquaticos) {
+	public Mar(int idtbMar, Oceano oceano, String descricao) {
 		this.id = idtbMar;
 		this.oceano = oceano;
 		this.descricao = descricao;
-		this.aquaticos = aquaticos;
 	}
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -75,15 +72,6 @@ public class Mar implements GenericEntity {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbMar")
-	public Set<Aquatico> getTbAquaticos() {
-		return this.aquaticos;
-	}
-
-	public void setTbAquaticos(Set<Aquatico> aquaticos) {
-		this.aquaticos = aquaticos;
 	}
 	
 	@Override

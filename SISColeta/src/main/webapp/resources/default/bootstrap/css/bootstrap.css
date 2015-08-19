@@ -6564,3 +6564,20 @@ button.close {
   }
 }
 
+#ColetaCreateForm{
+	background-color: white;
+}
+
+#ColetaCreateForm .ui-widget-content{
+	border: none;
+}
+
+#ColetaCreateForm .ui-panelgrid-cell{
+	border: none;
+}
+
+#coletadisplay{
+	float: left;
+}
+
+

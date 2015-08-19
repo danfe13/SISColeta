@@ -32,18 +32,15 @@ public class Aquatico implements GenericEntity {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Coleta coleta;
-	private Mar mar;
-	private Rio rio;
+	private Integer idlocal_aquatico;
 	private TipoAquaticoLocal tipoAquaticoLocal;
 
 	public Aquatico() {
 	}
 
-	public Aquatico(Coleta coleta, Mar mar, Rio rio,
+	public Aquatico(Coleta coleta,
 			TipoAquaticoLocal tipoAquaticoLocal) {
 		this.coleta = coleta;
-		this.mar = mar;
-		this.rio = rio;
 		this.tipoAquaticoLocal = tipoAquaticoLocal;
 	}
 
@@ -69,27 +66,16 @@ public class Aquatico implements GenericEntity {
 		this.coleta = coleta;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idlocal_aquatico", nullable = false)
-	public Mar getTbMar() {
-		return this.mar;
+	@Column(name = "idlocal_aquatico")
+	public Integer getIdLocalAquatico() {
+		return this.idlocal_aquatico;
 	}
 
-	public void setTbMar(Mar mar) {
-		this.mar = mar;
+	public void setidLocalAquatico(Integer idaquaticolocal) {
+		this.idlocal_aquatico = idaquaticolocal;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idlocal_aquatico", nullable = false, insertable = false, updatable = false)
-	public Rio getTbRio() {
-		return this.rio;
-	}
-
-	public void setTbRio(Rio rio) {
-		this.rio = rio;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_tipo_aquatico_local_id", nullable = false)
 	public TipoAquaticoLocal getTbTipoAquaticoLocal() {
 		return this.tipoAquaticoLocal;

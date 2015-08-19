@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.EspecieImagem;
 
 /**

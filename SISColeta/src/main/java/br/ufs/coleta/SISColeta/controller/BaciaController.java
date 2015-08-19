@@ -1,7 +1,10 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Bacia;
+import br.ufs.coleta.SISColeta.entities.Municipio;
+import br.ufs.coleta.SISColeta.entities.Rio;
 import br.ufs.coleta.SISColeta.model.BaciaDAO;
+import br.ufs.coleta.SISColeta.model.RioDAO;
 
 import java.util.List;
 
@@ -19,7 +22,10 @@ public class BaciaController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private BaciaDAO baciaDAO;
+	@EJB
+    private RioDAO rioDAO;
     private List<Bacia> items = null;
+    private List<Rio> rio = null;
     private Bacia bacia;
 
     public BaciaController() {
@@ -73,6 +79,21 @@ public class BaciaController extends GenericController {
 
     public List<Bacia> getItemsAvailableSelectOne() {
         return getDAO().findAll();
+    }
+    
+    public List<Rio> getRio() {
+    	if(this.bacia != null){
+    		this.rio = rioDAO.getRioByBacia(this.bacia.getId());
+    	}
+    	return rio;
+    }
+
+	public void setRio(List<Rio> rio) {
+		this.rio = rio;
+	} 
+    
+    public void getBaciaById(Integer id){
+    	this.bacia = getDAO().getById(id);
     }
 
 }

@@ -32,11 +32,11 @@ public class TipoAquaticoLocal implements GenericEntity {
 	public TipoAquaticoLocal() {
 	}
 
-	public TipoAquaticoLocal(int idtbTipoAquaticoLocal) {
+	public TipoAquaticoLocal(Integer idtbTipoAquaticoLocal) {
 		this.id = idtbTipoAquaticoLocal;
 	}
 
-	public TipoAquaticoLocal(int idtbTipoAquaticoLocal, String descricao,
+	public TipoAquaticoLocal(Integer idtbTipoAquaticoLocal, String descricao,
 			Set<Aquatico> aquaticos) {
 		this.id = idtbTipoAquaticoLocal;
 		this.descricao = descricao;

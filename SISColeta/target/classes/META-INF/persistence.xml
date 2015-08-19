@@ -55,11 +55,11 @@
       <class>br.ufs.coleta.SISColeta.entities.Subfamilia</class>
       <class>br.ufs.coleta.SISColeta.entities.TipoAquaticoLocal</class>
       <class>br.ufs.coleta.SISColeta.entities.Destino</class>
-      <class>br.ufs.coleta.SISColeta.entities.Coletor</class>
-      <class>br.ufs.coleta.SISColeta.entities.ColetorId</class>
-      <class>br.ufs.coleta.SISColeta.entities.Substrato</class>
       <class>br.ufs.coleta.SISColeta.entities.Unidade</class>
       <class>br.ufs.coleta.SISColeta.entities.CaracRio</class>
+      <class>br.ufs.coleta.SISColeta.entities.Substratos</class>
+      <class>br.ufs.coleta.SISColeta.entities.SubstratosId</class>
+      <class>br.ufs.coleta.SISColeta.entities.Substrato</class>
       <properties>
          <!-- Properties for Hibernate -->
          	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

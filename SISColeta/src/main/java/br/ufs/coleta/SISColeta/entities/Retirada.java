@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +23,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_retirada", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Retirada.findByColecao", query="SELECT r FROM RetiradaColecao r JOIN r.tbColecao rc JOIN r.tbRetirada rt WHERE rt.id = :id"),
+})
 public class Retirada implements GenericEntity {
 
 	/**
@@ -65,7 +70,7 @@ public class Retirada implements GenericEntity {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_destinatario_id", nullable = false)
 	public Destinatario getTbDestinatario() {
 		return this.destinatario;

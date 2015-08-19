@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +23,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_rio", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Rio.findByBacia", query="SELECT r FROM Rio r WHERE r.tbBacia.id = :id"),
+})
 public class Rio implements GenericEntity {
 
 	/**
@@ -30,7 +35,6 @@ public class Rio implements GenericEntity {
 	private Integer id;
 	private Bacia bacia;
 	private String descricao;
-	private Set<Aquatico> aquaticos = new HashSet<Aquatico>(0);
 
 	public Rio() {
 	}
@@ -40,12 +44,10 @@ public class Rio implements GenericEntity {
 		this.bacia = bacia;
 	}
 
-	public Rio(int idtbRio, Bacia bacia, String descricao,
-			Set<Aquatico> aquaticos) {
+	public Rio(int idtbRio, Bacia bacia, String descricao) {
 		this.id = idtbRio;
 		this.bacia = bacia;
 		this.descricao = descricao;
-		this.aquaticos = aquaticos;
 	}
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -76,15 +78,6 @@ public class Rio implements GenericEntity {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbMar")
-	public Set<Aquatico> getTbAquaticos() {
-		return this.aquaticos;
-	}
-
-	public void setTbAquaticos(Set<Aquatico> aquaticos) {
-		this.aquaticos = aquaticos;
 	}
 	
 	@Override

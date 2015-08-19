@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +21,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_bacia", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Bacia.findById", query="SELECT b FROM Bacia b WHERE b.id = :id "),
+})
 public class Bacia implements GenericEntity {
 
 	/**

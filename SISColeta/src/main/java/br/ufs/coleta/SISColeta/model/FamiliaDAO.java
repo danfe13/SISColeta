@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Familia;
-import br.ufs.coleta.SISColeta.entities.Ordem;
 
 /**
  *

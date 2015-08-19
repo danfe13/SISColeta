@@ -7,9 +7,12 @@ package br.ufs.coleta.SISColeta.model;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Bacia;
+import br.ufs.coleta.SISColeta.entities.Coleta;
 
 /**
  *
@@ -28,5 +31,17 @@ public class BaciaDAO extends GenericDAO<Bacia, Long> {
     public BaciaDAO() {
     	super(Bacia.class);
     }
+    
+    public Bacia getById(Integer id) {
+    	
+    	TypedQuery<Bacia> query = em.createNamedQuery("Bacia.findById", Bacia.class);
+    	query.setParameter("id", id);
+    	try{
+    		Bacia results = query.getSingleResult();
+    		return results;
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
     
 }

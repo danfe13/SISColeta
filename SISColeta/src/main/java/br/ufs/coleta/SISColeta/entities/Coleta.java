@@ -2,8 +2,10 @@ package br.ufs.coleta.SISColeta.entities;
 
 // Generated 25/01/2015 11:00:24 by Hibernate Tools 4.3.1
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,6 +31,18 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tb_coleta", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Coleta.findById", query="SELECT c FROM Coleta c JOIN c.tbMunicipio m WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.usuario", query="SELECT u FROM Usuario u INNER JOIN u.tbColetas c WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.metodo", query="SELECT m FROM MetodoColeta m INNER JOIN m.coletas c WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.substrato", query="SELECT s FROM Substratos s INNER JOIN s.coleta c WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.carac", query="SELECT cr FROM CaracRio cr INNER JOIN cr.coletas c WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.municipio", query="SELECT m FROM Municipio m INNER JOIN m.tbColetas c WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.aquatico", query="SELECT a FROM Aquatico a INNER JOIN a.tbTipoAquaticoLocal t WHERE a.id = :id "),
+	@NamedQuery(name="Coleta.tipoaquatico", query="SELECT a FROM TipoAquaticoLocal a WHERE a.id = :id "),
+	@NamedQuery(name="Coleta.aquaticorio", query="SELECT r FROM Rio r INNER JOIN r.tbBacia b WHERE r.id = :id "),
+	@NamedQuery(name="Coleta.aquaticoriomar", query="SELECT m FROM Mar m INNER JOIN m.tbOceano o WHERE m.id = :id "),
+})
 public class Coleta implements GenericEntity {
 
 	/**
@@ -57,7 +73,10 @@ public class Coleta implements GenericEntity {
 	private Double phAgua;
 	private Double condutividade;
 	private String transparencia;
+	private String referencia;
+	private String nome;
 	private Double salinidade;
+	private Double largura;
 	private Double oxiDissolvido;
 	private Integer mataCiliarMd;
 	private Integer mataCiliarMe;
@@ -65,9 +84,9 @@ public class Coleta implements GenericEntity {
 	private Integer vegetacaoRiparianaMe;
 	private Set<Colecao> colecaos = new HashSet<Colecao>(0);
 	private Aquatico aquatico;
-	private Set<Coletor> tbColetors = new HashSet<Coletor>(0);
+	private Set<Usuario> tbColetors = new HashSet<Usuario>(0);
 	private Set<CaracRio> tbCaracRios = new HashSet<CaracRio>(0);
-	private Set<Substrato> tbSubstratos = new HashSet<Substrato>(0);
+	private Set<Substratos> tbSubstratos = new HashSet<Substratos>(0);
 	private Set<MetodoColeta> tbMetodoColetas = new HashSet<MetodoColeta>(0);
 
 	public Coleta() {
@@ -107,7 +126,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "tb_municipio_id", nullable = false)
+	@JoinColumn(name = "tb_municipio_id", nullable = true)
 	public Municipio getTbMunicipio() {
 		return this.municipio;
 	}
@@ -126,7 +145,7 @@ public class Coleta implements GenericEntity {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tb_usuario_id", nullable = false)
+	@JoinColumn(name = "tb_usuario_id", nullable = true)
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
@@ -144,13 +163,18 @@ public class Coleta implements GenericEntity {
 		this.aquatico = aquatico;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "coleta")
-	public Set<Coletor> getTbColetors() {
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "tb_coletor", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_usuario_id", nullable = false, updatable = false) })
+	public Set<Usuario> getTbColetors() {
 		return this.tbColetors;
 	}
 
-	public void setTbColetors(Set<Coletor> tbColetors) {
+	public void setTbColetors(Set<Usuario> tbColetors) {
 		this.tbColetors = tbColetors;
+	}
+	
+	public void setTbColetors(List<Usuario> tbColetors) {
+		this.tbColetors = new HashSet<Usuario>(tbColetors);
 	}
 	
 	@Column(name = "cod_coleta", length = 20)
@@ -169,6 +193,15 @@ public class Coleta implements GenericEntity {
 
 	public void setDatum(String datum) {
 		this.datum = datum;
+	}
+	
+	@Column(name = "nome", length = 45)
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -280,6 +313,15 @@ public class Coleta implements GenericEntity {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	@Column(name = "ponto_referencia")
+	public String getReferencia() {
+		return this.referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
 
 	@Column(name = "clima", length = 20)
 	public String getClima() {
@@ -352,6 +394,15 @@ public class Coleta implements GenericEntity {
 	public void setSalinidade(Double salinidade) {
 		this.salinidade = salinidade;
 	}
+	
+	@Column(name = "largura", precision = 17, scale = 17)
+	public Double getLargura() {
+		return this.largura;
+	}
+
+	public void setLargura(Double largura) {
+		this.largura = largura;
+	}
 
 	@Column(name = "oxi_dissolvido", precision = 17, scale = 17)
 	public Double getOxiDissolvido() {
@@ -408,6 +459,10 @@ public class Coleta implements GenericEntity {
 		this.tbMetodoColetas = tbMetodoColetas;
 	}
 	
+	public void setTbMetodoColetas(List<MetodoColeta> tbMetodoColetas) {
+		this.tbMetodoColetas = new HashSet<MetodoColeta>(tbMetodoColetas);
+	}
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "tb_carac_coleta", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_carac_rio_id", nullable = false, updatable = false) })
 	public Set<CaracRio> getTbCaracRios() {
@@ -418,14 +473,25 @@ public class Coleta implements GenericEntity {
 		this.tbCaracRios = tbCaracRios;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "tb_substratos", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_substrato_id", nullable = false, updatable = false) })
-	public Set<Substrato> getTbSubstratos() {
+	public void setTbCaracRios(List<CaracRio> tbCaracRios) {
+		this.tbCaracRios = new HashSet<CaracRio>(tbCaracRios);
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "coleta")
+	public Set<Substratos> getTbSubstratos() {
 		return this.tbSubstratos;
 	}
-
-	public void setTbSubstratos(Set<Substrato> tbSubstratos) {
+	
+	public void setTbSubstratos(Set<Substratos> tbSubstratos) {
 		this.tbSubstratos = tbSubstratos;
+	}
+
+	public void setTbSubstratos(List<Substratos> tbSubstratos) {
+		this.tbSubstratos = new HashSet<Substratos>(tbSubstratos);
+	}
+	
+	public void addSubstratos(Substratos substratos){
+		this.tbSubstratos.add(substratos);
 	}
 	
 	@Override

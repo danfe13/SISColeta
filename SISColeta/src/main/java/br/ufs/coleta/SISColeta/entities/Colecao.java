@@ -8,9 +8,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +23,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_colecao", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="Colecao.findByColeta", query="SELECT c FROM Colecao c WHERE c.tbColeta.id = :idcoleta"),
+	@NamedQuery(name="Colecao.findByEspecie", query="SELECT c FROM Colecao c INNER JOIN c.tbEspecie e WHERE UPPER(e.nomeCientifico) LIKE :nome OR UPPER(e.nomePopular) LIKE :nome "),
+})
 public class Colecao implements GenericEntity {
 
 	/**
@@ -29,6 +37,7 @@ public class Colecao implements GenericEntity {
 	private Coleta coleta;
 	private Especie especie;
 	private Usuario usuario;
+	private Usuario determinador;
 	private Destino destino;
 	private Unidade unidade;
 	private Integer quantidade;
@@ -66,6 +75,7 @@ public class Colecao implements GenericEntity {
 		this.colecaoImagems = colecaoImagems;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_colecao", unique = true, nullable = false)
 	public Integer getId() {
@@ -86,7 +96,7 @@ public class Colecao implements GenericEntity {
 		this.coleta = coleta;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_especie_id", nullable = false)
 	public Especie getTbEspecie() {
 		return this.especie;
@@ -105,6 +115,16 @@ public class Colecao implements GenericEntity {
 	public void setTbUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_determinador", nullable = false)
+	public Usuario getDeterminador() {
+		return this.determinador;
+	}
+
+	public void setDeterminador(Usuario determinador) {
+		this.determinador = determinador;
+	}
 
 	@Column(name = "quantidade")
 	public Integer getQuantidade() {
@@ -115,7 +135,7 @@ public class Colecao implements GenericEntity {
 		this.quantidade = quantidade;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_unidade_id", nullable = false)
 	public Unidade getUnidade() {
 		return this.unidade;
@@ -125,7 +145,7 @@ public class Colecao implements GenericEntity {
 		this.unidade = unidade;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_destino_id", nullable = false)
 	public Destino getDestino() {
 		return this.destino;

@@ -5,12 +5,15 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Pessoa;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 
@@ -43,6 +46,18 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     	query.setParameter("email", pessoa.getEmail());
     	try{
     		Usuario results = query.getSingleResult();
+    		return results;
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
+    
+    public List<Usuario> getUsuarios(Coleta coleta) {
+    
+    	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findColetores", Usuario.class);
+    	query.setParameter("idcoleta", coleta.getId());
+    	try{
+    		List<Usuario> results = query.getResultList();
     		return results;
     	}catch(NoResultException e){
     		return null;

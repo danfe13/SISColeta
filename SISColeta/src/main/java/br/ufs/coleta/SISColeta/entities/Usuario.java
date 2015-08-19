@@ -28,6 +28,7 @@ import javax.persistence.Table;
 @Table(name = "tb_usuario", schema = "public")
 @NamedQueries({
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u "),
+	@NamedQuery(name="Usuario.findColetores", query="SELECT u FROM Usuario u INNER JOIN u.tbColetas c WHERE c.id = :idcoleta"),
 	@NamedQuery(name="Usuario.findExistente", query="SELECT u FROM Usuario u JOIN FETCH u.tbPessoa WHERE 1 = 1 AND u.id <> :idUsuario AND ( UPPER(u.login) = UPPER(:login) OR u.tbPessoa.cpf = :cpf OR UPPER(u.tbPessoa.email) = UPPER(:email) )"),
 })
 public class Usuario implements GenericEntity {

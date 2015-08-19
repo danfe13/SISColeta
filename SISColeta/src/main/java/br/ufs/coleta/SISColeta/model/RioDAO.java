@@ -5,9 +5,12 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Rio;
 
@@ -28,5 +31,12 @@ public class RioDAO extends GenericDAO<Rio, Long> {
     public RioDAO() {
     	super(Rio.class);
     }
+    
+    public List<Rio> getRioByBacia(Integer id) {
+    	TypedQuery<Rio> query = em.createNamedQuery("Rio.findByBacia", Rio.class);
+    	query.setParameter("id", id);	
+    	List<Rio> results = query.getResultList();
+    	return results;
+	}
     
 }

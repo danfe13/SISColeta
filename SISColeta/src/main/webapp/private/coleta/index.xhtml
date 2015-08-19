@@ -26,10 +26,10 @@
 					emptyMessage="Nenhum resultado encontrado.">
 				
 				<f:facet name="header">
-					<p:outputPanel>
-						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{coletaController.prepareCreate()}" update=":ColetaCreateForm" oncomplete="PF('ColetaCreateDialog').show()"/>
-	                </p:outputPanel>
         		</f:facet>
+        		<p:column style="width:30px; padding: 4px 5px;">
+            		<p:rowToggler />
+        		</p:column>
 				<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:150px">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{coleta.id}" />
@@ -37,10 +37,6 @@
 				<p:column sortBy="#{coleta.datum}" filterBy="#{coleta.datum}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Datum" /></f:facet>
 					<h:outputText value="#{coleta.datum}" />
-				</p:column>
-				<p:column sortBy="#{coleta.tbMetodoColeta.descricao}" filterBy="#{coleta.tbMetodoColeta.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Met. Coleta" /></f:facet>
-					<h:outputText value="#{coleta.tbMetodoColeta.descricao}" />
 				</p:column>
 				<p:column sortBy="#{coleta.tbMunicipio.nome}" filterBy="#{coleta.tbMunicipio.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Municipio" /></f:facet>
@@ -58,31 +54,53 @@
 					<f:facet name="header"><h:outputText value="Data Fim" /></f:facet>
 					<h:outputText value="#{coleta.dataFim}" />
 				</p:column>
-				<p:column sortBy="#{coleta.latitude}" filterBy="#{coleta.latitude}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Latitude" /></f:facet>
-					<h:outputText value="#{coleta.latitude}" />
-				</p:column>
-				<p:column sortBy="#{coleta.direcaoLatitude}" filterBy="#{coleta.direcaoLatitude}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Dir.Latitude" /></f:facet>
-					<h:outputText value="#{coleta.direcaoLatitude}" />
-				</p:column>
-				<p:column sortBy="#{coleta.longitude}" filterBy="#{coleta.longitude}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Longitude" /></f:facet>
-					<h:outputText value="#{coleta.longitude}" />
-				</p:column>
-				<p:column sortBy="#{coleta.direcaoLongitude}" filterBy="#{coleta.direcaoLongitude}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Dir.Longitude" /></f:facet>
-					<h:outputText value="#{coleta.direcaoLongitude}" />
-				</p:column>
 				<p:column style="width:62px">
-					<p:commandLink update=":ColetaEditForm" oncomplete="PF('ColetaEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
-						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
+					<h:link outcome="editar" title="Editar" styleClass="ui-icon ui-icon-pencil">
+						<f:param name="id" value="#{coleta.id}" />
+					</h:link>
+					<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="ui-icon ui-icon-pencil">
+						<f:setPropertyActionListener value="#{coleta}" target="#{colecaoController.coleta}" />
 					</p:commandLink>
 					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{coletaController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
 					</p:commandLink>
        			</p:column>
+       			<p:rowExpansion>
+       				<p:dataTable id="datalist2" value="#{colecaoController.getColecaoByColeta(coleta)}"
+					widgetVar="colecaoTable"
+					var="colecao" selection="#{colecaoController.colecao}"
+                    rowKey="#{colecao.id}"
+					emptyMessage="Nenhum resultado encontrado.">
+						<p:column sortBy="#{colecao.id}" >
+							<f:facet name="header"><h:outputText value="ID" /></f:facet>
+							<h:outputText value="#{colecao.id}" />
+						</p:column>
+						<p:column sortBy="#{colecao.tbEspecie.nomeCientifico}" >
+							<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+							<h:outputText value="#{colecao.tbEspecie.nomeCientifico}" />
+						</p:column>
+						<p:column sortBy="#{colecao.unidade.descricao}" >
+							<f:facet name="header"><h:outputText value="Unidade" /></f:facet>
+							<h:outputText value="#{colecao.unidade.descricao}" />
+						</p:column>
+						<p:column sortBy="#{colecao.quantidade}" >
+							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
+							<h:outputText value="#{colecao.quantidade}" />
+						</p:column>
+						<p:column sortBy="#{colecao.destino.descricao}" >
+							<f:facet name="header"><h:outputText value="Destino" /></f:facet>
+							<h:outputText value="#{colecao.destino.descricao}" />
+						</p:column>
+						<p:column style="width:62px">
+							<p:commandLink update="datalist2" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{colecaoController.remover}">
+								<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+								<f:setPropertyActionListener value="#{colecao}" target="#{colecaoController.colecao}" />
+							</p:commandLink>
+		       			</p:column>
+					</p:dataTable>
+							
+        		</p:rowExpansion>
 			</p:dataTable>
 			
 			<p:confirmDialog global="true">
@@ -90,7 +108,6 @@
        	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
     		</p:confirmDialog>
 	</h:form>
-	<ui:include src="cadastrar.xhtml"/>
-	<ui:include src="editar.xhtml"/>
+	<ui:include src="especie.xhtml"/>
 	</ui:define>
 </ui:composition>

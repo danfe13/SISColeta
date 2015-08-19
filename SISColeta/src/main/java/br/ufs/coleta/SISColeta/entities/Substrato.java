@@ -1,6 +1,6 @@
 package br.ufs.coleta.SISColeta.entities;
 
-// Generated Jul 24, 2015 11:11:15 AM by Hibernate Tools 4.3.1
+// Generated Jul 29, 2015 1:49:01 PM by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,23 +21,26 @@ import javax.persistence.Table;
 @Table(name = "tb_substrato", schema = "public")
 public class Substrato implements GenericEntity {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String descricao;
-	private Set<Coleta> tbColetas = new HashSet<Coleta>(0);
+	private Set<Substratos> tbSubstratoses = new HashSet<Substratos>(0);
 
 	public Substrato() {
 	}
 
-	public Substrato(Integer id) {
-		this.id = id;
+	public Substrato(Integer idtbSubstrato) {
+		this.id = idtbSubstrato;
 	}
 
-	public Substrato(Integer id, String descricao,
-			Set<Coleta> tbColetas) {
-		this.id = id;
+	public Substrato(Integer idtbSubstrato, String descricao,
+			Set<Substratos> tbSubstratoses) {
+		this.id = idtbSubstrato;
 		this.descricao = descricao;
-		this.tbColetas = tbColetas;
+		this.tbSubstratoses = tbSubstratoses;
 	}
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,8 +50,8 @@ public class Substrato implements GenericEntity {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer idtbSubstrato) {
+		this.id = idtbSubstrato;
 	}
 
 	@Column(name = "descricao", length = 45)
@@ -62,14 +63,13 @@ public class Substrato implements GenericEntity {
 		this.descricao = descricao;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "tb_substratos", schema = "public", joinColumns = { @JoinColumn(name = "tb_substrato_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) })
-	public Set<Coleta> getTbColetas() {
-		return this.tbColetas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbSubstrato")
+	public Set<Substratos> getTbSubstratoses() {
+		return this.tbSubstratoses;
 	}
 
-	public void setTbColetas(Set<Coleta> tbColetas) {
-		this.tbColetas = tbColetas;
+	public void setTbSubstratoses(Set<Substratos> tbSubstratoses) {
+		this.tbSubstratoses = tbSubstratoses;
 	}
 
 }
