@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 
 @ManagedBean(name = "especieController")
 @SessionScoped
@@ -51,8 +53,13 @@ public class EspecieController extends GenericController {
     }
     
     public void cadastrar(){
-    	getDAO().save(especie);
-    	items = null;
+    	try{
+    		getDAO().save(especie);
+    		RequestContext.getCurrentInstance().execute("PF('EspecieCreateDialog').hide()");
+        	items = null;
+    	}catch(Exception e){
+    		this.adicionarMensagemErro(e.getMessage());
+    	}
     }
     
     public void remover(){

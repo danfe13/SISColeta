@@ -55,6 +55,18 @@ public class ColetaDAO extends GenericDAO<Coleta, Long> {
     	}	
 	}
     
+    public List<Coleta> getLimited(Integer limit) {
+    	
+    	TypedQuery<Coleta> query = em.createNamedQuery("Coleta.findLimited", Coleta.class);
+    	query.setMaxResults(limit);
+    	try{
+    		List<Coleta> results = query.getResultList();
+    		return results;
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
+    
     public TipoAquaticoLocal getByTipoAquatico(Integer id) {
     	
     	TypedQuery<TipoAquaticoLocal> query = em.createNamedQuery("Coleta.tipoaquatico", TipoAquaticoLocal.class);
@@ -192,5 +204,12 @@ public class ColetaDAO extends GenericDAO<Coleta, Long> {
             query.setParameter(2, id_usuario);
             query.setParameter(3, determinador);
             query.executeUpdate();
+    }
+    
+    public int chartProducaoMes(int mes, int ano){
+    	Query query = em.createNativeQuery("SELECT datum FROM tb_coleta ct INNER JOIN tb_colecao cl ON ct.idtb_coleta = cl.tb_coleta_id WHERE Extract('Month' From ct.data_fim) = ? AND Extract('YEAR' From ct.data_fim) = ?");
+    	query.setParameter(1, mes);
+    	query.setParameter(2, ano);
+        return query.getResultList().size();
     }
 }

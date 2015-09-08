@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -12,6 +13,7 @@ import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,6 +32,7 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("coleta_ds");
     private EntityManager em;
+    private Usuario usuario;
     
     public Usuario Logon(String login) {
     	em = factory.createEntityManager();
@@ -55,7 +58,7 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
         String login = request.getParameter("j_username");
         String senha = request.getParameter("j_password");
 		
-		Usuario usuario = this.Logon(login);
+		usuario = this.Logon(login);
 		List<SimpleGrantedAuthority> papeis = new ArrayList<SimpleGrantedAuthority>();
 		String cript = HashGenerator.gerar(senha);
 		if (usuario == null) {
@@ -84,10 +87,13 @@ public class AutenticacaoFilter extends UsernamePasswordAuthenticationFilter {
 
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
-        response.sendRedirect("/SISColeta/private/index.jsf");
+         if(usuario.getTbPerfil().getDescricao().equals("ROLE_ALUNO"))
+        	response.sendRedirect("/SISColeta/private/index.jsf");
+         else if(usuario.getTbPerfil().getDescricao().equals("ROLE_ADMIN"))
+         	response.sendRedirect("/SISColeta/private/admin/index.jsf");
     }
 
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        response.sendRedirect("/SISColeta/public/login.jsf");
+        response.sendRedirect("/SISColeta/public/login.jsf?erro=true");
     }
 }

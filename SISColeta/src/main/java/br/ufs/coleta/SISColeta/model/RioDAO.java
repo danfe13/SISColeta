@@ -19,7 +19,7 @@ import br.ufs.coleta.SISColeta.entities.Rio;
  * @author danilo
  */
 @Stateless
-public class RioDAO extends GenericDAO<Rio, Long> {
+public class RioDAO extends GenericDAO<Rio, Integer> {
 	@PersistenceContext
     private EntityManager em;
 

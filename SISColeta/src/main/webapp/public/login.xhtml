@@ -17,6 +17,21 @@
         <b>SIS</b>Coleta
       </div><!-- /.login-logo -->
       <div class="login-box-body">
+      <h:panelGroup rendered="#{param.erro}">
+				<span id="mensagens"></span>
+				<script id="mensagens_s" type="text/javascript">
+					$ (function() {
+						PrimeFaces.cw('Growl','widget_mensagens',
+						{id:'mensagens',sticky:true,life:6000,escape:true,
+							msgs:[{summary:"Usuário ou senha incorretos!",
+								detail:"",
+								severity:'error'}
+							]
+						});
+					});
+				</script>
+				<p:growl showDetail="true" sticky="true" />
+			</h:panelGroup>
         <p class="login-box-msg">Faça Login para acessar o sistema</p>
         <form action="/SISColeta/j_spring_security_check" method="post">
           <div class="form-group has-feedback">

@@ -5,9 +5,13 @@ package br.ufs.coleta.SISColeta.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +19,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_colecao_imagem", schema = "public")
+@NamedQueries({
+	@NamedQuery(name="ColecaoImagem.findByColecao", query="SELECT ci FROM ColecaoImagem ci JOIN FETCH ci.tbColecao WHERE ci.tbColecao.id = :id"),
+})
 public class ColecaoImagem implements GenericEntity {
 
 	/**
@@ -24,6 +31,7 @@ public class ColecaoImagem implements GenericEntity {
 	private Integer id;
 	private Colecao colecao;
 	private String imagem;
+	private String extensao;
 
 	public ColecaoImagem() {
 	}
@@ -40,6 +48,7 @@ public class ColecaoImagem implements GenericEntity {
 		this.imagem = imagem;
 	}
 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "idtb_colecao_imagem", unique = true, nullable = false)
 	public Integer getId() {
@@ -67,6 +76,25 @@ public class ColecaoImagem implements GenericEntity {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	
+	@Column(name = "extensao")
+	public String getExtensao() {
+		return this.extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		if(extensao.equalsIgnoreCase("jpg")){
+			this.extensao = "jpeg";
+		}
+		else if(extensao.equalsIgnoreCase("jpeg")){
+			this.extensao = "jpeg";
+		}
+		else if (extensao.equalsIgnoreCase("gif")){
+			this.extensao = "gif";
+		}
+		else 	
+			this.extensao = "png";
 	}
 	
 	@Override

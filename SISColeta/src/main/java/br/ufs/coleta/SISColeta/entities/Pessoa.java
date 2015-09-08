@@ -31,6 +31,7 @@ public class Pessoa implements GenericEntity{
 	private String cpf;
 	private String telefone;
 	private String endereco;
+	private String abreviacao;
 
 	public Pessoa() {
 	}
@@ -116,6 +117,15 @@ public class Pessoa implements GenericEntity{
 		this.endereco = endereco;
 	}
 	
+	@Column(name = "abreviacao", length = 85)
+	public String getAbreviacao() {
+		return abreviacao;
+	}
+
+	public void setAbreviacao(String abreviacao) {
+		this.abreviacao = abreviacao;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;
