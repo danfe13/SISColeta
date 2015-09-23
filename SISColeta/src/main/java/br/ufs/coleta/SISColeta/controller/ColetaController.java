@@ -232,6 +232,13 @@ public class ColetaController extends GenericController {
         } 
         return items;
     }
+    
+    public List<Coleta> getItemsAlunos(Usuario usuario) {
+        if (items == null) {
+    		items = getDAO().getColetaAluno(usuario.getId());
+        } 
+        return items;
+    }
 
     public List<Coleta> getItemsAvailableSelectMany() {
         return getDAO().findAll();
@@ -285,7 +292,18 @@ public class ColetaController extends GenericController {
 		this.substratosedit = substratosedit;
 	}
   	
+	public Object getParticipacao(Usuario usuario){
+		Object obj = colecaoDAO.participacaoColetaCount(usuario.getId());
+		return obj;
+	}
 	
+	public Object getDeterminador(Usuario usuario){
+		Object obj = colecaoDAO.determinadorColetaCount(usuario.getId());
+		return obj;
+	}
 	
+	public Boolean validarAlunoColeta(int usuario, int coleta){
+		return coletaDAO.alunoColeta(usuario, coleta);
+	}
 
 }

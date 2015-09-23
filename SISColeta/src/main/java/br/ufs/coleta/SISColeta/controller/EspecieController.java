@@ -82,5 +82,9 @@ public class EspecieController extends GenericController {
     public List<Especie> getItemsAvailableSelectOne() {
         return getDAO().findAll();
     }
+    
+    public List<Object[]> getUltimasEspecies(){
+    	return especieDAO.getUltimasEspecies();
+    }
 
 }

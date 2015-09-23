@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Colecao;
@@ -58,4 +59,20 @@ public class ColecaoDAO extends GenericDAO<Colecao, Integer> {
     	}	
 	}
     
+    public Object especieCount(){
+    	Query query = em.createNativeQuery("SELECT COUNT(DISTINCT tb_especie_id) FROM tb_colecao");
+    	return query.getResultList().get(0);
+    }
+    
+    public Object participacaoColetaCount(Integer id){
+    	Query query = em.createNativeQuery("SELECT COUNT(*) FROM tb_coleta ct INNER JOIN tb_coletor co ON co.tb_coleta_id = ct.idtb_coleta WHERE co.tb_usuario_id = :id");
+    	query.setParameter("id", id);
+    	return query.getResultList().get(0);
+    }
+    
+    public Object determinadorColetaCount(Integer id){
+    	Query query = em.createNativeQuery("SELECT COUNT(*) FROM tb_colecao as c WHERE c.id_determinador = :id");
+    	query.setParameter("id", id);
+    	return query.getResultList().get(0);
+    }
 }

@@ -74,4 +74,9 @@ public class RetiradaDAO extends GenericDAO<Retirada, Long> {
             query.executeUpdate();
     }
     
+    public Object emprestimosCount(){
+    	Query query = em.createNativeQuery("SELECT COUNT(*) FROM tb_retirada_colecao rc LEFT JOIN tb_recebimento re ON (re.tb_retirada_id = rc.tb_retirada_id AND re.tb_colecao_id = rc.tb_colecao_id) WHERE re.idtb_recebimento IS NULL");
+    	return query.getResultList().get(0);
+    }
+    
 }

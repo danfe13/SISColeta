@@ -13,9 +13,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Especie;
-import br.ufs.coleta.SISColeta.entities.Usuario;
 
 /**
  *
@@ -47,4 +45,19 @@ public class EspecieDAO extends GenericDAO<Especie, Integer> {
     	}	
 	}
     
+    public List<Object[]> getMaisColetadas(){
+    	try{
+    		return em.createNamedQuery("Especie.findMaisColetada").setMaxResults(5).getResultList();
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+    }
+    
+    public List<Object[]> getUltimasEspecies(){
+    	try{
+    		return em.createNativeQuery("SELECT jo.nome, m.nome as cidade, es.uf, ct.cod_coleta FROM tb_colecao c INNER JOIN ( SELECT e.nome_cientifico as nome, MAX(c.idtb_colecao) as id FROM tb_colecao c INNER JOIN tb_especie e ON e.idtb_especie = c.tb_especie_id GROUP BY e.nome_cientifico ORDER BY id DESC) jo ON jo.id = c.idtb_colecao INNER JOIN tb_coleta ct ON ct.idtb_coleta = c.tb_coleta_id INNER JOIN tb_municipio m ON m.idtb_municipio = ct.tb_municipio_id INNER JOIN tb_estado es ON es.idtb_estado = m.tb_estado_id").setMaxResults(5).getResultList();
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+    }
 }

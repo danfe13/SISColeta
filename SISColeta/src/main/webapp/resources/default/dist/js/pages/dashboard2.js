@@ -126,77 +126,144 @@ $(function () {
   //- PIE CHART -
   //-------------
   // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-  var pieChart = new Chart(pieChartCanvas);
-  var PieData = [
-    {
-      value: 700,
-      color: "#f56954",
-      highlight: "#f56954",
-      label: "Chrome"
-    },
-    {
-      value: 500,
-      color: "#00a65a",
-      highlight: "#00a65a",
-      label: "IE"
-    },
-    {
-      value: 400,
-      color: "#f39c12",
-      highlight: "#f39c12",
-      label: "FireFox"
-    },
-    {
-      value: 600,
-      color: "#00c0ef",
-      highlight: "#00c0ef",
-      label: "Safari"
-    },
-    {
-      value: 300,
-      color: "#3c8dbc",
-      highlight: "#3c8dbc",
-      label: "Opera"
-    },
-    {
-      value: 100,
-      color: "#d2d6de",
-      highlight: "#d2d6de",
-      label: "Navigator"
-    }
-  ];
-  var pieOptions = {
-    //Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke: true,
-    //String - The colour of each segment stroke
-    segmentStrokeColor: "#fff",
-    //Number - The width of each segment stroke
-    segmentStrokeWidth: 1,
-    //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout: 50, // This is 0 for Pie charts
-    //Number - Amount of animation steps
-    animationSteps: 100,
-    //String - Animation easing effect
-    animationEasing: "easeOutBounce",
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate: true,
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale: false,
-    //Boolean - whether to make the chart responsive to window resizing
-    responsive: true,
-    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-    maintainAspectRatio: false,
-    //String - A legend template
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-    //String - A tooltip template
-    tooltipTemplate: "<%=value %> <%=label%> users"
-  };
-  //Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  pieChart.Doughnut(PieData, pieOptions);
-  //-----------------
-  //- END PIE CHART -
-  //-----------------
 
+  var especieArray =[];
+  $.ajax({
+    
+    async: false,
+     
+    url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?maiscoletados=true",
+     
+    dataType:"json",
+    success: function(especieJsonData) {
+    	especieArray = especieJsonData; 
+      console.log(especieJsonData);  
+    } ,
+  statusCode: {
+      404: function() {
+        alert("Pie: Página não encontrada!");
+      }
+    }
+  })
+  .fail(function() {
+		    	alert("Pie: Error ao receber dados.");
+		    });
+  
+  
+  if(especieArray.length>4){
+	  document.getElementById("pie1").innerHTML = '<i class="fa fa-circle-o text-red"></i> '+especieArray[0][1];
+	  document.getElementById("pie2").innerHTML = '<i class="fa fa-circle-o text-green"></i> '+especieArray[1][1];
+	  document.getElementById("pie3").innerHTML = '<i class="fa fa-circle-o text-yellow"></i> '+especieArray[2][1];
+	  document.getElementById("pie4").innerHTML = '<i class="fa fa-circle-o text-aqua"></i> '+especieArray[3][1];
+	  document.getElementById("pie5").innerHTML = '<i class="fa fa-circle-o text-light-blue"></i> '+especieArray[4][1];
+	  
+	  var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+	  var pieChart = new Chart(pieChartCanvas);
+	  var PieData = [
+	    {
+	      value: especieArray[0][0],
+	      color: "#f56954",
+	      highlight: "#f56954",
+	      label: especieArray[0][1]
+	    },
+	    {
+	      value: especieArray[1][0],
+	      color: "#00a65a",
+	      highlight: "#00a65a",
+	      label: especieArray[1][1]
+	    },
+	    {
+	      value: especieArray[2][0],
+	      color: "#f39c12",
+	      highlight: "#f39c12",
+	      label: especieArray[2][1]
+	    },
+	    {
+	      value: especieArray[3][0],
+	      color: "#00c0ef",
+	      highlight: "#00c0ef",
+	      label: especieArray[3][1]
+	    },
+	    {
+	      value: especieArray[4][0],
+	      color: "#3c8dbc",
+	      highlight: "#3c8dbc",
+	      label: especieArray[4][1]
+	    }
+	  ];
+	  var pieOptions = {
+	    //Boolean - Whether we should show a stroke on each segment
+	    segmentShowStroke: true,
+	    //String - The colour of each segment stroke
+	    segmentStrokeColor: "#fff",
+	    //Number - The width of each segment stroke
+	    segmentStrokeWidth: 1,
+	    //Number - The percentage of the chart that we cut out of the middle
+	    percentageInnerCutout: 50, // This is 0 for Pie charts
+	    //Number - Amount of animation steps
+	    animationSteps: 100,
+	    //String - Animation easing effect
+	    animationEasing: "easeOutBounce",
+	    //Boolean - Whether we animate the rotation of the Doughnut
+	    animateRotate: true,
+	    //Boolean - Whether we animate scaling the Doughnut from the centre
+	    animateScale: false,
+	    //Boolean - whether to make the chart responsive to window resizing
+	    responsive: true,
+	    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+	    maintainAspectRatio: false,
+	    //String - A legend template
+	    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
+	    //String - A tooltip template
+	    tooltipTemplate: "<%=value %> <%=label%>"
+	  };
+	  //Create pie or douhnut chart
+	  // You can switch between pie and douhnut using the method below.
+	  pieChart.Doughnut(PieData, pieOptions);
+	  //-----------------
+	  //- END PIE CHART -
+	  //-----------------
+
+	  
+  }
+  else{
+	  document.getElementById("pie1").innerHTML = "Dados insuficientes para geração do gráfico."
+  }
+  
+  $.ajax({
+      async: false,
+      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?producao=true",
+      dataType:"json",
+      success: function(JsonData) {
+    	  document.getElementById("boxnumbercoletados").innerHTML = JsonData;  
+      }
+  });
+  
+  $.ajax({
+      async: false,
+      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?emprestimos=true",
+      dataType:"json",
+      success: function(JsonData) {
+    	  document.getElementById("boxnumberemprestimo").innerHTML = JsonData;  
+      }
+  });
+  
+  $.ajax({
+      async: false,
+      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?especie=true",
+      dataType:"json",
+      success: function(JsonData) {
+    	  document.getElementById("boxnumberespecie").innerHTML = JsonData;  
+      }
+  });
+  
+  $.ajax({
+      async: false,
+      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?pontos=true",
+      dataType:"json",
+      success: function(JsonData) {
+    	  document.getElementById("boxnumberpontos").innerHTML = JsonData;  
+      }
+  });
+  
 });

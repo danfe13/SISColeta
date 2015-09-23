@@ -28,8 +28,7 @@ import org.apache.commons.lang.NullArgumentException;
 @Table(name = "tb_especie", schema = "public")
 @NamedQueries({
 	@NamedQuery(name="Especie.findByNome", query="SELECT e FROM Especie e WHERE UPPER(e.nomeCientifico) LIKE :nome OR UPPER(e.nomePopular) LIKE :nome "),
-	@NamedQuery(name="Especie.findAll", query="SELECT e FROM Especie e INNER JOIN e.tbColecaos c GROUP BY e ORDER BY c.quantidade"),
-
+	@NamedQuery(name="Especie.findMaisColetada", query="SELECT SUM(c.quantidade) as total, e.nomeCientifico FROM Especie e INNER JOIN e.tbColecaos c GROUP BY e ORDER BY total DESC"),
 })
 public class Especie implements GenericEntity {
 

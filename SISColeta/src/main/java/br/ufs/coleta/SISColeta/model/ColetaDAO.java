@@ -67,6 +67,18 @@ public class ColetaDAO extends GenericDAO<Coleta, Long> {
     	}	
 	}
     
+    public List<Coleta> getColetaAluno(Integer id) {
+    	
+    	TypedQuery<Coleta> query = em.createNamedQuery("Coleta.findAllAluno", Coleta.class);
+    	query.setParameter("id", id);
+    	try{
+    		List<Coleta> results = query.getResultList();
+    		return results;
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
+    
     public TipoAquaticoLocal getByTipoAquatico(Integer id) {
     	
     	TypedQuery<TipoAquaticoLocal> query = em.createNamedQuery("Coleta.tipoaquatico", TipoAquaticoLocal.class);
@@ -211,5 +223,22 @@ public class ColetaDAO extends GenericDAO<Coleta, Long> {
     	query.setParameter(1, mes);
     	query.setParameter(2, ano);
         return query.getResultList().size();
+    }
+    
+    public Object producaoColecao(){
+    	Query query = em.createNativeQuery("SELECT SUM(cl.quantidade) FROM tb_coleta c INNER JOIN tb_colecao cl ON c.idtb_coleta = cl.tb_coleta_id");
+    	return query.getResultList().get(0);
+    }
+    
+    public int pontosCount(){
+    	Query query = em.createNativeQuery("SELECT DISTINCT latitude_grau, direcao_latitude, latitude_minuto, latitude_segundo, longitude_grau, longitude_minuto, longitude_segundo, direcao_longitude FROM tb_coleta");
+    	return query.getResultList().size();
+    }
+    
+    public Boolean alunoColeta(int usuario, int coleta){
+    	Query query = em.createNativeQuery("SELECT * FROM tb_coleta c WHERE c.tb_usuario_id = :usuario AND c.idtb_coleta = :coleta");
+    	query.setParameter("usuario", usuario);
+    	query.setParameter("coleta", coleta);
+    	return query.getResultList().size() > 0;
     }
 }

@@ -34,6 +34,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tb_coleta", schema = "public")
 @NamedQueries({
 	@NamedQuery(name="Coleta.findById", query="SELECT c FROM Coleta c JOIN c.tbMunicipio m WHERE c.id = :id "),
+	@NamedQuery(name="Coleta.findAllAluno", query="SELECT c FROM Coleta c JOIN c.tbColetors ct WHERE ct.id = :id "),
 	@NamedQuery(name="Coleta.findLimited", query="SELECT c FROM Coleta c ORDER BY c.id DESC"),
 	@NamedQuery(name="Coleta.usuario", query="SELECT u FROM Usuario u INNER JOIN u.tbColetas c WHERE c.id = :id "),
 	@NamedQuery(name="Coleta.metodo", query="SELECT m FROM MetodoColeta m INNER JOIN m.coletas c WHERE c.id = :id "),
