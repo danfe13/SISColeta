@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition 
+    template="/template/default.xhtml">
+    <ui:define name="content">
+    <f:metadata>    
+    	<f:event type="preRenderView" listener="#{coletaController.prepareCreate()}"/>    
+	</f:metadata> 
+             <h:form id="ColetaCreateForm">
+                <h:panelGroup id="coletadisplay" style="float: left">
+                     <p:panelGrid columns="2" >
+                        <p:outputLabel value="Tipo Local:" for="local" />
+                        <p:selectOneMenu id="local" value="#{coletaController.tipo}">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Local" />
+                            <f:selectItems value="#{tipoAquaticoController.itemsAvailableSelectOne}"
+                                           var="localItem"
+                                           itemValue="#{localItem.id}"
+                                           itemLabel="#{localItem.descricao}"/>      
+                             <p:ajax update="aquatico1, aquatico2" event="change" />     
+                        </p:selectOneMenu>
+                     </p:panelGrid>   
+                 </h:panelGroup>  
+                 <h:panelGroup id="coletadisplay2">  
+                     <p:outputPanel autoUpdate="true">
+                     <p:panelGrid columns="4" rendered="#{coletaController.tipo == 1}" id="aquatico1">
+	                        <p:outputLabel value="Bacia:" for="bacia" />
+	                        <p:selectOneMenu id="bacia" value="#{baciaController.bacia}" converter="generic" >
+	                        	<f:selectItem itemValue="null" itemLabel="Selecione Bacia" />
+	                            <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
+	                                           var="baciaItem"
+	                                           itemValue="#{baciaItem}"
+	                                           itemLabel="#{baciaItem.descricao}"/>     
+	                            <p:ajax update="rio" event="change"  listener="#{baciaController.getRio}" />    
+	                        </p:selectOneMenu>
+	                        <p:outputLabel value="Rio:" for="rio" />
+	                        <p:selectOneMenu id="rio" value="#{coletaController.local}" >
+	                        	<f:selectItem itemValue="null" itemLabel="Selecione Rio" />
+	                            <f:selectItems value="#{baciaController.rio}"
+	                                           var="rioItem"
+	                                           itemValue="#{rioItem.id}"
+	                                           itemLabel="#{rioItem.descricao}"/>                 
+	                        </p:selectOneMenu>
+                     </p:panelGrid> 
+                     <p:panelGrid columns="4" rendered="#{coletaController.tipo == 2}" id="aquatico2">
+	                        <p:outputLabel value="Oceano" for="oceano" />
+	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" >
+	                        	<f:selectItem itemValue="null" itemLabel="Selecione Oceano" />
+	                            <f:selectItems value="#{oceanoController.itemsAvailableSelectOne}"
+	                                           var="oceanoItem"
+	                                           itemValue="#{oceanoItem.id}"
+	                                           itemLabel="#{oceanoItem.descricao}"/>     
+	                        </p:selectOneMenu>
+                     </p:panelGrid> 
+                     </p:outputPanel>
+                     </h:panelGroup>  
+                     
+                 	<h:panelGroup id="coletadisplay3" style="float: left"> 
+                     <p:panelGrid columns="8" > 
+                     
+                     	<p:outputLabel value="Estado:" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="estadoItem"
+                                           itemValue="#{estadoItem}"
+                                           itemLabel="#{estadoItem.nome}"/>
+                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Cidade:" for="cidade" />
+                        <p:selectOneMenu id="cidade" value="#{coletaController.coleta.tbMunicipio}" converter="generic">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
+                            <f:selectItems value="#{estadoController.municipios}"
+                                           var="municipioItem"
+                                           itemValue="#{municipioItem}"
+                                           itemLabel="#{municipioItem.nome}"/>
+                        </p:selectOneMenu>
+                     	
+                     	<p:outputLabel value="Data Inicio:" for="datainicio" />
+                        <p:calendar id="datainicio" value="#{coletaController.coleta.dataInicio}" pattern="dd/MM/yyyy HH:mm:ss" title="Data Inicio"/>
+                        <p:outputLabel value="Data Fim:" for="datafim" />
+                        <p:calendar id="datafim" value="#{coletaController.coleta.dataFim}" pattern="dd/MM/yyyy HH:mm:ss" title="Data Fim"/>
+                     	
+                     </p:panelGrid>
+                      <p:panelGrid columns="2" > 
+                      <p:outputLabel value="Coletores:" />
+                     	<h:selectManyCheckbox id="coletor" value="#{coletaController.coleta.tbColetors}" converter="generic">
+                			<f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" var="usuario"
+                				itemLabel="#{usuario.tbPessoa.nome}" itemValue="#{usuario}" />
+            			</h:selectManyCheckbox>
+                    </p:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup id="coletadisplay4">
+                	<p:panelGrid columns="6" >
+                		<p:outputLabel value="Nome do Ponto:" for="nome" />
+                        <p:inputText id="nome" value="#{coletaController.coleta.nome}" title="Nome"/>
+                        <p:outputLabel value="Código:" for="cod" />
+                        <p:inputText id="cod" value="#{coletaController.coleta.codColeta}" title="COD. Coleta" />
+                        <p:outputLabel value="Datum:" for="datum" />
+                        <p:inputText id="datum" value="#{coletaController.coleta.datum}" title="Datum" />
+                	</p:panelGrid>  
+                	<p:panelGrid columns="8" >
+                		<p:outputLabel value="Dir. Latitude:" for="dirlatitude" />
+                        <p:selectOneMenu id="dirlatitude" value="#{coletaController.coleta.direcaoLatitude}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="N" itemLabel="Norte" />
+                      		<f:selectItem itemValue="S" itemLabel="Sul" />
+                      		<f:selectItem itemValue="E" itemLabel="Leste" />
+                      		<f:selectItem itemValue="W" itemLabel="Oeste" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Latitude Grau:" for="latgrau" />
+                        <p:inputText id="latgrau" value="#{coletaController.coleta.latitudeGrau}" title="Grau" />
+                        <p:outputLabel value="Minuto:" for="latminuto" />
+                        <p:inputText id="latminuto" value="#{coletaController.coleta.latitudeMinuto}" title="Minuto" />
+                        <p:outputLabel value="Segundos:" for="latsegundos" />
+                        <p:inputText id="latsegundos" value="#{coletaController.coleta.latitudeSegundo}" title="Segundo" />
+                        
+                        <p:outputLabel value="Dir. Longitude" for="dirlongitude" />
+                        <p:selectOneMenu id="dirlongitude" value="#{coletaController.coleta.direcaoLongitude}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="N" itemLabel="Norte" />
+                      		<f:selectItem itemValue="S" itemLabel="Sul" />
+                      		<f:selectItem itemValue="E" itemLabel="Leste" />
+                      		<f:selectItem itemValue="W" itemLabel="Oeste" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Longitude Grau:" for="longrau" />
+                        <p:inputText id="longrau" value="#{coletaController.coleta.longitudeGrau}" title="Grau" />
+                        <p:outputLabel value="Minuto:" for="lonminuto" />
+                        <p:inputText id="lonminuto" value="#{coletaController.coleta.longitudeMinuto}" title="Minuto" />
+                        <p:outputLabel value="Segundos:" for="lonsegundos" />
+                        <p:inputText id="lonsegundos" value="#{coletaController.coleta.longitudeSegundo}" title="Segundo" />
+                	</p:panelGrid>  
+                	<p:panelGrid columns="4" >
+                		<p:outputLabel value="Altitude:" for="altitude" />
+                        <p:inputText id="altitude" value="#{coletaController.coleta.altitude}" title="Altitude" />
+                        <p:outputLabel value="Referência de acesso ao ponto:" for="referencia" />
+                        <p:inputTextarea rows="3" cols="75" id="referencia" value="#{coletaController.coleta.referencia}" />
+                    </p:panelGrid>    
+                     <p:panelGrid columns="8" >   
+                        <p:outputLabel value="Mata Ciliar ME:" for="mataciliarme" />
+                        <p:selectOneMenu id="mataciliarme" value="#{coletaController.coleta.mataCiliarMe}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
+                      		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
+                      		<f:selectItem itemValue="2" itemLabel="Pouca" />
+                      		<f:selectItem itemValue="3" itemLabel="Muita" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Mata Ciliar MD:" for="mataciliarmd" />
+                        <p:selectOneMenu id="mataciliarmd" value="#{coletaController.coleta.mataCiliarMd}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
+                      		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
+                      		<f:selectItem itemValue="2" itemLabel="Pouca" />
+                      		<f:selectItem itemValue="3" itemLabel="Muita" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Veg. Ripariana ME:" for="vegriparianame" />
+                        <p:selectOneMenu id="vegriparianame" value="#{coletaController.coleta.vegetacaoRiparianaMe}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
+                      		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
+                      		<f:selectItem itemValue="2" itemLabel="Pouca" />
+                      		<f:selectItem itemValue="3" itemLabel="Muita" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Veg. Ripariana MD:" for="vegriparianamd" />
+                        <p:selectOneMenu id="vegriparianamd" value="#{coletaController.coleta.vegetacaoRiparianaMd}">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
+                      		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
+                      		<f:selectItem itemValue="2" itemLabel="Pouca" />
+                      		<f:selectItem itemValue="3" itemLabel="Muita" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>  
+                    <p:panelGrid columns="2" >
+                    	<p:outputLabel value="Carac. Rio:" for="caracrio" />
+                    	<h:selectManyCheckbox id="caracrio" value="#{coletaController.coleta.tbCaracRios}" converter="generic">
+                			<f:selectItems value="#{caracrioController.itemsAvailableSelectMany}" var="carac"
+                				itemLabel="#{carac.descricao}" itemValue="#{carac}" />
+            			</h:selectManyCheckbox>
+                    </p:panelGrid> 
+                    <p:panelGrid columns="6" >
+                    	<p:outputLabel value="Condição Climática:" for="clima" />
+                        <p:inputText id="clima" value="#{coletaController.coleta.clima}" title="Condição Climática"/>
+                    	<p:outputLabel value="Tº ar:" for="tar" />
+                        <p:inputText id="tar" value="#{coletaController.coleta.TAr}" title="Tº ar"/>
+                    	<p:outputLabel value="Tº água:" for="tagua" />
+                        <p:inputText id="tagua" value="#{coletaController.coleta.TAgua}" title="Tº água"/>
+                        <p:outputLabel value="Largura:" for="largura" />
+                        <p:inputText id="largura" value="#{coletaController.coleta.largura}" title="Largura"/>
+                    	<p:outputLabel value="Vel. da água:" for="vagua" />
+                        <p:inputText id="vagua" value="#{coletaController.coleta.velAgua}" title="Vel. água"/>
+                    	<p:outputLabel value="Transparência:" for="transparencia" />
+                        <p:inputText id="transparencia" value="#{coletaController.coleta.transparencia}" title="Transparência"/>
+                        <p:outputLabel value="Condutividade:" for="condutividade" />
+                        <p:inputText id="condutividade" value="#{coletaController.coleta.condutividade}" title="Condutividade"/>
+                        <p:outputLabel value="pH. água:" for="phagua" />
+                        <p:inputText id="phagua" value="#{coletaController.coleta.phAgua}" title="pH água"/>
+                    	<p:outputLabel value="Salinidade:" for="salinidade" />
+                        <p:inputText id="salinidade" value="#{coletaController.coleta.salinidade}" title="Salinidade"/>
+                        <p:outputLabel value="Oxigênio dissolvido:" for="dissolvido" />
+                        <p:inputText id="dissolvido" value="#{coletaController.coleta.oxiDissolvido}" title="Oxigênio dissolvido"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" >
+                    	<p:outputLabel value="Substratos:" />
+                    	<ui:repeat value="#{coletaController.substratos}" varStatus="loop">
+                    		<h:column><p:outputLabel value="#{coletaController.substratos[loop.index].descricao}" for="substratos" /></h:column>
+        					<h:column><p:inputText id="substratos" value="#{coletaController.abundancia[loop.index]}" title="Número em Ordem de Abundancia" converter="javax.faces.Integer" /></h:column>
+    					</ui:repeat>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" >
+                    	<p:outputLabel value="Metodos de Coleta:" />
+                    	<h:selectManyCheckbox value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
+                			<f:selectItems value="#{metodoColetaController.itemsAvailableSelectMany}" var="metodo"
+                				itemLabel="#{metodo.descricao}" itemValue="#{metodo}" />
+            			</h:selectManyCheckbox>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" >
+                    	<p:outputLabel value="Observação:" for="observacao" />
+                    	 <p:inputTextarea rows="3" cols="75" id="observacao" value="#{coletaController.coleta.observacao}" />
+                    </p:panelGrid>
+                    #{coletaController.insertUsuario(usuarioController.usuarioLogado)}
+                    <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" />
+                </h:panelGroup>
+            </h:form>
+	</ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RioCreateDlg" widgetVar="RioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
+            <h:form id="RioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rioController.rio != null}">
+                        <p:outputLabel value="Descrição" for="descricao" />
+                        <p:inputText id="descricao" value="#{rioController.rio.descricao}" title="Descrição" />
+                        <p:outputLabel value="Bacia" for="bacia" />
+                        <p:selectOneMenu id="bacia" value="#{rioController.rio.tbBacia}" converter="generic">
+                            <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
+                                           var="baciaItem"
+                                           itemValue="#{baciaItem}"
+                                           itemLabel="#{baciaItem.descricao}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rioController.cadastrar()}" value="Salvar" update="display,:RioListForm:datalist" oncomplete="PF('RioCreateDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="RioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

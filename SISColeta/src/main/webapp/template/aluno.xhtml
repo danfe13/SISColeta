@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	<f:view contentType="text/html; charset=UTF-8" encoding="UTF-8">
+		<ui:insert name="head">
+			<ui:include src="/template/head.xhtml" />
+		</ui:insert>
+		<h:body styleClass="skin-blue wysihtml5-supported sidebar-collapse sidebar-open">
+		
+		<div class="wrapper">
+			 		<!-- Navigation -->
+				<header class="main-header">
+					<!-- Logo -->
+					<a href="/SISColeta/private/index.jsf" class="logo"><b>SIS</b>Coleta</a>
+					<nav class="navbar navbar-static-top" role="navigation">
+			          	<!-- Navbar Right Menu -->
+						<div class="navbar-custom-menu">
+							<ul class="nav navbar-nav">
+				                <!-- /.dropdown -->
+				                <li class="dropdown">
+				                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				                        <i class="fa fa-user fa-fw"></i> #{usuarioController.usuarioLogado.login} <i class="fa fa-caret-down"></i>
+				                    </a>
+				                    <ul class="dropdown-menu dropdown-user">
+				                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Dados do usuário</a></li>
+				                        <li><a href="/SISColeta/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a></li>
+				                    </ul>
+				                    <!-- /.dropdown-user -->
+				                </li>
+				                <!-- /.dropdown -->
+				            </ul>
+						</div>
+					</nav>
+				</header>
+				<div class="content-wrapper" style="min-height: 918px">
+					<section class="content-header">
+			          <h1>
+			            <ui:insert name="cabecalho"></ui:insert>
+			            <small><ui:insert name="sub-cabecalho"></ui:insert></small>
+			          </h1>
+			          <ol class="breadcrumb">
+			            <ui:insert name="breadcrumb"></ui:insert>
+			          </ol>
+			        </section>
+					<div class="content">
+						<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+      					<ui:insert name="content"></ui:insert>
+      				</div>
+      			</div>
+				<ui:insert name="footer">
+					<ui:include src="/template/footer.xhtml" />
+				</ui:insert>
+		</div>
+		</h:body>
+	</f:view>
+</html>

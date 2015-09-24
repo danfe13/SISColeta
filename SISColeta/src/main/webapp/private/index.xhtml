@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://java.sun.com/jsf/core"
+		template="/template/aluno.xhtml">
+	<ui:define name="title">Página Inicial</ui:define>
+	<ui:define name="content">
+	 		
+		          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-10">
+              <!-- MAP & BOX PANE -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Coletas</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <div class="row">
+                      <div class="pad">
+	                      	<h:form id="ColetaListForm">
+							<p:dataTable id="datalist" value="#{coletaController.getItemsAlunos(usuarioController.usuarioLogado)}"
+										widgetVar="coletaTable"
+										var="coleta" selection="#{coletaController.coleta}"
+					                    paginator="true"
+					                    paginatorPosition="bottom"
+					                    rowKey="#{coleta.id}"
+					                    rows="10"
+					                    rowsPerPageTemplate="10,20,30,40,50"
+										emptyMessage="Nenhum resultado encontrado.">
+									
+									<f:facet name="header">
+										<p:outputPanel>
+											
+						                </p:outputPanel>
+					        		</f:facet>
+					        		<p:column style="width:30px; padding: 4px 5px;">
+					            		<p:rowToggler />
+					        		</p:column>
+									<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:150px">
+										<f:facet name="header"><h:outputText value="ID" /></f:facet>
+										<h:outputText value="#{coleta.id}" />
+									</p:column>	
+									<p:column sortBy="#{coleta.datum}" filterBy="#{coleta.datum}" filterMatchMode="contains">
+										<f:facet name="header"><h:outputText value="Datum" /></f:facet>
+										<h:outputText value="#{coleta.datum}" />
+									</p:column>
+									<p:column sortBy="#{coleta.tbMunicipio.nome}" filterBy="#{coleta.tbMunicipio.nome}" filterMatchMode="contains">
+										<f:facet name="header"><h:outputText value="Municipio" /></f:facet>
+										<h:outputText value="#{coleta.tbMunicipio.nome}" />
+									</p:column>
+									<p:column sortBy="#{coleta.tbMunicipio.tbEstado.nome}" filterBy="#{coleta.tbMunicipio.tbEstado.nome}" filterMatchMode="contains">
+										<f:facet name="header"><h:outputText value="Estado" /></f:facet>
+										<h:outputText value="#{coleta.tbMunicipio.tbEstado.nome}" />
+									</p:column>
+									<p:column sortBy="#{coleta.dataInicio}" filterBy="#{coleta.dataInicio}" filterMatchMode="contains">
+										<f:facet name="header"><h:outputText value="Data Inicio" /></f:facet>
+										<h:outputText value="#{coleta.dataInicio}" />
+									</p:column>
+									<p:column sortBy="#{coleta.dataFim}" filterBy="#{coleta.dataFim}" filterMatchMode="contains">
+										<f:facet name="header"><h:outputText value="Data Fim" /></f:facet>
+										<h:outputText value="#{coleta.dataFim}" />
+									</p:column>
+									<p:column style="width:62px">
+										<h:link outcome="coleta/editar" title="Editar" rendered="#{coletaController.validarAlunoColeta(usuarioController.usuarioLogado.id, coleta.id)}" styleClass="ui-icon ui-icon-pencil">
+											<f:param name="id" value="#{coleta.id}" />
+										</h:link>
+										<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="ui-icon ui-icon-pencil">
+											<f:setPropertyActionListener value="#{coleta}" target="#{colecaoController.coleta}" />
+										</p:commandLink>
+										<p:commandLink title="Etiqueta" styleClass="ui-icon ui-icon-trash" ajax="false">
+											<p:fileDownload value="#{coletaController.PDF(coleta)}" />
+										</p:commandLink>
+					       			</p:column>
+					       			<p:rowExpansion>
+					       				<p:dataTable id="datalist2" value="#{colecaoController.getColecaoByColeta(coleta)}"
+										widgetVar="colecaoTable"
+										var="colecao" selection="#{colecaoController.colecao}"
+					                    rowKey="#{colecao.id}"
+										emptyMessage="Nenhum resultado encontrado.">
+											<p:column sortBy="#{colecao.id}" >
+												<f:facet name="header"><h:outputText value="ID" /></f:facet>
+												<h:outputText value="#{colecao.id}" />
+											</p:column>
+											<p:column sortBy="#{colecao.tbEspecie.nomeCientifico}" >
+												<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+												<h:outputText value="#{colecao.tbEspecie.nomeCientifico}" />
+											</p:column>
+											<p:column sortBy="#{colecao.unidade.descricao}" >
+												<f:facet name="header"><h:outputText value="Unidade" /></f:facet>
+												<h:outputText value="#{colecao.unidade.descricao}" />
+											</p:column>
+											<p:column sortBy="#{colecao.quantidade}" >
+												<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
+												<h:outputText value="#{colecao.quantidade}" />
+											</p:column>
+											<p:column sortBy="#{colecao.destino.descricao}" >
+												<f:facet name="header"><h:outputText value="Destino" /></f:facet>
+												<h:outputText value="#{colecao.destino.descricao}" />
+											</p:column>
+											<p:column style="width:62px">
+												<p:link outcome="coleta/colecaoimagem" styleClass="fa fa-picture-o" >
+													<f:param name="id" value="#{colecao.id}"  />
+												</p:link>
+							       			</p:column>
+										</p:dataTable>
+												
+					        		</p:rowExpansion>
+								</p:dataTable>
+								
+								<p:confirmDialog global="true">
+					        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+					    		</p:confirmDialog>
+						</h:form>
+						<ui:include src="coleta/especie.xhtml"/>
+                      </div>
+                  </div><!-- /.row -->
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+            </div><!-- /.col -->
+            
+           	<div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-retweet"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Participações</span>
+                  <span class="info-box-number" id="boxnumberparticipacao">#{coletaController.getParticipacao(usuarioController.usuarioLogado)}</span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+            <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-retweet"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Determinadas</span>
+                  <span class="info-box-number" id="boxnumberdeterminador">#{coletaController.getDeterminador(usuarioController.usuarioLogado)}</span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            
+          </div><!-- /.row -->
+          <h:outputScript library="default" name="plugins/jQuery/jQuery-2.1.3.min.js" target="head"/>
+          <h:outputScript library="default" name="plugins/jQueryUI/jquery-ui-1.10.3.min.js" target="head"/>
+          
+	</ui:define>
+</ui:composition>

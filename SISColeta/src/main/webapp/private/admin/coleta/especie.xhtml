@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+	<f:metadata>    
+    	<f:event type="preRenderView" listener="#{colecaoController.prepareCreate()}"/>    
+	</f:metadata>
+        <p:dialog id="ColecaoDlg" widgetVar="ColecaoDialog" modal="true" resizable="false" appendTo="@(body)" header="Coleta">
+            <h:form id="ColecaoForm">
+                <h:panelGroup id="displayespecies">
+                    <p:panelGrid columns="2" rendered="#{colecaoController.coleta != null}">
+                    	
+                    	<p:outputLabel value="Cod. Coleção:" for="codcolecao" />
+                        <p:inputText id="codcolecao" value="#{colecaoController.colecao.codCampo}" title="Cod. Coleção"/>
+                    	<p:outputLabel value="Especie:" for="especie" />
+        				<p:autoComplete id="especie" forceSelection="true" maxResults="7" value="#{colecaoController.colecao.tbEspecie}" completeMethod="#{colecaoController.autoCompleteEspecies}" 
+        				var="especie" itemLabel="#{especie.nomeCientifico}" itemValue="#{especie}" converter="generic"/>
+                    	
+                    	<p:outputLabel value="Determinador:" for="determinador" />
+                        <p:selectOneMenu id="determinador" value="#{colecaoController.colecao.determinador}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Unidade"  />
+                            <f:selectItems value="#{colecaoController.coletores}"
+                                           var="usuarioItem"
+                                           itemValue="#{usuarioItem}"
+                                           itemLabel="#{usuarioItem.tbPessoa.nome}"/>       
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Unidade:" for="unidade" />
+                        <p:selectOneMenu id="unidade" value="#{colecaoController.colecao.unidade}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Unidade"  />
+                            <f:selectItems value="#{unidadeController.itemsAvailableSelectOne}"
+                                           var="unidadeItem"
+                                           itemValue="#{unidadeItem}"
+                                           itemLabel="#{unidadeItem.descricao}"/>       
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Quantidade:" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{colecaoController.colecao.quantidade}" title="Quantidade"/>
+                        <p:outputLabel value="Destino:" for="destino" />
+                        <p:selectOneMenu id="destino" value="#{colecaoController.colecao.destino}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Destino"  />
+                            <f:selectItems value="#{destinoController.itemsAvailableSelectOne}"
+                                           var="destinoItem"
+                                           itemValue="#{destinoItem}"
+                                           itemLabel="#{destinoItem.descricao}"/>       
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                     #{colecaoController.insertUsuario(usuarioController.usuarioLogado)}
+                    <p:commandButton actionListener="#{colecaoController.cadastrar()}" value="Salvar" update="displayespecies,:ColetaListForm:datalist" oncomplete="PF('ColecaoDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="ColecaoDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

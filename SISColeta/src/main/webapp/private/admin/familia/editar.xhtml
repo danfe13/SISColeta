@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FamiliaEditDlg" widgetVar="FamiliaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
+            <h:form id="FamiliaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{familiaController.familia != null}">
+                        <p:outputLabel value="Descrição" for="descricao" />
+                        <p:inputText id="descricao" value="#{familiaController.familia.descricao}" title="Descrição" />
+                    	<p:outputLabel value="Ordem" for="ordem" />
+                    	<p:selectOneMenu id="ordem" value="#{familiaController.familia.tbOrdem}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Ordem" />
+                            <f:selectItems value="#{ordemController.itemsAvailableSelectOne}"
+                                           var="ordemItem"
+                                           itemValue="#{ordemItem}"
+                                           itemLabel="#{ordemItem.descricao}"/>          
+                    	</p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{familiaController.cadastrar()}" value="Salvar" update="display,:FamiliaListForm:datalist" oncomplete="PF('FamiliaEditDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="FamiliaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

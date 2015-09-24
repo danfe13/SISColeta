@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioSenhaDlg" widgetVar="UsuarioSenhaDialog" modal="true" resizable="false" appendTo="@(body)" header="Alterar Senha">
+            <h:form id="UsuarioSenhaForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario != null}">
+                        <p:outputLabel value="Senha" for="senha" />
+                        <p:inputText id="senha" value="#{usuarioController.usuario.senha}" title="Senha" type="password" />
+                         <p:outputLabel value="Confirmar Senha" for="senha_confirmacao" />
+                        <p:inputText id="senha_confirmacao" value="#{usuarioController.confirmacaosenha}" title="Senha Confirmação" type="password" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.editarSenha()}" value="Salvar" update="display,:UsuarioListForm:datalist" oncomplete="PF('UsuarioSenhaDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="UsuarioSenhaDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

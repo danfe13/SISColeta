@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DestinoCreateDlg" widgetVar="DestinoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
+            <h:form id="DestinoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{destinoController.destino != null}">
+                        <p:outputLabel value="Descrição" for="descricao" />
+                        <p:inputText id="descricao" value="#{destinoController.destino.descricao}" title="Descrição" />
+                        <p:message for="descricao" />
+            			<h:outputText value="#{destinoController.destino.descricao}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{destinoController.cadastrar()}" value="Salvar" update="display,:DestinoListForm:datalist" oncomplete="PF('DestinoCreateDialog').hide();"/>
+                    <p:commandButton value="Cancelar" onclick="DestinoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
