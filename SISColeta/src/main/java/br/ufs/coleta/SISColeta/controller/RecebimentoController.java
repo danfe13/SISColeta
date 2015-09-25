@@ -105,8 +105,18 @@ public class RecebimentoController extends GenericController {
 		this.retirada = retirada;
 	}
 	
-	public Boolean getRecebimentoByRetirada(Integer idretirada, Integer idcolecao){
-		return getDAO().getRecebimentoByRetirada(idretirada, idcolecao).isEmpty();
+	public Boolean confirmarRecebimento(Retirada retirada, Integer idcolecao){
+		if(retirada.getTipoRetirada() == 2){
+			return false;
+		}
+		return getDAO().getRecebimentoByRetirada(retirada.getId(), idcolecao).isEmpty();
+	}
+	
+	public Boolean excluirRecebimento(Retirada retirada, Integer idcolecao){
+		if(retirada.getTipoRetirada() == 2){
+			return false;
+		}
+		return !getDAO().getRecebimentoByRetirada(retirada.getId(), idcolecao).isEmpty();
 	}
 	
 	public Recebimento getRecebimento(Integer idretirada, Integer idcolecao){

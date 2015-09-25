@@ -46,7 +46,7 @@
 					<h:outputText value="#{retirada.tbDestinatario.tbInstituicao.nome}" />
 				</p:column>
 				<p:column sortBy="#{retirada.numeroPacote}" filterBy="#{retirada.numeroPacote}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Qntd. Envio" /></f:facet>
+					<f:facet name="header"><h:outputText value="Qntd. Pacotes" /></f:facet>
 					<h:outputText value="#{retirada.numeroPacote}" />
 				</p:column>
 				<p:column sortBy="#{retirada.modoEnvio}" filterBy="#{retirada.modoEnvio}" filterMatchMode="contains">
@@ -54,8 +54,16 @@
 					<h:outputText value="#{retirada.modoEnvio}" />
 				</p:column>
 				<p:column sortBy="#{retirada.tipoRetirada}" filterBy="#{retirada.tipoRetirada}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Tipo Retirada" /></f:facet>
-					<h:outputText value="#{retirada.tipoRetirada}" />
+					<f:facet name="filter">
+		                <p:selectOneButton onchange="PF('retiradaTable').filter()">
+		                    <f:converter converterId="javax.faces.Integer" />
+		                    <f:selectItem itemLabel="Todos" itemValue="" />
+		                    <f:selectItem itemLabel="Emprestimo" itemValue="1" />
+		                    <f:selectItem itemLabel="Doação" itemValue="2" />
+		                </p:selectOneButton>
+		            </f:facet>
+		            <f:facet name="header"><h:outputText value="Tipo Retirada" /></f:facet>
+					<h:outputText value="#{retirada.tipoRetirada == 1 ? 'Emprestimo':'Doação'}" />
 				</p:column>
 				<p:column style="width:62px">
 					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="ui-icon ui-icon-pencil">
@@ -81,10 +89,10 @@
 						</p:column>
 						
 						<p:column style="width:62px">
-							<p:commandLink rendered="#{recebimentoController.getRecebimentoByRetirada(retirada.id, retiradaColecao.tbColecao.id)}" update=":RecebimentoCreateForm" actionListener="#{recebimentoController.prepareCreate()}" oncomplete="PF('RecebimentoCreateDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
+							<p:commandLink rendered="#{recebimentoController.confirmarRecebimento(retirada, retiradaColecao.tbColecao.id)}" update=":RecebimentoCreateForm" actionListener="#{recebimentoController.prepareCreate()}" oncomplete="PF('RecebimentoCreateDialog').show()" title="Recebimento" styleClass="ui-icon ui-icon-pencil">
 								<f:setPropertyActionListener value="#{retiradaColecao}" target="#{recebimentoController.retiradaColecao}" />
 							</p:commandLink>
-							<p:commandLink rendered="#{!recebimentoController.getRecebimentoByRetirada(retirada.id, retiradaColecao.tbColecao.id)}" update="datalist2" title="Excluir Recebimento" styleClass="ui-icon ui-icon-trash" action="#{recebimentoController.remover}">
+							<p:commandLink rendered="#{recebimentoController.excluirRecebimento(retirada, retiradaColecao.tbColecao.id)}" update="datalist2" title="Excluir Recebimento" styleClass="ui-icon ui-icon-trash" action="#{recebimentoController.remover}">
 								<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 								<f:setPropertyActionListener value="#{recebimentoController.getRecebimento(retirada.id, retiradaColecao.tbColecao.id)}" target="#{recebimentoController.recebimento}" />
 							</p:commandLink>

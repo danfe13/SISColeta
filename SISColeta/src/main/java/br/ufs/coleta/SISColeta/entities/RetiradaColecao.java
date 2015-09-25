@@ -31,6 +31,7 @@ public class RetiradaColecao implements java.io.Serializable {
 	private Colecao colecao;
 	private Retirada retirada;
 	private String observacao;
+	private Integer quantdExemplares;
 	private Set<Recebimento> recebimentos = new HashSet<Recebimento>(0);
 
 	public RetiradaColecao() {
@@ -92,6 +93,15 @@ public class RetiradaColecao implements java.io.Serializable {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	
+	@Column(name = "quantd_Exemplares")
+	public Integer getQuantdExemplares() {
+		return this.quantdExemplares;
+	}
+
+	public void setQuantdExemplares(Integer quantdExemplares) {
+		this.quantdExemplares = quantdExemplares;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbRetiradaColecao")

@@ -18,6 +18,9 @@
                     	<p:outputLabel value="Observação:" for="observacao" />
                     	<p:inputTextarea rows="3" cols="75" id="observacao" value="#{recebimentoController.recebimento.observacao}" />
                     
+                    	<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{recebimentoController.recebimento.quantdExemplares}" title="Qntd. Exemplares" />
+                       
                     </p:panelGrid>
                     #{recebimentoController.insertRetirada(retiradaController.retirada)}
                     <p:commandButton actionListener="#{recebimentoController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RecebimentoCreateDialog').hide();"/>

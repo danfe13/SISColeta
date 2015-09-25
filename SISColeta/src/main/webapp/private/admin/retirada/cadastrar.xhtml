@@ -12,6 +12,11 @@
             <h:form id="RetiradaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{retiradaController.retirada != null}">
+                    	<p:outputLabel value="Tipo Retirada:" for="retirada" />
+                        <p:selectOneMenu id="retirada" value="#{retiradaController.retirada.tipoRetirada}">
+                        	<f:selectItem itemValue="1" itemLabel="Emprestimo" />
+                        	<f:selectItem itemValue="2" itemLabel="Doação" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="Destinatario:" for="destinatario" />
                         <p:selectOneMenu id="destinatario" value="#{retiradaController.retirada.tbDestinatario}" converter="generic">
                             <f:selectItems value="#{destinatarioController.itemsAvailableSelectOne}"
@@ -21,10 +26,13 @@
                         </p:selectOneMenu>
                     	<p:outputLabel value="Modo de Envio:" for="envio" />
                         <p:inputText id="envio" value="#{retiradaController.retirada.modoEnvio}" title="Modo de Envio" />
-                        <p:outputLabel value="Quantidade:" for="quantidade" />
-                        <p:inputText id="quantidade" value="#{retiradaController.retirada.numeroPacote}" title="Quantidade" />
-                        
+                        <p:outputLabel value="Qntd. Pacotes:" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{retiradaController.retirada.numeroPacote}" title="Qntd. Pacotes" />
+                         <p:outputLabel value="Data Retirada:" for="dataretirada" />
+                        <p:calendar id="dataretirada" value="#{retiradaController.retirada.dataRetirada}" pattern="dd/MM/yyyy" title="Data Retirada"/>
+                    	
                     </p:panelGrid>
+                    #{retiradaController.insertUsuario(usuarioController.usuarioLogado)}
                     <p:commandButton actionListener="#{retiradaController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RetiradaCreateDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="RetiradaCreateDialog.hide()"/>
                 </h:panelGroup>

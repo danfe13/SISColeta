@@ -4,6 +4,7 @@ import br.ufs.coleta.SISColeta.entities.Colecao;
 import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.Retirada;
 import br.ufs.coleta.SISColeta.entities.RetiradaColecao;
+import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.ColecaoDAO;
 import br.ufs.coleta.SISColeta.model.RetiradaDAO;
 
@@ -30,6 +31,8 @@ public class RetiradaController extends GenericController {
     private RetiradaColecao retiradaColecao;
     private Colecao colecao;
     private String obs;
+    private Integer qntd;
+    private Usuario usuario;
 
     public RetiradaController() {
     }
@@ -59,12 +62,13 @@ public class RetiradaController extends GenericController {
     }
     
     public void cadastrar(){
+    	retirada.setTbUsuario(usuario);
     	getDAO().save(retirada);
     	items = null;
     }
     
     public void cadastrarRetirar(){
-    	getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs);
+    	getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs, qntd);
     }
     
     public void remover(){
@@ -121,9 +125,21 @@ public class RetiradaController extends GenericController {
 		this.obs = obs;
 	}
 	
+	public Integer getQntd() {
+		return qntd;
+	}
+
+	public void setQntd(Integer qntd) {
+		this.qntd = qntd;
+	}
+
 	public List<RetiradaColecao> getRetiradaColecaoByRetirada(Retirada retirada){
 		this.retirada = retirada;
 		return getDAO().getRetiradaColecaoByRetirada(retirada.getId());
+	}
+	
+	public void insertUsuario(Usuario usuario){
+		this.usuario = usuario;
 	}
 	
 }

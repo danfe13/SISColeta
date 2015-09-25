@@ -37,6 +37,7 @@ public class Recebimento implements GenericEntity {
 	private RetiradaColecao retiradaColecao;
 	private Date dataRecebimento;
 	private String observacao;
+	private Integer quantdExemplares;
 
 	public Recebimento() {
 	}
@@ -96,6 +97,15 @@ public class Recebimento implements GenericEntity {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	
+	@Column(name = "quantd_Exemplares")
+	public Integer getQuantdExemplares() {
+		return this.quantdExemplares;
+	}
+
+	public void setQuantdExemplares(Integer quantdExemplares) {
+		this.quantdExemplares = quantdExemplares;
 	}
 	
 	@Override

@@ -20,6 +20,9 @@
                     	<p:outputLabel value="Observação:" for="observacao" />
                     	<p:inputTextarea rows="3" cols="75" id="observacao" value="#{retiradaController.obs}" />
                     
+                    	<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
+                        <p:inputText id="quantidade" value="#{retiradaController.qntd}" title="Qntd. Exemplares" />
+                       
                     </p:panelGrid>
                     <p:commandButton actionListener="#{retiradaController.cadastrarRetirar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RetiradaColecaoCreateDialog').hide();"/>
                     <p:commandButton value="Cancelar" onclick="RetiradaColecaoCreateDialog.hide()"/>

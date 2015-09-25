@@ -50,12 +50,13 @@ public class RetiradaDAO extends GenericDAO<Retirada, Long> {
     	}	
 	}
     
-    public void insertRetirada(int id_colecao, int id_retirada, String obs){
-    	Query query = em.createNativeQuery("INSERT INTO tb_retirada_colecao (tb_retirada_id, tb_colecao_id, observacao) " +
-                " VALUES(?,?,?)");
+    public void insertRetirada(int id_colecao, int id_retirada, String obs, Integer qtd){
+    	Query query = em.createNativeQuery("INSERT INTO tb_retirada_colecao (tb_retirada_id, tb_colecao_id, observacao, quantd_exemplares) " +
+                " VALUES(?,?,?,?)");
             query.setParameter(1, id_retirada);
             query.setParameter(2, id_colecao);
             query.setParameter(3, obs);
+            query.setParameter(4, qtd);
             query.executeUpdate();
     }
     
