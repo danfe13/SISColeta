@@ -7,13 +7,31 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition 
     template="/template/default.xhtml">
+    <ui:define name="title">Cadastrar Coleta</ui:define>
     <ui:define name="content">
     <f:metadata>    
     	<f:event type="preRenderView" listener="#{coletaController.prepareCreate()}"/>    
 	</f:metadata> 
              <h:form id="ColetaCreateForm">
-                <h:panelGroup id="coletadisplay" style="float: left">
-                     <p:panelGrid columns="2" >
+                <h:panelGroup id="coletadisplay" style="float: left"> 
+                     <p:panelGrid columns="6" >
+                     	<p:outputLabel value="Estado:" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic">
+                        	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="estadoItem"
+                                           itemValue="#{estadoItem}"
+                                           itemLabel="#{estadoItem.nome}"/>
+                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Cidade:" for="cidade" />
+                        <p:selectOneMenu id="cidade" value="#{coletaController.coleta.tbMunicipio}" converter="generic">
+                      		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
+                            <f:selectItems value="#{estadoController.municipios}"
+                                           var="municipioItem"
+                                           itemValue="#{municipioItem}"
+                                           itemLabel="#{municipioItem.nome}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="Tipo Local:" for="local" />
                         <p:selectOneMenu id="local" value="#{coletaController.tipo}">
                         	<f:selectItem itemValue="null" itemLabel="Selecione Local" />
@@ -60,26 +78,8 @@
                      </h:panelGroup>  
                      
                  	<h:panelGroup id="coletadisplay3" style="float: left"> 
-                     <p:panelGrid columns="8" > 
+                     <p:panelGrid columns="4" > 
                      
-                     	<p:outputLabel value="Estado:" for="estado" />
-                        <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic">
-                        	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
-                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
-                                           var="estadoItem"
-                                           itemValue="#{estadoItem}"
-                                           itemLabel="#{estadoItem.nome}"/>
-                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Cidade:" for="cidade" />
-                        <p:selectOneMenu id="cidade" value="#{coletaController.coleta.tbMunicipio}" converter="generic">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
-                            <f:selectItems value="#{estadoController.municipios}"
-                                           var="municipioItem"
-                                           itemValue="#{municipioItem}"
-                                           itemLabel="#{municipioItem.nome}"/>
-                        </p:selectOneMenu>
-                     	
                      	<p:outputLabel value="Data Inicio:" for="datainicio" />
                         <p:calendar id="datainicio" value="#{coletaController.coleta.dataInicio}" pattern="dd/MM/yyyy HH:mm:ss" title="Data Inicio"/>
                         <p:outputLabel value="Data Fim:" for="datafim" />

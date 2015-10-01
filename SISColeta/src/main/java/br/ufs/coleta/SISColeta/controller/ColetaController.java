@@ -3,6 +3,7 @@ package br.ufs.coleta.SISColeta.controller;
 import br.ufs.coleta.SISColeta.entities.Colecao;
 import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Etiqueta;
+import br.ufs.coleta.SISColeta.entities.Invoice;
 import br.ufs.coleta.SISColeta.entities.Rio;
 import br.ufs.coleta.SISColeta.entities.Substrato;
 import br.ufs.coleta.SISColeta.entities.Substratos;
@@ -87,9 +88,7 @@ public class ColetaController extends GenericController {
     }
     
     public List<Substrato> getSubstratos() {
-        if (substratos == null) {
-    		substratos = getDAOSubstrato().findAll();
-        } 
+    	substratos = getDAOSubstrato().findAll();
         return substratos;
     }
 
@@ -189,7 +188,7 @@ public class ColetaController extends GenericController {
     public Coleta prepareEdit() {
         coleta = getDAO().getById(id);
         coleta.setTbColetors(getDAO().getByColetor(id));
-        coleta.setTbCaracRios(getDAO().getByCaracRio(id));
+        coleta.setTbCaracRios2(getDAO().getByCaracRio(id));
         coleta.setTbMetodoColetas(getDAO().getByMetodo(id));
         coleta.setTbSubstratos(getDAO().getBySubstratos(id));
         coleta.setTbAquatico(getDAO().getByAquatico(id));

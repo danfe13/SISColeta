@@ -262,7 +262,7 @@ $(function () {
       url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?pontos=true",
       dataType:"json",
       success: function(JsonData) {
-    	  document.getElementById("boxnumberpontos").innerHTML = JsonData;  
+    	  document.getElementById("boxnumberponto").innerHTML = JsonData;  
       }
   });
   

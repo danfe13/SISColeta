@@ -479,7 +479,7 @@ public class Coleta implements GenericEntity {
 	}
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "tb_carac_coleta", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_carac_rio_id", nullable = false, updatable = false) })
+	@JoinTable(name = "tb_carac_coleta", schema = "public", joinColumns = { @JoinColumn(name = "tb_coleta_id", nullable = true, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "tb_carac_rio_id", nullable = true, updatable = false) })
 	public Set<CaracRio> getTbCaracRios() {
 		return this.tbCaracRios;
 	}
@@ -488,7 +488,7 @@ public class Coleta implements GenericEntity {
 		this.tbCaracRios = tbCaracRios;
 	}
 	
-	public void setTbCaracRios(List<CaracRio> tbCaracRios) {
+	public void setTbCaracRios2(List<CaracRio> tbCaracRios) {
 		this.tbCaracRios = new HashSet<CaracRio>(tbCaracRios);
 	}
 	

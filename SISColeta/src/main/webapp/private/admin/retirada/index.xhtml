@@ -76,6 +76,9 @@
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>
+					<p:commandLink title="Invoice" styleClass="ui-icon ui-icon-trash" ajax="false">
+						<p:fileDownload value="#{retiradaController.PDF(retirada)}" />
+					</p:commandLink>
        			</p:column>
        			<p:rowExpansion>
        				<p:dataTable id="datalist2" value="#{retiradaController.getRetiradaColecaoByRetirada(retirada)}"

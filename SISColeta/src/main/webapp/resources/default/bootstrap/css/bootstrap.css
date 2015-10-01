@@ -6580,4 +6580,8 @@ button.close {
 	float: left;
 }
 
+.ui-state-error{
+	color: black !important;
+}
+
 

@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.ufs.coleta.SISColeta.entities.Colecao;
+import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Especie;
 
 /**
@@ -74,5 +75,15 @@ public class ColecaoDAO extends GenericDAO<Colecao, Integer> {
     	Query query = em.createNativeQuery("SELECT COUNT(*) FROM tb_colecao as c WHERE c.id_determinador = :id");
     	query.setParameter("id", id);
     	return query.getResultList().get(0);
+    }
+    
+    public Coleta getColetabyColecao(Integer id){
+    	TypedQuery<Coleta> query = em.createNamedQuery("Colecao.getColeta", Coleta.class);
+    	query.setParameter("id", id);
+    	try{
+    		return query.getSingleResult();
+    	}catch(NoResultException e){
+    		return null;
+    	}	
     }
 }

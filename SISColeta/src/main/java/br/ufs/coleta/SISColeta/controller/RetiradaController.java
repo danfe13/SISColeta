@@ -1,18 +1,43 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Colecao;
+import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Especie;
+import br.ufs.coleta.SISColeta.entities.Invoice;
+import br.ufs.coleta.SISColeta.entities.MetodoColeta;
 import br.ufs.coleta.SISColeta.entities.Retirada;
 import br.ufs.coleta.SISColeta.entities.RetiradaColecao;
+import br.ufs.coleta.SISColeta.entities.Rio;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.ColecaoDAO;
+import br.ufs.coleta.SISColeta.model.ColetaDAO;
 import br.ufs.coleta.SISColeta.model.RetiradaDAO;
+import br.ufs.coleta.SISColeta.model.RioDAO;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name = "retiradaController")
 @SessionScoped
@@ -26,6 +51,10 @@ public class RetiradaController extends GenericController {
     private RetiradaDAO retiradaDAO;
 	@EJB
 	private ColecaoDAO colecaoDAO;
+	@EJB
+    private ColetaDAO coletaDAO;
+	@EJB
+	private RioDAO rioDAO;
     private List<Retirada> items = null;
     private Retirada retirada;
     private RetiradaColecao retiradaColecao;
@@ -33,6 +62,7 @@ public class RetiradaController extends GenericController {
     private String obs;
     private Integer qntd;
     private Usuario usuario;
+    private JasperPrint jasperPrint;
 
     public RetiradaController() {
     }
@@ -141,5 +171,116 @@ public class RetiradaController extends GenericController {
 	public void insertUsuario(Usuario usuario){
 		this.usuario = usuario;
 	}
+	
+	public void init(Retirada retirada) throws JRException {  
+    	
+    	List<Invoice> li =new ArrayList<Invoice>();
+    	
+    	List<RetiradaColecao> rc = this.getRetiradaColecaoByRetirada(retirada);
+    	
+    	for(RetiradaColecao retiradacolecao: rc){
+    		Invoice i = new Invoice();
+    		i.setCep(retirada.getTbDestinatario().getTbInstituicao().getCep());
+    		i.setCentro(retirada.getTbDestinatario().getCentro());
+    		i.setDepartamento(retirada.getTbDestinatario().getDepartamento()); 
+    		i.setDestinatario(retirada.getTbDestinatario().getNome());
+    		i.setUniversidade(retirada.getTbDestinatario().getTbInstituicao().getNome());
+    		
+    		String data = new SimpleDateFormat("yyyy-MM-dd").format(retirada.getDataRetirada());
+    		i.setDataEmprestimo(data);
+    		
+    		i.setCodEmprestimo(retirada.getId().toString());
+    		i.setEstado(retirada.getTbDestinatario().getTbInstituicao().getTbMunicipio().getNome()+"-"+retirada.getTbDestinatario().getTbInstituicao().getTbMunicipio().getTbEstado().getUf());
+    		
+    		i.setRemetente(retirada.getTbUsuario().getTbPessoa().getNome());
+    		i.setNomeResponsavel(retirada.getTbUsuario().getTbPessoa().getNome());
+    		i.setPacote(retirada.getNumeroPacote().toString());
+    		i.setMetodo(retirada.getModoEnvio());
+    		if(retirada.getTipoRetirada() == 1)
+    			i.setTipoEnvio("Emprestimo");
+    		else
+    			i.setTipoEnvio("Doação");
+    		
+    		i.setEspecie(retiradacolecao.getTbColecao().getTbEspecie().getNomeCientifico());
+     		i.setCodColeta(retiradacolecao.getTbColecao().getCodCampo());
+    		i.setQuantidade("("+retiradacolecao.getQuantdExemplares().toString()+" exemplares)");
+
+    		Coleta coleta = colecaoDAO.getColetabyColecao(retiradacolecao.getTbColecao().getId());
+    		coleta.setTbColetors(coletaDAO.getByColetor(coleta.getId()));
+    		coleta.setTbAquatico(coletaDAO.getByAquatico(coleta.getId()));
+    		coleta.setTbMetodoColetas(coletaDAO.getByMetodo(retiradacolecao.getTbColecao().getId()));
+    		
+    		String coletores = "";
+    		int indice = 0;
+    		
+    		for(Usuario coletor: coleta.getTbColetors()){
+    			if(indice+1 == coleta.getTbColetors().size() && indice !=0){
+    				coletores += " & ";
+    			}
+    			else if(!coletores.isEmpty() && indice != coleta.getTbColetors().size()){
+    				coletores += "; ";
+    			}
+    			coletores += coletor.getTbPessoa().getAbreviacao();
+    			indice++;
+    		}
+    		
+    		String localidade = coleta.getTbMunicipio().getNome()+", "+coleta.getTbMunicipio().getTbEstado().getNome();
+    		
+    		if(coleta.getTbAquatico().getTbTipoAquaticoLocal().getId() == 1){
+    			Rio rio = rioDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
+    			localidade = rio.getDescricao()+". "+rio.getTbBacia().getDescricao()+". "+localidade;
+    		}
+    		
+    		String datacoleta = new SimpleDateFormat("yyyy-MM-dd").format(coleta.getDataInicio());
+    		
+    		String coordenada1 = coleta.getLatitudeGrau()+"º"+coleta.getLatitudeMinuto()+"'"+coleta.getLatitudeSegundo()+"\""+coleta.getDirecaoLatitude();
+    		String coordenada2 = coleta.getLongitudeGrau()+"º"+coleta.getLongitudeMinuto()+"'"+coleta.getLongitudeSegundo()+"\""+coleta.getDirecaoLongitude();
+    	
+    		String metodo = "";
+    		indice = 0;
+    		
+    		for(MetodoColeta metodocoleta: coleta.getTbMetodoColetas()){
+    			if(indice+1 == coleta.getTbMetodoColetas().size() && indice !=0){
+    				metodo += " & ";
+    			}
+    			else if(!coletores.isEmpty() && indice != coleta.getTbColetors().size()){
+    				metodo += ", ";
+    			}
+    			metodo += metodocoleta.getDescricao();
+    			indice++;
+    		}
+    		if(metodo != ""){
+    			metodo = "Coletados com "+metodo+". ";
+    		}
+    		
+    		String descricao = localidade+". "+datacoleta+". "+metodo+"Coletores: "+coletores+". "+coordenada1+" "+coordenada2;
+    		
+    		i.setDescricao(descricao);
+    		
+    		li.add(i);
+    	}
+    	
+        JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(li);  
+        //String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/import.sql");     
+        jasperPrint=JasperFillManager.fillReport("C:\\Users\\Danilo\\Desktop\\reports\\invoice3.jasper", new HashMap(),beanCollectionDataSource);  
+    }  
+    
+    public StreamedContent PDF(Retirada retirada) throws JRException, IOException{  
+        init(retirada);  
+        
+        InputStream relatorio = null;   
+        
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");  
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
+        
+        ByteArrayOutputStream Teste = new ByteArrayOutputStream();
+        
+        relatorio = new ByteArrayInputStream(Teste.toByteArray());
+        
+        return new DefaultStreamedContent(relatorio);
+        
+    }
 	
 }
