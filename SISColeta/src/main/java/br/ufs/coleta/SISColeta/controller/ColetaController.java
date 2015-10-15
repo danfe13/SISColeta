@@ -147,8 +147,8 @@ public class ColetaController extends GenericController {
     	}
     	
         JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(etiqueta);  
-        //String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/import.sql");     
-        jasperPrint=JasperFillManager.fillReport("C:\\Users\\Danilo\\Desktop\\reports\\etiqueta.jasper", new HashMap(),beanCollectionDataSource);  
+        String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/relatorio/etiqueta/etiqueta.jasper");     
+        jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
     }  
     
     public StreamedContent PDF(Coleta coleta) throws JRException, IOException{  

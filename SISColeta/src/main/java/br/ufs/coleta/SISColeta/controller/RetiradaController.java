@@ -261,8 +261,8 @@ public class RetiradaController extends GenericController {
     	}
     	
         JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(li);  
-        //String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/import.sql");     
-        jasperPrint=JasperFillManager.fillReport("C:\\Users\\Danilo\\Desktop\\reports\\invoice3.jasper", new HashMap(),beanCollectionDataSource);  
+        String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/relatorio/invoice/invoice.jasper");     
+        jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
     }  
     
     public StreamedContent PDF(Retirada retirada) throws JRException, IOException{  

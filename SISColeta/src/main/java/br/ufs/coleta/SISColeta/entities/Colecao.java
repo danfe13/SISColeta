@@ -133,7 +133,6 @@ public class Colecao implements GenericEntity {
 
 	@Column(name = "quantidade")
 	@NotNull(message = "Campo não pode ser vázio!")
-	@Pattern(regexp = "[\\s]*[0-9]*[1-9]+",message="Campo deve ser um número positivo")
 	public Integer getQuantidade() {
 		return this.quantidade;
 	}
