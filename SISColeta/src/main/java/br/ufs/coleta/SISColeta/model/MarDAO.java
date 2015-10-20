@@ -16,7 +16,7 @@ import br.ufs.coleta.SISColeta.entities.Mar;
  * @author danilo
  */
 @Stateless
-public class MarDAO extends GenericDAO<Mar, Long> {
+public class MarDAO extends GenericDAO<Mar, Integer> {
 	@PersistenceContext
     private EntityManager em;
 

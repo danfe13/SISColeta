@@ -14,6 +14,9 @@
             <li class="active">Coleta</li>
 	</ui:define>
 	<ui:define name="content">
+	<div class="col-md-12">
+              <div class="box">
+                <div class="box-header with-border">
 	<h:form id="ColetaListForm">
 		<p:dataTable id="datalist" value="#{coletaController.items}"
 					widgetVar="coletaTable"
@@ -115,6 +118,9 @@
        	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
     		</p:confirmDialog>
 	</h:form>
+	</div>
+	</div>
+	</div>
 	<ui:include src="especie.xhtml"/>
 	</ui:define>
 </ui:composition>

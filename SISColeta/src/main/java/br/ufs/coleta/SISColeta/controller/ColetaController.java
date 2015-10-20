@@ -4,6 +4,7 @@ import br.ufs.coleta.SISColeta.entities.Colecao;
 import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Etiqueta;
 import br.ufs.coleta.SISColeta.entities.Invoice;
+import br.ufs.coleta.SISColeta.entities.Mar;
 import br.ufs.coleta.SISColeta.entities.Rio;
 import br.ufs.coleta.SISColeta.entities.Substrato;
 import br.ufs.coleta.SISColeta.entities.Substratos;
@@ -135,6 +136,10 @@ public class ColetaController extends GenericController {
     		if(coleta.getTbAquatico().getTbTipoAquaticoLocal().getId() == 1){
     			Rio rio = rioDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
     			localidade = rio.getDescricao()+", "+rio.getTbBacia().getDescricao()+", "+localidade;
+    		}
+    		else{
+    			Mar mar = marDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
+    			localidade = mar.getDescricao()+", "+mar.getTbOceano().getDescricao()+", "+localidade;
     		}
 
     		e.setLocalidade(localidade);

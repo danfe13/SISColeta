@@ -1589,8 +1589,8 @@ pre code {
   margin-left: auto;
 }
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -6584,4 +6584,91 @@ button.close {
 	color: black !important;
 }
 
+.ui-widget-header{
+	background: transparent !important; 
+	border: none !important;
+}
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+	padding: 4px 4px !important;
+}
+
+.ui-widget-content .ui-icon{
+	margin:0px !important;
+}
+
+.ui-dialog.ui-widget-content {
+    border-radius: 3px !important;
+    background: #ffffff !important;
+    border-top: 3px solid #d2d6de !important;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05) !important;
+    border-top-color: #3c8dbc !important;
+}
+
+.ui-dialog-title{
+	display: inline-block !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+	font-family: 'Source Sans Pro',sans-serif !important;
+}
+
+.ui-button{
+	margin-top: 5px;
+	margin-left: 5px !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon{
+	margin-top: 5px !important;
+	margin-left: -3px !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+	border-radius: 0px !important;
+	webkit-border-radius: 0px !important;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+	display: block !important;
+    width: 100% !important;
+    height: 30px !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    color: #555 !important;
+    background-color: #fff !important;
+    background-image: none !important;
+    border-radius: 0 !important;
+}
+
+.ui-chkbox .ui-chkbox-box{
+	width: 18px !important;
+    height: 18px !important;
+    border: 0px;
+    background-color: white;
+}
+
+.ui-chkbox-icon{
+	display: inline-block !important;
+    *display: inline !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+    background: url("/SISColeta/javax.faces.resource/bootstrap/imagens/blue.png.jsf?ln=default") no-repeat !important;
+	border: none !important;
+    cursor: pointer !important;
+}
+
+.ui-state-default .ui-chkbox-icon{
+   background-position: 0 0 !important;
+}
+
+.ui-state-hover .ui-chkbox-icon {
+	background-position: -20px 0 !important;
+}
+
+.ui-state-active .ui-chkbox-icon{
+	background-position: -40px 0 !important;
+}
 

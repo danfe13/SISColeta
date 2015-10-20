@@ -7,8 +7,17 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition 
     template="/template/default.xhtml">
-    <ui:define name="title">Cadastrar Coleta</ui:define>
+    <ui:define name="cabecalho">Cadastrar Coleta</ui:define>
+    <ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Coleta</a></li>
+            <li class="active">Cadastro</li>
+	</ui:define>
     <ui:define name="content">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="box">
+    <div class="box-header with-border">
     <f:metadata>    
     	<f:event type="preRenderView" listener="#{coletaController.prepareCreate()}"/>    
 	</f:metadata> 
@@ -88,10 +97,10 @@
                      </p:panelGrid>
                       <p:panelGrid columns="2" > 
                       <p:outputLabel value="Coletores:" />
-                     	<h:selectManyCheckbox id="coletor" value="#{coletaController.coleta.tbColetors}" converter="generic">
+                     	<p:selectManyCheckbox id="coletor" value="#{coletaController.coleta.tbColetors}" converter="generic">
                 			<f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" var="usuario"
-                				itemLabel="#{usuario.tbPessoa.nome}" itemValue="#{usuario}" />
-            			</h:selectManyCheckbox>
+                				itemLabel="#{usuario.tbPessoa.nome}" itemValue="#{usuario}"  />
+            			</p:selectManyCheckbox>
                     </p:panelGrid>
                 </h:panelGroup>
                 <h:panelGroup id="coletadisplay4">
@@ -176,10 +185,10 @@
                     </p:panelGrid>  
                     <p:panelGrid columns="2" >
                     	<p:outputLabel value="Carac. Rio:" for="caracrio" />
-                    	<h:selectManyCheckbox id="caracrio" value="#{coletaController.coleta.tbCaracRios}" converter="generic">
+                    	<p:selectManyCheckbox id="caracrio" value="#{coletaController.coleta.tbCaracRios}" converter="generic">
                 			<f:selectItems value="#{caracrioController.itemsAvailableSelectMany}" var="carac"
                 				itemLabel="#{carac.descricao}" itemValue="#{carac}" />
-            			</h:selectManyCheckbox>
+            			</p:selectManyCheckbox>
                     </p:panelGrid> 
                     <p:panelGrid columns="6" >
                     	<p:outputLabel value="Condição Climática:" for="clima" />
@@ -212,10 +221,10 @@
                     </p:panelGrid>
                     <p:panelGrid columns="2" >
                     	<p:outputLabel value="Metodos de Coleta:" />
-                    	<h:selectManyCheckbox value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
+                    	<p:selectManyCheckbox value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
                 			<f:selectItems value="#{metodoColetaController.itemsAvailableSelectMany}" var="metodo"
                 				itemLabel="#{metodo.descricao}" itemValue="#{metodo}" />
-            			</h:selectManyCheckbox>
+            			</p:selectManyCheckbox>
                     </p:panelGrid>
                     <p:panelGrid columns="2" >
                     	<p:outputLabel value="Observação:" for="observacao" />
@@ -225,6 +234,10 @@
                     <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" />
                 </h:panelGroup>
             </h:form>
+            </div>
+            </div>
+            </div>
+            </div>
 	</ui:define>
     </ui:composition>
 </html>

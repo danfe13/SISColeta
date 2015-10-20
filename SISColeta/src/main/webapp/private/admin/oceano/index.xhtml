@@ -14,6 +14,9 @@
             <li class="active">Oceano</li>
 	</ui:define>
 	<ui:define name="content">
+	<div class="col-md-12">
+              <div class="box">
+                <div class="box-header with-border">
 	<h:form id="OceanoListForm">
 		<p:dataTable id="datalist" value="#{oceanoController.items}"
 					widgetVar="oceanoTable"
@@ -54,6 +57,9 @@
        	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
     		</p:confirmDialog>
 	</h:form>
+	</div>
+	</div>
+	</div>
 	<ui:include src="cadastrar.xhtml"/>
 	<ui:include src="editar.xhtml"/>
 	</ui:define>
