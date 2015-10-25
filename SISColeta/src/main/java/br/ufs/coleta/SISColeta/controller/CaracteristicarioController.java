@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 import br.ufs.coleta.SISColeta.entities.CaracRio;
 import br.ufs.coleta.SISColeta.model.CaracRioDAO;
 
@@ -51,6 +53,15 @@ public class CaracteristicarioController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(caracrio);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('CaracteristicarioCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(caracrio);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('CaracteristicarioEditDialog').hide();");
     	items = null;
     }
     

@@ -12,6 +12,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.PrimeFacesContext;
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "baciaController")
 @SessionScoped
 public class BaciaController extends GenericController {
@@ -57,6 +60,15 @@ public class BaciaController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(bacia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('BaciaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(bacia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('BaciaEditDialog').hide();");
     	items = null;
     }
     

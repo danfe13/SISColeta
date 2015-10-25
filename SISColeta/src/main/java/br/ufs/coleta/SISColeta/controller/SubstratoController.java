@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "substratoController")
 @SessionScoped
 public class SubstratoController extends GenericController {
@@ -51,6 +53,15 @@ public class SubstratoController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(substrato);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('SubstratoCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(substrato);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('SubstratoEditDialog').hide();");
     	items = null;
     }
     

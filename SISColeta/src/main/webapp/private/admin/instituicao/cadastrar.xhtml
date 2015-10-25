@@ -10,35 +10,88 @@
 
         <p:dialog id="InstituicaoCreateDlg" widgetVar="InstituicaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="InstituicaoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{instituicaoController.instituicao != null}">
-                        <p:outputLabel value="Nome" for="nome" />
-                        <p:inputText id="nome" value="#{instituicaoController.instituicao.nome}" title="Nome" />
-                        <p:outputLabel value="Estado" for="estado" />
-                        <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic">
-                        	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
-                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
-                                           var="estadoItem"
-                                           itemValue="#{estadoItem}"
-                                           itemLabel="#{estadoItem.nome}"/>
-                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Cidade" for="cidade" />
-                        <p:selectOneMenu id="cidade" value="#{instituicaoController.instituicao.tbMunicipio}" converter="generic">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
-                            <f:selectItems value="#{estadoController.municipios}"
-                                           var="municipioItem"
-                                           itemValue="#{municipioItem}"
-                                           itemLabel="#{municipioItem.nome}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Endereço" for="endereco" />
-                        <p:inputText id="endereco" value="#{instituicaoController.instituicao.endereco}" title="Endereco" />
-                        <p:outputLabel value="Bairro" for="bairro" />
-                        <p:inputText id="bairro" value="#{instituicaoController.instituicao.bairro}" title="Bairro" />
-                        <p:outputLabel value="CEP" for="cep" />
-                        <p:inputText id="cep" value="#{instituicaoController.instituicao.cep}" title="CEP" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{instituicaoController.cadastrar()}" value="Salvar" update="display,:InstituicaoListForm:datalist" oncomplete="PF('InstituicaoCreateDialog').hide();"/>
+                <h:panelGroup id="display" rendered="#{instituicaoController.instituicao != null}" layout="block">
+                    <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Nome" for="nome" />
+	                        <p:inputText id="nome" value="#{instituicaoController.instituicao.nome}" title="Nome" />
+	                    </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="nome" />
+                        </div>
+                    </div>
+	                <div class="row">
+                		<div class="col-md-12">    
+	                        <p:outputLabel value="Estado" for="estado" />
+	                        <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic" style="width:100%">
+	                        	<f:selectItem itemValue="null" itemLabel="Selecione Estado" />
+	                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+	                                           var="estadoItem"
+	                                           itemValue="#{estadoItem}"
+	                                           itemLabel="#{estadoItem.nome}"/>
+	                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
+	                        </p:selectOneMenu>
+	                    </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="estado" />
+                        </div>
+                    </div> 
+	                <div class="row">
+                		<div class="col-md-12">   
+	                        <p:outputLabel value="Cidade" for="cidade" />
+	                        <p:selectOneMenu id="cidade" value="#{instituicaoController.instituicao.tbMunicipio}" converter="generic" style="width:100%">
+	                      		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
+	                            <f:selectItems value="#{estadoController.municipios}"
+	                                           var="municipioItem"
+	                                           itemValue="#{municipioItem}"
+	                                           itemLabel="#{municipioItem.nome}"/>
+	                        </p:selectOneMenu>
+	                   </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="cidade" />
+                        </div>
+                    </div>
+	                <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:outputLabel value="Endereço" for="endereco" />
+	                        <p:inputText id="endereco" value="#{instituicaoController.instituicao.endereco}" title="Endereco" />
+	                    </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="endereco" />
+                        </div>
+                    </div>
+	                <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:outputLabel value="Bairro" for="bairro" />
+	                        <p:inputText id="bairro" value="#{instituicaoController.instituicao.bairro}" title="Bairro" />
+	                   </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="bairro" />
+                        </div>
+                    </div>
+	                <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="CEP" for="cep" />
+	                        <p:inputText id="cep" value="#{instituicaoController.instituicao.cep}" title="CEP" />
+	                   </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="cep" />
+                        </div>
+                    </div>
+	                	
+                    <p:commandButton actionListener="#{instituicaoController.cadastrar()}" value="Salvar" update="display,:InstituicaoListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="InstituicaoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

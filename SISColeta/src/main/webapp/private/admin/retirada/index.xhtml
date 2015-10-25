@@ -60,16 +60,16 @@
 					<f:facet name="filter">
 		                <p:selectOneButton onchange="PF('retiradaTable').filter()">
 		                    <f:converter converterId="javax.faces.Integer" />
-		                    <f:selectItem itemLabel="Todos" itemValue="" />
-		                    <f:selectItem itemLabel="Emprestimo" itemValue="1" />
-		                    <f:selectItem itemLabel="Doação" itemValue="2" />
+		                    <f:selectItem itemLabel="T" itemValue="" />
+		                    <f:selectItem itemLabel="E" itemValue="1" />
+		                    <f:selectItem itemLabel="D" itemValue="2" />
 		                </p:selectOneButton>
 		            </f:facet>
 		            <f:facet name="header"><h:outputText value="Tipo Retirada" /></f:facet>
 					<h:outputText value="#{retirada.tipoRetirada == 1 ? 'Emprestimo':'Doação'}" />
 				</p:column>
 				<p:column style="width:62px">
-					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="ui-icon ui-icon-pencil">
+					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="fa fa-plus-square">
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>
 					<p:commandLink update=":RetiradaEditForm" oncomplete="PF('RetiradaEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
@@ -79,7 +79,7 @@
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>
-					<p:commandLink title="Invoice" styleClass="ui-icon ui-icon-trash" ajax="false">
+					<p:commandLink title="Invoice" styleClass="fa fa-file-text" ajax="false">
 						<p:fileDownload value="#{retiradaController.PDF(retirada)}" />
 					</p:commandLink>
        			</p:column>

@@ -10,14 +10,19 @@
 
         <p:dialog id="CaracteristicarioEditDlg" widgetVar="CaracteristicarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="CaracteristicarioEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{caracrioController.caracrio != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{caracrioController.caracrio.descricao}" title="Descrição" />
-                        <p:message for="descricao" />
-            			<h:outputText value="#{caracrioController.caracrio.descricao}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{caracrioController.cadastrar()}" value="Salvar" update="display,:CaracteristicarioListForm:datalist" oncomplete="PF('CaracteristicarioEditDialog').hide();"/>
+                <h:panelGroup layout="block" rendered="#{caracrioController.caracrio != null}" id="display">
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{caracrioController.caracrio.descricao}" title="Descrição" />
+                        </div>
+                   </div>
+                   <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="descricao" />
+                        </div>
+                   </div>
+                    <p:commandButton actionListener="#{caracrioController.update()}" value="Salvar" update="display,:CaracteristicarioListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="CaracteristicarioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

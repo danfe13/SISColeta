@@ -21,7 +21,7 @@ $(function () {
 		      
 		      async: false,
 		       
-		      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?chartproducao=true",
+		      url: "/SISColeta/IndexJsonDataServlet?chartproducao=true",
 		       
 		      dataType:"json",
 		      success: function(coletaJsonData) {
@@ -132,7 +132,7 @@ $(function () {
     
     async: false,
      
-    url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?maiscoletados=true",
+    url: "/SISColeta/IndexJsonDataServlet?maiscoletados=true",
      
     dataType:"json",
     success: function(especieJsonData) {
@@ -232,7 +232,7 @@ $(function () {
   
   $.ajax({
       async: false,
-      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?producao=true",
+      url: "/SISColeta/IndexJsonDataServlet?producao=true",
       dataType:"json",
       success: function(JsonData) {
     	  document.getElementById("boxnumbercoletados").innerHTML = JsonData;  
@@ -241,7 +241,7 @@ $(function () {
   
   $.ajax({
       async: false,
-      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?emprestimos=true",
+      url: "/SISColeta/IndexJsonDataServlet?emprestimos=true",
       dataType:"json",
       success: function(JsonData) {
     	  document.getElementById("boxnumberemprestimo").innerHTML = JsonData;  
@@ -250,7 +250,7 @@ $(function () {
   
   $.ajax({
       async: false,
-      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?especie=true",
+      url: "/SISColeta/IndexJsonDataServlet?especie=true",
       dataType:"json",
       success: function(JsonData) {
     	  document.getElementById("boxnumberespecie").innerHTML = JsonData;  
@@ -259,7 +259,7 @@ $(function () {
   
   $.ajax({
       async: false,
-      url: "http://localhost:8080/SISColeta/IndexJsonDataServlet?pontos=true",
+      url: "/SISColeta/IndexJsonDataServlet?pontos=true",
       dataType:"json",
       success: function(JsonData) {
     	  document.getElementById("boxnumberponto").innerHTML = JsonData;  

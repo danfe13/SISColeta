@@ -10,12 +10,19 @@
 
         <p:dialog id="SubstratoCreateDlg" widgetVar="SubstratoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="SubstratoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{substratoController.substrato != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{substratoController.substrato.descricao}" title="Descrição" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{substratoController.cadastrar()}" value="Salvar" update="display,:SubstratoListForm:datalist" oncomplete="PF('SubstratoCreateDialog').hide();"/>
+                <h:panelGroup layout="block" id="display" rendered="#{substratoController.substrato != null}">
+                	<div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{substratoController.substrato.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                			<p:message for="descricao" />
+                		</div>
+                	</div>
+                    <p:commandButton actionListener="#{substratoController.cadastrar()}" value="Salvar" update="display,:SubstratoListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="SubstratoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

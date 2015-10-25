@@ -6,14 +6,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Especie</ui:define>
-	
+	<ui:define name="title">Espécie</ui:define>
+	<ui:define name="cabecalho">Espécie Imagem</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Espécie</a></li>
+            <li class="active">Imagens</li>
+	</ui:define>
 	<f:metadata>
 		<f:viewParam name="id" value="#{especieimagemController.idEspecie}" />
 		<f:event type="preRenderView" listener="#{especieimagemController.checkList()}" />
 	</f:metadata>
 	
 	<ui:define name="content">
+	<div class="col-md-12">
+              <div class="box">
+                <div class="box-header with-border">
 	<h:form id="EspecieImagemListForm">
 		<p:dataGrid var="especieimagem" value="#{especieimagemController.items}" columns="4" layout="grid"
         rows="12" paginator="true" id="especiesimagens"
@@ -22,7 +30,7 @@
  
         <f:facet name="header">
             <p:outputPanel>
-				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{especieimagemController.prepareCreate()}" update=":EspecieImagemForm" oncomplete="PF('EspecieImageDialog').show()"/>
+				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{especieimagemController.prepareCreate()}" update=":EspecieImagemForm" oncomplete="PF('EspecieImageDialog').show()"/>
 	         </p:outputPanel>
         </f:facet>
         <p:panel header="#{especieimagem.id}" style="text-align:center">
@@ -36,6 +44,9 @@
     </p:dataGrid>
     
 	</h:form>
+	</div>
+	</div>
+	</div>
 	<ui:include src="uploadimagem.xhtml"/>
 	</ui:define>
 </ui:composition>

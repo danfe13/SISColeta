@@ -10,12 +10,19 @@
 
         <p:dialog id="SubstratoEditDlg" widgetVar="SubstratoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="SubstratoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{substratoController.substrato != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{substratoController.substrato.descricao}" title="Descrição" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{substratoController.cadastrar()}" value="Salvar" update="display,:SubstratoListForm:datalist" oncomplete="PF('SubstratoEditDialog').hide();"/>
+                <h:panelGroup id="display" rendered="#{substratoController.substrato != null}" layout="block">
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{substratoController.substrato.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                			<p:message for="descricao" />
+                		</div>
+                	</div>
+                    <p:commandButton actionListener="#{substratoController.update()}" value="Salvar" update="display,:SubstratoListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="SubstratoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

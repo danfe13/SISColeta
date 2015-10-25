@@ -10,14 +10,19 @@
 
         <p:dialog id="BaciaEditDlg" widgetVar="BaciaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="BaciaEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{baciaController.bacia != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{baciaController.bacia.descricao}" title="Descrição" />
-                        <p:message for="descricao" />
-            			<h:outputText value="#{baciaController.bacia.descricao}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{baciaController.cadastrar()}" value="Salvar" update="display,:BaciaListForm:datalist" oncomplete="PF('BaciaEditDialog').hide();"/>
+                <h:panelGroup layout="block" rendered="#{baciaController.bacia != null}" id="display">
+                    <div class="row">
+                		<div class="col-md-12">        
+	                        <p:outputLabel value="Descrição" for="descricao" />
+	                        <p:inputText id="descricao" value="#{baciaController.bacia.descricao}" title="Descrição" />
+	                 	</div>
+            		</div>
+            		<div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="descricao" />
+            			</div>
+            		</div>
+                    <p:commandButton actionListener="#{baciaController.update()}" value="Salvar" update="display,:BaciaListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="BaciaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

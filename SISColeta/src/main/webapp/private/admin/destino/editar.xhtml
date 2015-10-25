@@ -10,14 +10,19 @@
 
         <p:dialog id="DestinoEditDlg" widgetVar="DestinoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="DestinoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{destinoController.destino != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{destinoController.destino.descricao}" title="Descrição" />
-                        <p:message for="descricao" />
-            			<h:outputText value="#{destinoController.destino.descricao}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{destinoController.cadastrar()}" value="Salvar" update="display,:DestinoListForm:datalist" oncomplete="PF('DestinoEditDialog').hide();"/>
+               <h:panelGroup layout="block" id="display" rendered="#{destinoController.destino != null}">
+                	<div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Descrição" for="descricao" />
+	                        <p:inputText id="descricao" value="#{destinoController.destino.descricao}" title="Descrição" />
+                      	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="descricao" />
+                        </div>
+                    </div>
+                    <p:commandButton actionListener="#{destinoController.update()}" value="Salvar" update="display,:DestinoListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="DestinoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "unidadeController")
 @SessionScoped
 public class UnidadeController extends GenericController {
@@ -51,6 +53,15 @@ public class UnidadeController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(unidade);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('UnidadeCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(unidade);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('UnidadeEditDialog').hide();");
     	items = null;
     }
     

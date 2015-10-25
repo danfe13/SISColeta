@@ -10,19 +10,35 @@
 
         <p:dialog id="RioCreateDlg" widgetVar="RioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="RioCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{rioController.rio != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{rioController.rio.descricao}" title="Descrição" />
-                        <p:outputLabel value="Bacia" for="bacia" />
-                        <p:selectOneMenu id="bacia" value="#{rioController.rio.tbBacia}" converter="generic">
-                            <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
+                <h:panelGroup layout="block" rendered="#{rioController.rio != null}" id="display">
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{rioController.rio.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="descricao" />
+            			</div>
+            		</div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Bacia" for="bacia" />
+                        	<p:selectOneMenu id="bacia" value="#{rioController.rio.tbBacia}" converter="generic" style="width:100%">
+                            	<f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
                                            var="baciaItem"
                                            itemValue="#{baciaItem}"
                                            itemLabel="#{baciaItem.descricao}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{rioController.cadastrar()}" value="Salvar" update="display,:RioListForm:datalist" oncomplete="PF('RioCreateDialog').hide();"/>
+                        	</p:selectOneMenu>
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="bacia" />
+            			</div>
+            		</div>
+                    <p:commandButton actionListener="#{rioController.cadastrar()}" value="Salvar" update="display,:RioListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="RioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

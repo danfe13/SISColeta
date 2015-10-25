@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "rioController")
 @SessionScoped
 public class RioController extends GenericController {
@@ -51,6 +53,15 @@ public class RioController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(rio);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('RioCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(rio);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('RioEditDialog').hide();");
     	items = null;
     }
     

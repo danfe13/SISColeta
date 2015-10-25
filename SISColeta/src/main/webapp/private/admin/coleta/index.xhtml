@@ -34,7 +34,7 @@
         		<p:column style="width:30px; padding: 4px 5px;">
             		<p:rowToggler />
         		</p:column>
-				<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:150px">
+				<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:100px">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{coleta.id}" />
 				</p:column>	
@@ -50,26 +50,26 @@
 					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
 					<h:outputText value="#{coleta.tbMunicipio.tbEstado.nome}" />
 				</p:column>
-				<p:column sortBy="#{coleta.dataInicio}" filterBy="#{coleta.dataInicio}" filterMatchMode="contains">
+				<p:column sortBy="#{coleta.dataInicio}" filterBy="#{coleta.dataInicio}" filterMatchMode="contains" style="width:160px">
 					<f:facet name="header"><h:outputText value="Data Inicio" /></f:facet>
 					<h:outputText value="#{coleta.dataInicio}" />
 				</p:column>
-				<p:column sortBy="#{coleta.dataFim}" filterBy="#{coleta.dataFim}" filterMatchMode="contains">
+				<p:column sortBy="#{coleta.dataFim}" filterBy="#{coleta.dataFim}" filterMatchMode="contains" style="width:160px">
 					<f:facet name="header"><h:outputText value="Data Fim" /></f:facet>
 					<h:outputText value="#{coleta.dataFim}" />
 				</p:column>
-				<p:column style="width:62px">
+				<p:column style="width:80px">
 					<h:link outcome="editar" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:param name="id" value="#{coleta.id}" />
 					</h:link>
-					<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="ui-icon ui-icon-pencil">
+					<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="fa fa-plus-square">
 						<f:setPropertyActionListener value="#{coleta}" target="#{colecaoController.coleta}" />
 					</p:commandLink>
 					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{coletaController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
 					</p:commandLink>
-					<p:commandLink title="Etiqueta" styleClass="ui-icon ui-icon-trash" ajax="false">
+					<p:commandLink title="Etiqueta" styleClass="fa fa-ticket" ajax="false">
 						<p:fileDownload value="#{coletaController.PDF(coleta)}" />
 					</p:commandLink>
        			</p:column>

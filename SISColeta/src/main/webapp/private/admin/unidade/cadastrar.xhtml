@@ -10,12 +10,19 @@
 
         <p:dialog id="UnidadeCreateDlg" widgetVar="UnidadeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="UnidadeCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{unidadeController.unidade != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{unidadeController.unidade.descricao}" title="Descrição" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{unidadeController.cadastrar()}" value="Salvar" update="display,:UnidadeListForm:datalist" oncomplete="PF('UnidadeCreateDialog').hide();"/>
+                <h:panelGroup layout="block" id="display" rendered="#{unidadeController.unidade != null}">
+                  	<div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{unidadeController.unidade.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="descricao" />
+                        </div>
+                   	</div>
+                    <p:commandButton actionListener="#{unidadeController.cadastrar()}" value="Salvar" update="display,:UnidadeListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="UnidadeCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

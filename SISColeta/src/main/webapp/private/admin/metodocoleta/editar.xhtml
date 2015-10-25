@@ -10,12 +10,19 @@
 
         <p:dialog id="MetodoColetaEditDlg" widgetVar="MetodoColetaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="MetodoColetaEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{metodoColetaController.metodoColeta != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{metodoColetaController.metodoColeta.descricao}" title="Descrição" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{metodoColetaController.cadastrar()}" value="Salvar" update="display,:MetodoColetaListForm:datalist" oncomplete="PF('MetodoColetaEditDialog').hide();"/>
+                <h:panelGroup layout="block" id="display" rendered="#{metodoColetaController.metodoColeta != null}">
+                	<div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{metodoColetaController.metodoColeta.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="descricao" />
+                        </div>
+                   </div>
+                    <p:commandButton actionListener="#{metodoColetaController.update()}" value="Salvar" update="display,:MetodoColetaListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="MetodoColetaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

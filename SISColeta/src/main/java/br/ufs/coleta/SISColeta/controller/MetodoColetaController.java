@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "metodoColetaController")
 @SessionScoped
 public class MetodoColetaController extends GenericController {
@@ -51,6 +53,15 @@ public class MetodoColetaController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(metodoColeta);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('MetodoColetaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(metodoColeta);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('MetodoColetaEditDialog').hide();");
     	items = null;
     }
     

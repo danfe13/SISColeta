@@ -6603,6 +6603,8 @@ button.close {
     border-top: 3px solid #d2d6de !important;
     box-shadow: 0 1px 1px rgba(0,0,0,0.05) !important;
     border-top-color: #3c8dbc !important;
+    width: 500px !important;
+    min-height: 200px !important;
 }
 
 .ui-dialog-title{
@@ -6640,11 +6642,25 @@ button.close {
     border-radius: 0 !important;
 }
 
+.ui-fileupload-choose .ui-button-icon-left{
+	top:20% !important;
+}
+
+.ui-icon-arrowreturnthick-1-n{
+	top:20% !important;
+}
+
+.ui-icon-cancel{
+	top:20% !important;
+}
+
 .ui-chkbox .ui-chkbox-box{
 	width: 18px !important;
     height: 18px !important;
     border: 0px;
     background-color: white;
+    	webkit-box-shadow: none !important;
+	box-shadow:none !important;
 }
 
 .ui-chkbox-icon{
@@ -6670,5 +6686,27 @@ button.close {
 
 .ui-state-active .ui-chkbox-icon{
 	background-position: -40px 0 !important;
+}
+
+.ui-selectmanycheckbox label{
+	margin-left: 5px !important;
+	margin-right:  10px !important;
+}
+
+.fa:HOVER{
+	color: #333;
+}
+
+fieldset{
+	margin-top: 15px !important;
+}
+
+.ui-state-error{
+	background: none !important;
+	color: #E23232 !important;
+}
+
+.ui-inputfield .ui-inputtext .ui-state-error{
+	border-color: 1px solid #E23232 !important;
 }
 
