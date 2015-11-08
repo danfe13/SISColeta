@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "classeController")
 @SessionScoped
 public class ClasseController extends GenericController {
@@ -56,6 +58,15 @@ public class ClasseController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(classe);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('ClasseCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void editar(){
+    	getDAO().save(classe);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('ClasseEditDialog').hide();");
     	items = null;
     }
     

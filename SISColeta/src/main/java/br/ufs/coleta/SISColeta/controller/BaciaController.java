@@ -30,6 +30,7 @@ public class BaciaController extends GenericController {
     private List<Bacia> items = null;
     private List<Rio> rio = null;
     private Bacia bacia;
+    private Bacia bacia2;
 
     public BaciaController() {
     }
@@ -41,7 +42,16 @@ public class BaciaController extends GenericController {
     public void setBacia(Bacia selected) {
         this.bacia = selected;
     }
+    
+    public Bacia getBacia2() {
+        return bacia2;
+    }
 
+    public void setBacia2(Bacia selected) {
+        this.bacia2 = selected;
+    }
+
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -56,6 +66,18 @@ public class BaciaController extends GenericController {
         bacia = new Bacia();
         initializeEmbeddableKey();
         return bacia;
+    }
+    
+    public Bacia prepareCreate2() {
+        bacia2 = new Bacia();
+        initializeEmbeddableKey();
+        return bacia2;
+    }
+    
+    public void cadastrar2(){
+    	getDAO().save(bacia2);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('ColetaBaciaCadastroDialog').hide();");
     }
     
     public void cadastrar(){

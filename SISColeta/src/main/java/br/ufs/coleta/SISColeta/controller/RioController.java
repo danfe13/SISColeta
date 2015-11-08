@@ -23,6 +23,7 @@ public class RioController extends GenericController {
     private RioDAO rioDAO;
     private List<Rio> items = null;
     private Rio rio;
+    private Rio rio2;
 
     public RioController() {
     }
@@ -35,6 +36,14 @@ public class RioController extends GenericController {
         this.rio = selected;
     }
 
+    public Rio getRio2() {
+        return rio2;
+    }
+
+    public void setRio2(Rio selected) {
+        this.rio2 = selected;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -51,10 +60,23 @@ public class RioController extends GenericController {
         return rio;
     }
     
+    public Rio prepareCreate2() {
+        rio2 = new Rio();
+        initializeEmbeddableKey();
+        return rio2;
+    }
+    
     public void cadastrar(){
     	getDAO().save(rio);
     	RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('RioCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void cadastrar2(){
+    	getDAO().save(rio2);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('ColetaRioCadastroDialog').hide();");
     	items = null;
     }
     

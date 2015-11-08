@@ -23,6 +23,7 @@ public class SubstratoController extends GenericController {
     private SubstratoDAO substratoDAO;
     private List<Substrato> items = null;
     private Substrato substrato;
+    private Substrato substrato2;
 
     public SubstratoController() {
     }
@@ -33,6 +34,14 @@ public class SubstratoController extends GenericController {
 
     public void setSubstrato(Substrato selected) {
         this.substrato = selected;
+    }
+    
+    public Substrato getSubstrato2() {
+        return substrato2;
+    }
+
+    public void setSubstrato2(Substrato selected) {
+        this.substrato2 = selected;
     }
 
     protected void setEmbeddableKeys() {
@@ -53,6 +62,19 @@ public class SubstratoController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(substrato);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('SubstratoCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public Substrato prepareCreate2() {
+        substrato2 = new Substrato();
+        initializeEmbeddableKey();
+        return substrato2;
+    }
+    
+    public void cadastrar2(){
+    	getDAO().save(substrato2);
     	RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('SubstratoCreateDialog').hide();");
     	items = null;

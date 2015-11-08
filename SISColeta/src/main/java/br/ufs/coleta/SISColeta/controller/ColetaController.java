@@ -162,7 +162,7 @@ public class ColetaController extends GenericController {
         InputStream relatorio = null;   
         
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");  
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=etiqueta.pdf");  
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
         
@@ -214,13 +214,24 @@ public class ColetaController extends GenericController {
     }
     
     public void cadastrar(){
-    	coleta.setUsuario(usuario);
-    	Coleta novacoleta = getDAO().save(coleta);
+    	
     	int i = 0;
-    	for (Substrato substrato: substratos){
+    	/*for (Substrato substrato: substratos){
     		getDAO().insertSubstratos(novacoleta.getId().intValue(), substrato.getId().intValue(), abundancia.get(i++).intValue());
         }
     	getDAO().insertLocal(novacoleta.getId().intValue(), local, tipo);
+    	*/
+    	try {
+    		this.adicionarMensagemErro("Informe uma espécie!");
+    		coleta.setUsuario(usuario);
+        	Coleta novacoleta = getDAO().save(coleta);
+        	
+        	//FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			this.adicionarMensagemErro("Informe uma espécie2!");
+		}
+    	
     	items = null;
     }
     

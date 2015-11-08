@@ -10,21 +10,28 @@
 
         <p:dialog id="RetiradaColecaoCreateDlg" widgetVar="RetiradaColecaoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="RetiradaColecaoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{retiradaController.retirada != null}">
-                       
-                       	<p:outputLabel value="Especie:" for="especie" />
-        				<p:autoComplete id="especie" forceSelection="true" maxResults="7" value="#{retiradaController.colecao}" completeMethod="#{retiradaController.autoCompleteEspecies}" 
-        				var="especie" itemLabel="#{especie.tbEspecie.nomeCientifico}" itemValue="#{especie}" converter="generic"/>
-                    
-                    	<p:outputLabel value="Observação:" for="observacao" />
-                    	<p:inputTextarea rows="3" cols="75" id="observacao" value="#{retiradaController.obs}" />
-                    
-                    	<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
-                        <p:inputText id="quantidade" value="#{retiradaController.qntd}" title="Qntd. Exemplares" />
-                       
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{retiradaController.cadastrarRetirar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RetiradaColecaoCreateDialog').hide();"/>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <h:panelGroup id="display" rendered="#{retiradaController.retirada != null}" layout="block">
+                	<div class="row">
+                		<div class="col-md-12">       
+                       		<p:outputLabel value="Especie:" for="especie" />
+        					<p:autoComplete id="especie" style="width:100%"  forceSelection="true" maxResults="7" value="#{retiradaController.colecao}" completeMethod="#{retiradaController.autoCompleteEspecies}" 
+        					var="especie" itemLabel="#{especie.tbEspecie.nomeCientifico}" itemValue="#{especie}" converter="generic"/>
+                    	</div>
+	                </div>
+                    <div class="row">
+                		<div class="col-md-12">
+	                    	<p:outputLabel value="Observação:" for="observacao" />
+	                    	<p:inputTextarea rows="3" cols="75" id="observacao" value="#{retiradaController.obs}" />
+                    	</div>
+	                </div>
+                    <div class="row">
+                		<div class="col-md-12">
+	                    	<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
+	                        <p:inputText id="quantidade" value="#{retiradaController.qntd}" title="Qntd. Exemplares" converterMessage="Qntd. Exemplares deve possuir um valor inteiro!" />
+						</div>
+	                </div>
+                    <p:commandButton actionListener="#{retiradaController.cadastrarRetirar()}" value="Salvar" update="display,:RetiradaListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="RetiradaColecaoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

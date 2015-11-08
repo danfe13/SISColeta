@@ -21,6 +21,11 @@
     <div class="box-header with-border">
     <f:metadata>    
     	<f:event type="preRenderView" listener="#{coletaController.prepareCreate()}"/>    
+    	<f:event type="preRenderView" listener="#{baciaController.prepareCreate2()}"/>   
+    	<f:event type="preRenderView" listener="#{rioController.prepareCreate2()}"/>   
+    	<f:event type="preRenderView" listener="#{metodoColetaController.prepareCreate2()}"/>   
+    	<f:event type="preRenderView" listener="#{caracrioController.prepareCreate2()}"/>   
+    	<f:event type="preRenderView" listener="#{substratoController.prepareCreate2()}"/>   
 	</f:metadata> 
              <h:form id="ColetaCreateForm">
              	<fieldset>
@@ -33,6 +38,7 @@
              		<div class="col-md-2">
              			<p:outputLabel value="Código:" for="cod" />
                         <p:inputText id="cod" value="#{coletaController.coleta.codColeta}" title="COD. Coleta" /></div>
+                        <p:message for="cod" />
              		<div class="col-md-2">
              			<p:outputLabel value="Estado: " for="estado" />
                         <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic" style="width:100%">
@@ -41,18 +47,19 @@
                                            var="estadoItem"
                                            itemValue="#{estadoItem}"
                                            itemLabel="#{estadoItem.nome}"/>
-                            <p:ajax update="cidade" event="change"  listener="#{estadoController.getMunicipios}" />            
+                            <p:ajax update="municipio" event="change"  listener="#{estadoController.getMunicipios}" />            
                         </p:selectOneMenu>
              		</div>
              		<div class="col-md-4">
-             			<p:outputLabel value="Cidade: " for="cidade" />
-                        <p:selectOneMenu id="cidade" value="#{coletaController.coleta.tbMunicipio}" converter="generic" style="width:100%">
+             			<p:outputLabel value="Cidade: " for="municipio" />
+                        <p:selectOneMenu id="municipio" value="#{coletaController.coleta.tbMunicipio}" converter="generic" style="width:100%">
                       		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
                             <f:selectItems value="#{estadoController.municipios}"
                                            var="municipioItem"
                                            itemValue="#{municipioItem}"
                                            itemLabel="#{municipioItem.nome}"/>
                         </p:selectOneMenu>
+                        <p:message for="municipio" />
              		</div>
              	</div>
              	<div class="row">
@@ -70,18 +77,21 @@
              		<div class="col-md-8">
              		 <p:outputPanel autoUpdate="true">
              			<h:panelGroup layout="block" rendered="#{coletaController.tipo == 1}" id="aquatico1">  
-                    		<div class="col-md-4">
-	                        <p:outputLabel value="Bacia:" for="bacia" />
-	                        <p:selectOneMenu id="bacia" value="#{baciaController.bacia}" converter="generic" style="width:100%">
-	                        	<f:selectItem itemValue="null" itemLabel="Selecione Bacia" />
-	                            <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
-	                                           var="baciaItem"
-	                                           itemValue="#{baciaItem}"
-	                                           itemLabel="#{baciaItem.descricao}"/>     
-	                            <p:ajax update="rio" event="change"  listener="#{baciaController.getRio}" />    
-	                        </p:selectOneMenu>
+                    		<div class="col-md-3" style="padding-left: 0px; width: 24%">
+		                        <p:outputLabel value="Bacia:" for="bacia" />
+		                        <p:selectOneMenu id="bacia" value="#{baciaController.bacia}" converter="generic" style="width:100%">
+		                        	<f:selectItem itemValue="null" itemLabel="Selecione Bacia" />
+		                            <f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
+		                                           var="baciaItem"
+		                                           itemValue="#{baciaItem}"
+		                                           itemLabel="#{baciaItem.descricao}"/>     
+		                            <p:ajax update="rio" event="change"  listener="#{baciaController.getRio}" />    
+		                        </p:selectOneMenu>
+		                    </div>
+		                    <div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
+		                    	<p:commandLink update=":ColetaBaciaCadastroForm" actionListener="#{baciaController.prepareCreate2}" oncomplete="PF('ColetaBaciaCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
 	                        </div>
-	                        <div class="col-md-4">
+	                        <div class="col-md-3" style="padding-left: 5px;">
 	                        <p:outputLabel value="Rio:" for="rio" />
 	                        <p:selectOneMenu id="rio" value="#{coletaController.local}" style="width:100%">
 	                        	<f:selectItem itemValue="null" itemLabel="Selecione Rio" />
@@ -91,6 +101,9 @@
 	                                           itemLabel="#{rioItem.descricao}"/>                 
 	                        </p:selectOneMenu>
                      		</div>
+                     		<div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
+		                    	<p:commandLink update=":ColetaRioCadastroForm" actionListener="#{rioController.prepareCreate2}" oncomplete="PF('ColetaRioCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
+	                        </div>
                      </h:panelGroup>  
                      
                      <h:panelGroup layout="block" rendered="#{coletaController.tipo == 2}" id="aquatico2">  
@@ -219,7 +232,10 @@
                 </div>
  				</fieldset>
  				<fieldset>
- 				<legend>Caracteristica do Local</legend>
+ 				<legend>
+ 					Caracteristica do Local
+	           		<p:commandLink update=":CaracteristicarioCreateForm" actionListener="#{caracrioController.prepareCreate2}" oncomplete="PF('CaracteristicarioCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />	           			
+	           </legend>
  					<div class="row">
  					<div class="col-md-8">
                     	<p:selectManyCheckbox id="caracrio" value="#{coletaController.coleta.tbCaracRios}" converter="generic">
@@ -277,20 +293,28 @@
              		</div>
              	</fieldset>
              	<fieldset>
- 				<legend>Substratos</legend>
+ 				<legend>
+ 				Substratos
+ 				<p:commandLink update=":SubstratoCreateForm" actionListener="#{substratoController.prepareCreate2}" oncomplete="PF('SubstratoCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
+ 				</legend>
  					<div class="row">
+ 						<p:outputPanel id="substratoslist">
  							<ui:repeat value="#{coletaController.substratos}" varStatus="loop">
  								<div class="col-md-2">
                     			<p:outputLabel value="#{coletaController.substratos[loop.index].descricao}" for="substratos" />
         						<p:inputText id="substratos" value="#{coletaController.abundancia[loop.index]}" title="Número em Ordem de Abundancia" converter="javax.faces.Integer" style="width:20%" />
     							</div>
     						</ui:repeat>
+    					</p:outputPanel>
  					</div>
  				</fieldset>
  				<fieldset>
- 				<legend>Metodo Coleta</legend>
+ 				<legend>
+ 				Metodo Coleta
+ 				<p:commandLink update=":MetodoColetaCreateForm" actionListener="#{metodoColetaController.prepareCreate2}" oncomplete="PF('MetodoColetaCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
+ 				</legend>
  				<div class="row">
- 					<p:selectManyCheckbox value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
+ 					<p:selectManyCheckbox id="metodo" value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
                 			<f:selectItems value="#{metodoColetaController.itemsAvailableSelectMany}" var="metodo"
                 				itemLabel="#{metodo.descricao}" itemValue="#{metodo}" />
             			</p:selectManyCheckbox>
@@ -303,12 +327,17 @@
  				</div>
  				</fieldset>
  				 #{coletaController.insertUsuario(usuarioController.usuarioLogado)}
-                    <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" />
+                <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" />
              </h:form>
      </div>        
      </div>
      </div>
      </div>
+     <ui:include src="bacia.xhtml"/>
+     <ui:include src="rio.xhtml"/>
+     <ui:include src="metodo.xhtml"/>
+     <ui:include src="caracteristica.xhtml"/>
+     <ui:include src="substratos.xhtml"/>
 	</ui:define>
     </ui:composition>
 </html>

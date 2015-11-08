@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "subfamiliaController")
 @SessionScoped
 public class SubFamiliaController extends GenericController {
@@ -51,6 +53,15 @@ public class SubFamiliaController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(subfamilia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('SubFamiliaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void editar(){
+    	getDAO().save(subfamilia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('SubFamiliaEditDialog').hide();");
     	items = null;
     }
     

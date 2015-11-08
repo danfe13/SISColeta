@@ -23,6 +23,7 @@ public class CaracteristicarioController extends GenericController {
     private CaracRioDAO caracrioDAO;
     private List<CaracRio> items = null;
     private CaracRio caracrio;
+    private CaracRio caracrio2;
 
     public CaracteristicarioController() {
     }
@@ -33,6 +34,14 @@ public class CaracteristicarioController extends GenericController {
 
     public void setCaracrio(CaracRio selected) {
         this.caracrio = selected;
+    }
+    
+    public CaracRio getCaracrio2() {
+        return caracrio2;
+    }
+
+    public void setCaracrio2(CaracRio selected) {
+        this.caracrio2 = selected;
     }
 
     protected void setEmbeddableKeys() {
@@ -51,8 +60,21 @@ public class CaracteristicarioController extends GenericController {
         return caracrio;
     }
     
+    public CaracRio prepareCreate2() {
+        caracrio2 = new CaracRio();
+        initializeEmbeddableKey();
+        return caracrio2;
+    }
+    
     public void cadastrar(){
     	getDAO().save(caracrio);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('CaracteristicarioCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void cadastrar2(){
+    	getDAO().save(caracrio2);
     	RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('CaracteristicarioCreateDialog').hide();");
     	items = null;

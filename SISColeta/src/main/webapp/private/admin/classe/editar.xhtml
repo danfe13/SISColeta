@@ -12,12 +12,19 @@
             <h:form id="ClasseEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="4" rendered="#{classeController.classe != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{classeController.classe.descricao}" title="Descrição" />
-                        <p:message for="descricao" />
-            			<h:outputText value="#{classeController.classe.descricao}" />
+                        <div class="row">
+                			<div class="col-md-12">
+                        		<p:outputLabel value="Descrição" for="descricao" />
+                        		<p:inputText id="descricao" value="#{classeController.classe.descricao}" title="Descrição" />
+                        	</div>
+            			</div>	
+                        <div class="row">
+                			<div class="col-md-12">
+                        		<p:message for="descricao" />
+            				</div>
+            			</div>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{classeController.cadastrar()}" value="Salvar" update="display,:ClasseListForm:datalist" oncomplete="PF('ClasseEditDialog').hide();"/>
+                    <p:commandButton actionListener="#{classeController.cadastrar()}" value="Salvar" update="display,:ClasseListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="ClasseEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

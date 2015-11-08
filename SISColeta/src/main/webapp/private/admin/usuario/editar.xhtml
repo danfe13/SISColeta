@@ -10,39 +10,93 @@
 
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="UsuarioEditForm">
-               <h:panelGroup id="display2">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario.tbPessoa != null}">
-                        <p:outputLabel value="CPF" for="cpf" />
-                        <p:inputText id="cpf" value="#{usuarioController.usuario.tbPessoa.cpf}" title="CPF" >
-                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
-							<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
-						</p:inputText>	
-                        <p:outputLabel value="Nome" for="nome" />
-                        <p:inputText id="nome" value="#{usuarioController.usuario.tbPessoa.nome}" title="Nome" />
-                        <p:outputLabel value="Abreviação" for="abreviacao" />
-                        <p:inputText id="abreviacao" value="#{usuarioController.usuario.tbPessoa.abreviacao}" title="Abreviacao" />
-                        <p:outputLabel value="Email" for="email" />
-                        <p:inputText id="email" value="#{usuarioController.usuario.tbPessoa.email}" title="Email" validatorMessage="Email Inválido." >
+               <h:panelGroup id="display2" rendered="#{usuarioController.usuario.tbPessoa != null}" layout="block">
+                        <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="CPF" for="cpf" />
+	                        <p:inputText id="cpf" value="#{usuarioController.pessoa.cpf}" title="CPF" >
+	                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
+								<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
+							</p:inputText>
+						</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="cpf" />
+                        </div>
+                    </div>
+					<div class="row">
+                		<div class="col-md-12">	
+	                        <p:outputLabel value="Nome" for="nome" />
+	                        <p:inputText id="nome" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="nome" />
+                        </div>
+                    </div>
+	                <div class="row">
+                		<div class="col-md-12">    
+		                    <p:outputLabel value="Abreviação" for="abreviacao" />
+	                        <p:inputText id="abreviacao" value="#{usuarioController.pessoa.abreviacao}" title="Abreviacao" />
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="abreviacao" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">    
+	                        <p:outputLabel value="Email" for="email" />
+	                        <p:inputText id="email" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
                         	<f:passThroughAttribute name="type" value="email" />
 							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-						</p:inputText>	
-                    </p:panelGrid>
+							</p:inputText>	
+                		</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="email" />
+                        </div>
+                    </div>	
                 </h:panelGroup>
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario != null}">
-                        <p:outputLabel value="Login" for="login" />
-                        <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
-                        <p:outputLabel value="Perfil" for="perfil" />
-                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic">
+                 <h:panelGroup id="display" rendered="#{usuarioController.usuario != null}" layout="block">
+                	<div class="row">
+                		<div class="col-md-12">        
+	                        <p:outputLabel value="Login" for="login" />
+	                        <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="login" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">    
+	                        <p:outputLabel value="Perfil" for="perfil" />
+	                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic" style="width:100%">
                             <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
                                            var="perfilItem"
                                            itemValue="#{perfilItem}"
                                            itemLabel="#{perfilItem.descricao}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Ativo" for="ativo" />
-                        <p:selectBooleanCheckbox id="ativo" value="#{usuarioController.usuario.ativo}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.editar()}" value="Salvar" update="display,:UsuarioListForm:datalist" oncomplete="PF('UsuarioEditDialog').hide();"/>
+                        	</p:selectOneMenu>
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="perfil" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">    
+	                        <p:outputLabel value="Ativo" for="ativo" />
+	                        <p:selectBooleanCheckbox id="ativo" value="#{usuarioController.usuario.ativo}" style="margin-left:10px; margin-top:5px" />
+                    	</div>
+                    </div>
+                    <p:commandButton actionListener="#{usuarioController.editar()}" value="Salvar" update="display,:UsuarioListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

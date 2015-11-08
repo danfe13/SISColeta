@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ColetaRioCadastroDlg" widgetVar="ColetaRioCadastroDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
+            <h:form id="ColetaRioCadastroForm">
+                <h:panelGroup layout="block" rendered="#{rioController.rio2 != null}" id="display">
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Descrição" for="descricao" />
+                        	<p:inputText id="descricao" value="#{rioController.rio2.descricao}" title="Descrição" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="descricao" />
+            			</div>
+            		</div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Bacia" for="bacia" />
+                        	<p:selectOneMenu id="bacia" value="#{rioController.rio2.tbBacia}" converter="generic" style="width:100%">
+                            	<f:selectItems value="#{baciaController.itemsAvailableSelectOne}"
+                                           var="baciaItem"
+                                           itemValue="#{baciaItem}"
+                                           itemLabel="#{baciaItem.descricao}"/>
+                        	</p:selectOneMenu>
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="bacia" />
+            			</div>
+            		</div>
+                    <p:commandButton actionListener="#{rioController.cadastrar2()}" value="Salvar" update="display,:ColetaCreateForm:rio"/>
+                    <p:commandButton value="Cancelar" onclick="ColetaRioCadastroDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

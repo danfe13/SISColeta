@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "familiaController")
 @SessionScoped
 public class FamiliaController extends GenericController {
@@ -57,6 +59,15 @@ public class FamiliaController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(familia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('FamiliaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void editar(){
+    	getDAO().save(familia);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('FamiliaEditDialog').hide();");
     	items = null;
     }
     

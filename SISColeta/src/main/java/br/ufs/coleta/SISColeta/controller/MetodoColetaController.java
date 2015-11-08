@@ -23,6 +23,7 @@ public class MetodoColetaController extends GenericController {
     private MetodoColetaDAO metodoColetaDAO;
     private List<MetodoColeta> items = null;
     private MetodoColeta metodoColeta;
+    private MetodoColeta metodoColeta2;
 
     public MetodoColetaController() {
     }
@@ -33,6 +34,14 @@ public class MetodoColetaController extends GenericController {
 
     public void setMetodoColeta(MetodoColeta selected) {
         this.metodoColeta = selected;
+    }
+    
+    public MetodoColeta getMetodoColeta2() {
+        return metodoColeta2;
+    }
+
+    public void setMetodoColeta2(MetodoColeta selected) {
+        this.metodoColeta2 = selected;
     }
 
     protected void setEmbeddableKeys() {
@@ -51,8 +60,21 @@ public class MetodoColetaController extends GenericController {
         return metodoColeta;
     }
     
+    public MetodoColeta prepareCreate2() {
+        metodoColeta2 = new MetodoColeta();
+        initializeEmbeddableKey();
+        return metodoColeta2;
+    }
+    
     public void cadastrar(){
     	getDAO().save(metodoColeta);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('MetodoColetaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void cadastrar2(){
+    	getDAO().save(metodoColeta2);
     	RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('MetodoColetaCreateDialog').hide();");
     	items = null;

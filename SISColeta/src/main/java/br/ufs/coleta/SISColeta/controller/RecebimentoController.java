@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "recebimentoController")
 @SessionScoped
 public class RecebimentoController extends GenericController {
@@ -57,6 +59,8 @@ public class RecebimentoController extends GenericController {
     	retiradaColecao.setTbRetirada(retirada);
     	recebimento.setTbRetiradaColecao(retiradaColecao);
     	getDAO().save(recebimento);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('RecebimentoCreateDialog').hide();");
     	items = null;
     }
     

@@ -11,7 +11,7 @@
         <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Visualizar Usuário">
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario != null}">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.usuario != null}" style="width:450px">
                         <h:outputText value="ID"/>
                         <h:outputText value="#{usuarioController.usuario.id}" title="ID"/>
                         <h:outputText value="Perfil"/>

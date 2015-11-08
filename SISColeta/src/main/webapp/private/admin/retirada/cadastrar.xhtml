@@ -10,30 +10,72 @@
 
         <p:dialog id="RetiradaCreateDlg" widgetVar="RetiradaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="RetiradaCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{retiradaController.retirada != null}">
-                    	<p:outputLabel value="Tipo Retirada:" for="retirada" />
-                        <p:selectOneMenu id="retirada" value="#{retiradaController.retirada.tipoRetirada}">
-                        	<f:selectItem itemValue="1" itemLabel="Emprestimo" />
-                        	<f:selectItem itemValue="2" itemLabel="Doação" />
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Destinatario:" for="destinatario" />
-                        <p:selectOneMenu id="destinatario" value="#{retiradaController.retirada.tbDestinatario}" converter="generic">
-                            <f:selectItems value="#{destinatarioController.itemsAvailableSelectOne}"
-                                           var="destinatarioItem"
-                                           itemValue="#{destinatarioItem}"
-                                           itemLabel="#{destinatarioItem.nome}"/>
-                        </p:selectOneMenu>
-                    	<p:outputLabel value="Modo de Envio:" for="envio" />
-                        <p:inputText id="envio" value="#{retiradaController.retirada.modoEnvio}" title="Modo de Envio" />
-                        <p:outputLabel value="Qntd. Pacotes:" for="quantidade" />
-                        <p:inputText id="quantidade" value="#{retiradaController.retirada.numeroPacote}" title="Qntd. Pacotes" />
-                         <p:outputLabel value="Data Retirada:" for="dataretirada" />
-                        <p:calendar id="dataretirada" value="#{retiradaController.retirada.dataRetirada}" pattern="dd/MM/yyyy" title="Data Retirada"/>
-                    	
-                    </p:panelGrid>
+                <h:panelGroup id="display" rendered="#{retiradaController.retirada != null}" layout="block">
+                	<div class="row">
+                		<div class="col-md-12">
+                    		<p:outputLabel value="Tipo Retirada:" for="retirada" />
+	                        <p:selectOneMenu id="retirada" value="#{retiradaController.retirada.tipoRetirada}" style="width:100%">
+	                        	<f:selectItem itemValue="1" itemLabel="Emprestimo" />
+	                        	<f:selectItem itemValue="2" itemLabel="Doação" />
+	                        </p:selectOneMenu>
+	                    </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="retirada" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Destinatario:" for="destinatario" />
+	                        <p:selectOneMenu id="destinatario" value="#{retiradaController.retirada.tbDestinatario}" converter="generic" style="width:100%">
+	                            <f:selectItems value="#{destinatarioController.itemsAvailableSelectOne}"
+	                                           var="destinatarioItem"
+	                                           itemValue="#{destinatarioItem}"
+	                                           itemLabel="#{destinatarioItem.nome}"/>
+	                        </p:selectOneMenu>
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="destinatario" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+	                    	<p:outputLabel value="Modo de Envio:" for="envio" />
+	                        <p:inputText id="envio" value="#{retiradaController.retirada.modoEnvio}" title="Modo de Envio" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="envio" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Qntd. Pacotes:" for="quantidade" />
+	                        <p:inputText id="quantidade" value="#{retiradaController.retirada.numeroPacote}" title="Qntd. Pacotes" converterMessage="Deve ser informado um valor inteiro!" />
+                         </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="quantidade" />
+                        </div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:outputLabel value="Data Retirada:" for="dataretirada" />
+                        	<p:calendar id="dataretirada" value="#{retiradaController.retirada.dataRetirada}" pattern="dd/MM/yyyy" title="Data Retirada"/>
+                    	</div>
+                    </div>
+                    <div class="row">
+                		<div class="col-md-12">
+                        	<p:message for="dataretirada" />
+                        </div>
+                    </div>
                     #{retiradaController.insertUsuario(usuarioController.usuarioLogado)}
-                    <p:commandButton actionListener="#{retiradaController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RetiradaCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{retiradaController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="RetiradaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

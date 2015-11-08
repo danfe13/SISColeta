@@ -15,6 +15,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
+
 
 @ManagedBean(name = "usuarioController")
 @SessionScoped
@@ -104,8 +106,11 @@ public class UsuarioController extends GenericController {
 	    	Usuario u = getDAOUser().save(usuario);
 	    	pessoa.setTbUsuario(u);
 	    	getDAOPessoa().save(pessoa);
+	    	RequestContext rc = RequestContext.getCurrentInstance();
+	        rc.execute("PF('UsuarioCreateDialog').hide();");
 	    	items = null;
 	    	u = null;
+	    	this.confirmacaosenha = null;
     	}
     }
     
@@ -113,7 +118,10 @@ public class UsuarioController extends GenericController {
     	if(this.validarUsuario(usuario, usuario.getTbPessoa())){
 	    	getDAOUser().save(usuario);
 	    	getDAOPessoa().save(usuario.getTbPessoa());
+	    	RequestContext rc = RequestContext.getCurrentInstance();
+	        rc.execute("PF('UsuarioEditDialog').hide();");
 	    	items = null;
+	    	this.confirmacaosenha = null;
     	}
     }
     
@@ -121,7 +129,10 @@ public class UsuarioController extends GenericController {
     	if(this.validarSenha(usuario)){
     		usuario.setSenha(HashGenerator.gerar(usuario.getSenha()));
 	    	getDAOUser().save(usuario);
+	    	RequestContext rc = RequestContext.getCurrentInstance();
+	        rc.execute("PF('UsuarioSenhaDialog').hide();");
 	    	items = null;
+	    	this.confirmacaosenha = null;
     	}
     }
     

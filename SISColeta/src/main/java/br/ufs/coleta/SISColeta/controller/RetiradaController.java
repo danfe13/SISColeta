@@ -36,6 +36,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -94,11 +95,36 @@ public class RetiradaController extends GenericController {
     public void cadastrar(){
     	retirada.setTbUsuario(usuario);
     	getDAO().save(retirada);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('RetiradaCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	retirada.setTbUsuario(usuario);
+    	getDAO().save(retirada);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('RetiradaEditDialog').hide();");
     	items = null;
     }
     
     public void cadastrarRetirar(){
-    	getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs, qntd);
+    	try{
+    		getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs, qntd);
+    		RequestContext rc = RequestContext.getCurrentInstance();
+            rc.execute("PF('RetiradaColecaoCreateDialog').hide();");
+    	}catch(Exception e){
+    		if(colecao == null){
+    			this.adicionarMensagemErro("Informe uma espécie!");
+    		}
+    		if(qntd == null){
+    			this.adicionarMensagemErro("Informe a Quantidade!");
+    		}
+    		else if(qntd == (int)qntd){
+    			this.adicionarMensagemErro("A Quantidade deve ser um número inteiro!");
+    		}
+    	}
+    	
     }
     
     public void remover(){
@@ -231,7 +257,7 @@ public class RetiradaController extends GenericController {
     			localidade = rio.getDescricao()+". "+rio.getTbBacia().getDescricao()+". "+localidade;
     		}
     		
-    		String datacoleta = new SimpleDateFormat("yyyy-MM-dd").format(coleta.getDataInicio());
+    		String datacoleta = new SimpleDateFormat("dd-MM-yyyy").format(coleta.getDataInicio());
     		
     		String coordenada1 = coleta.getLatitudeGrau()+"º"+coleta.getLatitudeMinuto()+"'"+coleta.getLatitudeSegundo()+"\""+coleta.getDirecaoLatitude();
     		String coordenada2 = coleta.getLongitudeGrau()+"º"+coleta.getLongitudeMinuto()+"'"+coleta.getLongitudeSegundo()+"\""+coleta.getDirecaoLongitude();
@@ -239,11 +265,13 @@ public class RetiradaController extends GenericController {
     		String metodo = "";
     		indice = 0;
     		
+    		coleta.setTbMetodoColetas(coletaDAO.getByMetodo(coleta.getId()));
+    		
     		for(MetodoColeta metodocoleta: coleta.getTbMetodoColetas()){
     			if(indice+1 == coleta.getTbMetodoColetas().size() && indice !=0){
     				metodo += " & ";
     			}
-    			else if(!coletores.isEmpty() && indice != coleta.getTbColetors().size()){
+    			else if(indice+1 != coleta.getTbMetodoColetas().size() && indice != 0){
     				metodo += ", ";
     			}
     			metodo += metodocoleta.getDescricao();
@@ -261,7 +289,7 @@ public class RetiradaController extends GenericController {
     	}
     	
         JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(li);  
-        String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/relatorio/invoice/invoice.jasper");     
+        String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/relatorio/invoice/invoice3.jasper");     
         jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
     }  
     
@@ -271,7 +299,7 @@ public class RetiradaController extends GenericController {
         InputStream relatorio = null;   
         
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");  
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=invoice.pdf");  
         ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
         JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
         

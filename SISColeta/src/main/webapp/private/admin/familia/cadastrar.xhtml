@@ -10,21 +10,36 @@
 
         <p:dialog id="FamiliaCreateDlg" widgetVar="FamiliaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="FamiliaCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{familiaController.familia != null}">
-                        <p:outputLabel value="Descrição" for="descricao" />
-                        <p:inputText id="descricao" value="#{familiaController.familia.descricao}" title="Descrição" />
-                    	<p:outputLabel value="Ordem" for="ordem" />
-                    	<p:selectOneMenu id="ordem" value="#{familiaController.familia.tbOrdem}" converter="generic">
-                        	<f:selectItem itemValue="null" itemLabel="Selecione Ordem" />
-                            <f:selectItems value="#{ordemController.itemsAvailableSelectOne}"
+                <h:panelGroup id="display" rendered="#{familiaController.familia != null}" layout="block">
+                	<div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Descrição" for="descricao" />
+	                        <p:inputText id="descricao" value="#{familiaController.familia.descricao}" title="Descrição" />
+                    	</div>
+            		</div>
+            		<div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="descricao" />
+            			</div>
+            		</div>
+            		<div class="row">
+                		<div class="col-md-12">
+                    		<p:outputLabel value="Ordem" for="ordem" />
+                    		<p:selectOneMenu id="ordem" value="#{familiaController.familia.tbOrdem}" converter="generic" style="width:100%">
+                        		<f:selectItem itemValue="null" itemLabel="Selecione Ordem" />
+                            	<f:selectItems value="#{ordemController.itemsAvailableSelectOne}"
                                            var="ordemItem"
                                            itemValue="#{ordemItem}"
                                            itemLabel="#{ordemItem.descricao}"/>          
-                    	</p:selectOneMenu>
-                    </p:panelGrid>
-                     
-                    <p:commandButton actionListener="#{familiaController.cadastrar()}" value="Salvar" update="display,:FamiliaListForm:datalist" oncomplete="PF('FamiliaCreateDialog').hide();"/>
+                    		</p:selectOneMenu>
+                     	</div>
+            		</div>
+            		<div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="ordem" />
+            			</div>
+            		</div>
+                    <p:commandButton actionListener="#{familiaController.cadastrar()}" value="Salvar" update="display,:FamiliaListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="FamiliaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -53,14 +53,16 @@ public class EspecieController extends GenericController {
     }
     
     public void cadastrar(){
-    	try{
     		getDAO().save(especie);
     		RequestContext.getCurrentInstance().execute("PF('EspecieCreateDialog').hide()");
         	items = null;
-    	}catch(Exception e){
-    		this.adicionarMensagemErro(e.getMessage());
-    	}
     }
+    
+    public void editar(){
+		getDAO().save(especie);
+		RequestContext.getCurrentInstance().execute("PF('EspecieEditDialog').hide()");
+    	items = null;
+}
     
     public void remover(){
     	getDAO().remove(this.especie);

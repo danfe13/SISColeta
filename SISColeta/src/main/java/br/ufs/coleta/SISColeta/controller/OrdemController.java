@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "ordemController")
 @SessionScoped
 public class OrdemController extends GenericController {
@@ -57,6 +59,15 @@ public class OrdemController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(ordem);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('OrdemCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void editar(){
+    	getDAO().save(ordem);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('OrdemEditDialog').hide();");
     	items = null;
     }
     

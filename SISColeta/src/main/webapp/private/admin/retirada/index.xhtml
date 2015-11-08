@@ -36,7 +36,7 @@
         		<p:column style="width:30px; padding: 4px 5px;">
             		<p:rowToggler />
         		</p:column>
-				<p:column sortBy="#{retirada.id}" filterBy="#{retirada.id}" filterMatchMode="contains" style="width:150px">
+				<p:column sortBy="#{retirada.id}" filterBy="#{retirada.id}" filterMatchMode="contains" style="width:90px">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{retirada.id}" />
 				</p:column>	
@@ -68,7 +68,7 @@
 		            <f:facet name="header"><h:outputText value="Tipo Retirada" /></f:facet>
 					<h:outputText value="#{retirada.tipoRetirada == 1 ? 'Emprestimo':'Doação'}" />
 				</p:column>
-				<p:column style="width:62px">
+				<p:column style="width:75px">
 					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="fa fa-plus-square">
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>

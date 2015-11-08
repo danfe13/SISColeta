@@ -9,6 +9,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "destinatarioController")
 @SessionScoped
 public class DestinatarioController extends GenericController {
@@ -51,6 +53,15 @@ public class DestinatarioController extends GenericController {
     
     public void cadastrar(){
     	getDAO().save(destinatario);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('DestinatarioCreateDialog').hide();");
+    	items = null;
+    }
+    
+    public void update(){
+    	getDAO().save(destinatario);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('DestinatarioEditDialog').hide();");
     	items = null;
     }
     

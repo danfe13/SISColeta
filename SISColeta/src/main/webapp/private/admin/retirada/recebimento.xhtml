@@ -10,20 +10,42 @@
 
         <p:dialog id="RecebimentoCreateDlg" widgetVar="RecebimentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="RecebimentoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{recebimentoController.recebimento != null}">
-                       
-                        <p:outputLabel value="Data Recebimento:" for="datarecebimento" />
-                        <p:calendar id="datarecebimento" value="#{recebimentoController.recebimento.dataRecebimento}" pattern="dd/MM/yyyy" title="Data Recebimento"/>
-                    	<p:outputLabel value="Observação:" for="observacao" />
-                    	<p:inputTextarea rows="3" cols="75" id="observacao" value="#{recebimentoController.recebimento.observacao}" />
-                    
-                    	<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
-                        <p:inputText id="quantidade" value="#{recebimentoController.recebimento.quantdExemplares}" title="Qntd. Exemplares" />
-                       
-                    </p:panelGrid>
+                <h:panelGroup id="display" rendered="#{recebimentoController.recebimento != null}">
+                	<div class="row">
+                		<div class="col-md-12">         
+                        	<p:outputLabel value="Data Recebimento:" for="datarecebimento" />
+                        	<p:calendar id="datarecebimento" value="#{recebimentoController.recebimento.dataRecebimento}" pattern="dd/MM/yyyy" title="Data Recebimento"/>
+                    	</div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="datarecebimento" />
+            			</div>
+            		</div>
+                    <div class="row">
+                		<div class="col-md-12">	
+                    		<p:outputLabel value="Observação:" for="observacao" />
+                    		<p:inputTextarea rows="3" cols="75" id="observacao" value="#{recebimentoController.recebimento.observacao}" />
+                    	</div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="observacao" />
+            			</div>
+            		</div>
+	                <div class="row">
+                		<div class="col-md-12">
+                    		<p:outputLabel value="Qntd. Exemplares:" for="quantidade" />
+                        	<p:inputText id="quantidade" value="#{recebimentoController.recebimento.quantdExemplares}" title="Qntd. Exemplares" />
+                       </div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="quantidade" />
+            			</div>
+            		</div>
                     #{recebimentoController.insertRetirada(retiradaController.retirada)}
-                    <p:commandButton actionListener="#{recebimentoController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" oncomplete="PF('RecebimentoCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{recebimentoController.cadastrar()}" value="Salvar" update="display,:RetiradaListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="RecebimentoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

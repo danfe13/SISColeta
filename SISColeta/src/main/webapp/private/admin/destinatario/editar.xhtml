@@ -10,30 +10,57 @@
 
         <p:dialog id="DestinatarioEditDlg" widgetVar="DestinatarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="DestinatarioEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="4" rendered="#{destinatarioController.destinatario != null}">
-                        <p:outputLabel value="Nome" for="nome" />
-                        <p:inputText id="nome" value="#{destinatarioController.destinatario.nome}" title="Nome" />
-                        <p:message for="nome" />
-            			<h:outputText value="#{destinatarioController.destinatario.nome}" />
-                        <p:outputLabel value="Instituição" for="instituicao" />
-                        <p:selectOneMenu id="instituicao" value="#{destinatarioController.destinatario.tbInstituicao}" converter="generic">
-                            <f:selectItems value="#{instituicaoController.itemsAvailableSelectOne}"
-                                           var="instituicaoItem"
-                                           itemValue="#{instituicaoItem}"
-                                           itemLabel="#{instituicaoItem.nome}"/>
-                        </p:selectOneMenu>
-                         <p:message for="instituicao" />
-            			<h:outputText value="#{destinatarioController.destinatario.tbInstituicao}" />
-                        <p:outputLabel value="Departamento" for="departamento" />
-                        <p:inputText id="departamento" value="#{destinatarioController.destinatario.departamento}" title="Departamento" />
-                        <p:message for="departamento" />
-            			<h:outputText value="#{destinatarioController.destinatario.departamento}" />
-                        <p:outputLabel value="Centro" for="centro" />
-                        <p:inputText id="centro" value="#{destinatarioController.destinatario.centro}" title="Centro" />
-                        
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{destinatarioController.cadastrar()}" value="Salvar" update="display,:DestinatarioListForm:datalist" oncomplete="PF('DestinatarioEditDialog').hide();"/>
+                <h:panelGroup id="display" rendered="#{destinatarioController.destinatario != null}" layout="block" >
+                    <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Nome" for="nome" />
+	                        <p:inputText id="nome" value="#{destinatarioController.destinatario.nome}" title="Nome" />
+	                    </div>
+	               </div>
+	               <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="nome" />
+	                    </div>
+	               </div>
+	               <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Instituição" for="instituicao" />
+	                        <p:selectOneMenu id="instituicao" value="#{destinatarioController.destinatario.tbInstituicao}" converter="generic" style="width:100%">
+	                            <f:selectItems value="#{instituicaoController.itemsAvailableSelectOne}"
+	                                           var="instituicaoItem"
+	                                           itemValue="#{instituicaoItem}"
+	                                           itemLabel="#{instituicaoItem.nome}"/>
+	                        </p:selectOneMenu>
+	                   </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="instituicao" />
+	                    </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Departamento" for="departamento" />
+	                        <p:inputText id="departamento" value="#{destinatarioController.destinatario.departamento}" title="Departamento" />
+	                    </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="departamento" />
+	            		</div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">		
+	                        <p:outputLabel value="Centro" for="centro" />
+	                        <p:inputText id="centro" value="#{destinatarioController.destinatario.centro}" title="Centro" />
+                        </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="centro" />
+	            		</div>
+	              </div>
+                    <p:commandButton actionListener="#{destinatarioController.update()}" value="Salvar" update="display,:DestinatarioListForm:datalist" />
                     <p:commandButton value="Cancelar" onclick="DestinatarioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
