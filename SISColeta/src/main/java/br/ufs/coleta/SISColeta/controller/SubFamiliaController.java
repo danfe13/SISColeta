@@ -66,7 +66,12 @@ public class SubFamiliaController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.subfamilia);
+    	try{
+    		getDAO().remove(this.subfamilia);
+    	}
+    	catch(Exception sqlex){
+    		this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+    	}
     	items = null;
     	subfamilia = null;
     }

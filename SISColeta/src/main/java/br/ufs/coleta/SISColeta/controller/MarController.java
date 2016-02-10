@@ -55,7 +55,12 @@ public class MarController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.mar);
+    	try{	
+    		getDAO().remove(this.mar);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	mar = null;
     }

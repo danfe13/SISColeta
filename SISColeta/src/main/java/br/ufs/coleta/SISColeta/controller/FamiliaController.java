@@ -72,7 +72,12 @@ public class FamiliaController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.familia);
+    	try{	
+    		getDAO().remove(this.familia);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	familia = null;
     }

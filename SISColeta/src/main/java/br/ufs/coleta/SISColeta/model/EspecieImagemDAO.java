@@ -5,13 +5,16 @@
  */
 package br.ufs.coleta.SISColeta.model;
 
+import java.io.File;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import br.ufs.coleta.SISColeta.entities.ColecaoImagem;
 import br.ufs.coleta.SISColeta.entities.EspecieImagem;
 
 /**
@@ -37,6 +40,15 @@ public class EspecieImagemDAO extends GenericDAO<EspecieImagem, Long> {
     	query.setParameter("id", id);
     	List<EspecieImagem> results = query.getResultList();
     	return results;
+    }
+    
+    @Override
+    public void remove(EspecieImagem imagem){
+		File file = new File("imagens_especies/"+imagem.getImagem());
+		file.delete();
+    	Query delete = em.createNativeQuery("DELETE FROM tb_especie_imagem WHERE idtb_especie_imagem=?");
+        delete.setParameter(1, imagem.getId());
+        delete.executeUpdate();
     }
     
 }

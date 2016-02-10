@@ -65,7 +65,12 @@ public class RecebimentoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.recebimento);
+    	try{	
+    		getDAO().remove(this.recebimento);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	recebimento = null;
     }

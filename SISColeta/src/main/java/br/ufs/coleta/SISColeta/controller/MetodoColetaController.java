@@ -88,7 +88,12 @@ public class MetodoColetaController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.metodoColeta);
+    	try{	
+    		getDAO().remove(this.metodoColeta);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	metodoColeta = null;
     }

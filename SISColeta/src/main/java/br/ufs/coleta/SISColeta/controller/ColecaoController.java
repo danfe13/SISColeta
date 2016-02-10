@@ -15,6 +15,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 @ManagedBean(name = "colecaoController")
 @SessionScoped
 public class ColecaoController extends GenericController {
@@ -65,11 +67,18 @@ public class ColecaoController extends GenericController {
     	colecao.setTbColeta(coleta);
     	this.colecao.setTbUsuario(usuario);
     	getDAO().save(colecao);
+    	RequestContext rc = RequestContext.getCurrentInstance();
+        rc.execute("PF('ColecaoDialog').hide();");
     	items = null;
     }
     
     public void remover(){
-    	getDAO().remove(this.colecao);
+    	try{	
+    		getDAO().remove(this.colecao);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	colecao = null;
     }
@@ -126,5 +135,6 @@ public class ColecaoController extends GenericController {
 		return getDAO().getColecaoByColeta(coleta.getId());
 	}
     
-
+	
+	
 }

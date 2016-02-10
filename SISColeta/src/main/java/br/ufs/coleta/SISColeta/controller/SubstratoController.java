@@ -88,7 +88,12 @@ public class SubstratoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.substrato);
+    	try{
+    		getDAO().remove(this.substrato);
+    	}
+    	catch(Exception sqlex){
+    		this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+    	}
     	items = null;
     	substrato = null;
     }

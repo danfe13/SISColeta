@@ -1,7 +1,9 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Especie;
+import br.ufs.coleta.SISColeta.entities.EspecieImagem;
 import br.ufs.coleta.SISColeta.model.EspecieDAO;
+import br.ufs.coleta.SISColeta.model.EspecieImagemDAO;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class EspecieController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private EspecieDAO especieDAO;
+	@EJB
+	private EspecieImagemDAO especieimagemDAO;
     private List<Especie> items = null;
     private Especie especie;
 
@@ -65,7 +69,15 @@ public class EspecieController extends GenericController {
 }
     
     public void remover(){
-    	getDAO().remove(this.especie);
+    	try{	
+    		for(EspecieImagem imagem: especieimagemDAO.findByEspecies(this.especie.getId())){
+    			especieimagemDAO.remove(imagem);
+    		}
+    		getDAO().remove(this.especie);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	especie = null;
     }

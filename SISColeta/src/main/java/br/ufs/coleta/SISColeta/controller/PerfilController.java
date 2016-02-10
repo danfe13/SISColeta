@@ -55,7 +55,12 @@ public class PerfilController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.perfil);
+    	try{	
+    		getDAO().remove(this.perfil);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	perfil = null;
     }

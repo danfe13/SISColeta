@@ -11,34 +11,24 @@
             <h:form id="UsuarioCreateForm">
             	<h:panelGroup id="display2" rendered="#{usuarioController.pessoa != null}" layout="block">
             		<div class="row">
-                		<div class="col-md-12">
+                		<div class="col-md-4">
 	                        <p:outputLabel value="CPF" for="cpf" />
-	                        <p:inputText id="cpf" value="#{usuarioController.pessoa.cpf}" title="CPF" >
+	                        <p:inputMask id="cpf" required="true" requiredMessage="Campo não pode ser vázio!" mask="999.999.999-99" value="#{usuarioController.pessoa.cpf}" title="CPF" >
 	                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
 								<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
-							</p:inputText>
+							</p:inputMask>
+							<p:message for="cpf" />
 						</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="cpf" />
-                        </div>
-                    </div>
-					<div class="row">
-                		<div class="col-md-12">	
+						<div class="col-md-8">	
 	                        <p:outputLabel value="Nome" for="nome" />
-	                        <p:inputText id="nome" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                        <p:inputText id="nome" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                        <p:message for="nome" />
 	                	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="nome" />
-                        </div>
                     </div>
 	                <div class="row">
                 		<div class="col-md-12">    
 		                    <p:outputLabel value="Abreviação" for="abreviacao" />
-	                        <p:inputText id="abreviacao" value="#{usuarioController.pessoa.abreviacao}" title="Abreviacao" />
+	                        <p:inputText id="abreviacao" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.abreviacao}" title="Abreviacao" />
                     	</div>
                     </div>
                     <div class="row">
@@ -49,7 +39,7 @@
                     <div class="row">
                 		<div class="col-md-12">    
 	                        <p:outputLabel value="Email" for="email" />
-	                        <p:inputText id="email" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
+	                        <p:inputText id="email" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
                         	<f:passThroughAttribute name="type" value="email" />
 							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							</p:inputText>	
@@ -63,18 +53,12 @@
                 </h:panelGroup>
                 <h:panelGroup id="display" rendered="#{usuarioController.usuario != null}" layout="block">
                 	<div class="row">
-                		<div class="col-md-12">        
+                		<div class="col-md-8">        
 	                        <p:outputLabel value="Login" for="login" />
 	                        <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
+	                        <p:message for="login" />
                     	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="login" />
-                        </div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">    
+                    	<div class="col-md-4">    
 	                        <p:outputLabel value="Perfil" for="perfil" />
 	                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic" style="width:100%">
                             <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
@@ -82,17 +66,13 @@
                                            itemValue="#{perfilItem}"
                                            itemLabel="#{perfilItem.descricao}"/>
                         	</p:selectOneMenu>
-                    	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
                         	<p:message for="perfil" />
-                        </div>
+                    	</div>
                     </div>
                     <div class="row">
                 		<div class="col-md-12">     
 	                        <p:outputLabel value="Senha" for="senha" />
-	                        <p:inputText id="senha" value="#{usuarioController.usuario.senha}" title="Senha" type="password" />
+	                        <p:password id="senha" value="#{usuarioController.usuario.senha}" match="senha_confirmacao" title="Senha" type="password" />
                     	</div>
                     </div>
                     <div class="row">
@@ -103,7 +83,7 @@
                     <div class="row">
                 		<div class="col-md-12">    
 	                        <p:outputLabel value="Confirmar Senha" for="senha_confirmacao" />
-	                        <p:inputText id="senha_confirmacao" value="#{usuarioController.confirmacaosenha}" title="Senha Confirmação" type="password" />
+	                        <p:password id="senha_confirmacao" value="#{usuarioController.confirmacaosenha}" title="Senha Confirmação" type="password" />
                     	</div>
                     </div>
                     <div class="row">

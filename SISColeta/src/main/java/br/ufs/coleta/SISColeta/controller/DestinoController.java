@@ -66,7 +66,12 @@ public class DestinoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.destino);
+    	try{	
+    		getDAO().remove(this.destino);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	destino = null;
     }

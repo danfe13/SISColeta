@@ -66,7 +66,12 @@ public class InstituicaoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.instituicao);
+    	try{	
+    		getDAO().remove(this.instituicao);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	instituicao = null;
     }

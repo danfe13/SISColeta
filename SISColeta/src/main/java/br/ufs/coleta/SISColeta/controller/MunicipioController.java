@@ -55,7 +55,12 @@ public class MunicipioController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.municipio);
+    	try{	
+    		getDAO().remove(this.municipio);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	municipio = null;
     }

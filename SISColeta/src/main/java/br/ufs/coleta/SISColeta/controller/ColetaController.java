@@ -1,6 +1,7 @@
 package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Colecao;
+import br.ufs.coleta.SISColeta.entities.ColecaoImagem;
 import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Etiqueta;
 import br.ufs.coleta.SISColeta.entities.Invoice;
@@ -10,6 +11,7 @@ import br.ufs.coleta.SISColeta.entities.Substrato;
 import br.ufs.coleta.SISColeta.entities.Substratos;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.ColecaoDAO;
+import br.ufs.coleta.SISColeta.model.ColecaoImagemDAO;
 import br.ufs.coleta.SISColeta.model.ColetaDAO;
 import br.ufs.coleta.SISColeta.model.MarDAO;
 import br.ufs.coleta.SISColeta.model.RioDAO;
@@ -59,6 +61,8 @@ public class ColetaController extends GenericController {
 	@EJB
 	private ColecaoDAO colecaoDAO;
 	@EJB
+	private ColecaoImagemDAO colecaoImagemDAO;
+	@EJB
 	private RioDAO rioDAO;
 	@EJB
 	private MarDAO marDAO;
@@ -72,6 +76,9 @@ public class ColetaController extends GenericController {
 	private Integer id;
 	private List<Substratos> substratosedit;
 	private JasperPrint jasperPrint;
+	private List<Etiqueta> etiqueta;
+	private int quantidadeEtiqueta;
+	private Colecao colecao;
 
     public ColetaController() {
     }
@@ -99,56 +106,60 @@ public class ColetaController extends GenericController {
     protected void initializeEmbeddableKey() {
     }
     
-    public void init(Coleta coleta) throws JRException {  
-    	List<Etiqueta> etiqueta = new ArrayList<Etiqueta>();
+    public void etiquetaFormato(Colecao colecao){
+    	Etiqueta e = new Etiqueta();
+		e.setCodColecao(colecao.getCodCampo());
+		e.setEspecie(colecao.getTbEspecie().getNomeCientifico());
+		e.setQuantidade(colecao.getQuantidade());
+		e.setFamilia(colecao.getTbEspecie().getTbSubfamilia().getDescricao());
+		
+		String coletores = "";
+		int i = 0;
+		
+		for(Usuario coletor: coleta.getTbColetors()){
+			if(i+1 == coleta.getTbColetors().size() && i !=0){
+				coletores += " & ";
+			}
+			else if(!coletores.isEmpty() && i != coleta.getTbColetors().size()){
+				coletores += "; ";
+			}
+			coletores += coletor.getTbPessoa().getAbreviacao();
+			i++;
+		}
+		
+		e.setColetor(coletores);
+		e.setDeterminador(colecao.getDeterminador().getTbPessoa().getAbreviacao());
+		e.setCodColeta(this.coleta.getCodColeta());
+		
+		String localidade = coleta.getTbMunicipio().getNome()+", "+coleta.getTbMunicipio().getTbEstado().getNome()+ ", Brasil";
+		
+		if(coleta.getTbAquatico().getTbTipoAquaticoLocal().getId() == 1){
+			Rio rio = rioDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
+			localidade = rio.getDescricao()+", "+rio.getTbBacia().getDescricao()+", "+localidade;
+		}
+		else{
+			Mar mar = marDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
+			localidade = mar.getDescricao()+", "+mar.getTbOceano().getDescricao()+", "+localidade;
+		}
+
+		e.setLocalidade(localidade);
+		
+		String coordenada1 = coleta.getLatitudeGrau()+"º"+coleta.getLatitudeMinuto()+"'"+coleta.getLatitudeSegundo()+"\""+coleta.getDirecaoLatitude();
+		String coordenada2 = coleta.getLongitudeGrau()+"º"+coleta.getLongitudeMinuto()+"'"+coleta.getLongitudeSegundo()+"\""+coleta.getDirecaoLongitude();
+		e.setCoordenada(coordenada1+"/"+coordenada2);
+		
+		etiqueta.add(e);
+    }
+    
+    public void gerarEtiquetaByColeta() throws JRException {  
+    	etiqueta = new ArrayList<Etiqueta>();
     	coleta.setTbColetors(getDAO().getByColetor(coleta.getId()));
     	coleta.setTbAquatico(getDAO().getByAquatico(coleta.getId()));
     	List<Colecao> colecaos = colecaoDAO.getColecaoByColeta(coleta.getId());
     	
     	
     	for(Colecao colecao: colecaos){
-    		Etiqueta e = new Etiqueta();
-    		e.setCodColecao(coleta.getCodColeta());
-    		e.setEspecie(colecao.getTbEspecie().getNomeCientifico());
-    		e.setQuantidade(colecao.getQuantidade());
-    		e.setFamilia(colecao.getTbEspecie().getTbSubfamilia().getDescricao());
-    		
-    		String coletores = "";
-    		int i = 0;
-    		
-    		for(Usuario coletor: coleta.getTbColetors()){
-    			if(i+1 == coleta.getTbColetors().size() && i !=0){
-    				coletores += " & ";
-    			}
-    			else if(!coletores.isEmpty() && i != coleta.getTbColetors().size()){
-    				coletores += "; ";
-    			}
-    			coletores += coletor.getTbPessoa().getAbreviacao();
-    			i++;
-    		}
-    		
-    		e.setColetor(coletores);
-    		e.setDeterminador(colecao.getDeterminador().getTbPessoa().getAbreviacao());
-    		e.setCodColeta(colecao.getCodCampo());
-    		
-    		String localidade = coleta.getTbMunicipio().getNome()+", "+coleta.getTbMunicipio().getTbEstado().getNome()+ ", Brasil";
-    		
-    		if(coleta.getTbAquatico().getTbTipoAquaticoLocal().getId() == 1){
-    			Rio rio = rioDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
-    			localidade = rio.getDescricao()+", "+rio.getTbBacia().getDescricao()+", "+localidade;
-    		}
-    		else{
-    			Mar mar = marDAO.find(coleta.getTbAquatico().getIdLocalAquatico());
-    			localidade = mar.getDescricao()+", "+mar.getTbOceano().getDescricao()+", "+localidade;
-    		}
-
-    		e.setLocalidade(localidade);
-    		
-    		String coordenada1 = coleta.getLatitudeGrau()+"º"+coleta.getLatitudeMinuto()+"'"+coleta.getLatitudeSegundo()+"\""+coleta.getDirecaoLatitude();
-    		String coordenada2 = coleta.getLongitudeGrau()+"º"+coleta.getLongitudeMinuto()+"'"+coleta.getLongitudeSegundo()+"\""+coleta.getDirecaoLongitude();
-    		e.setCoordenada(coordenada1+"/"+coordenada2);
-    		
-    		etiqueta.add(e);
+    		this.etiquetaFormato(colecao);
     	}
     	
         JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(etiqueta);  
@@ -156,8 +167,41 @@ public class ColetaController extends GenericController {
         jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
     }  
     
-    public StreamedContent PDF(Coleta coleta) throws JRException, IOException{  
-        init(coleta);  
+    public void gerarEtiquetaByColecao() throws JRException {  
+    	etiqueta = new ArrayList<Etiqueta>();
+    	coleta.setTbColetors(getDAO().getByColetor(coleta.getId()));
+    	coleta.setTbAquatico(getDAO().getByAquatico(coleta.getId()));
+    	
+    	for(int i=0; i<quantidadeEtiqueta; i++ ){
+    		this.etiquetaFormato(colecao);
+    	}
+    	
+        JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(etiqueta);  
+        String  reportPath=  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/relatorio/etiqueta/etiqueta.jasper");     
+        jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
+    } 
+    
+    public StreamedContent PDFEtiquetaColeta(Coleta coleta) throws JRException, IOException{  
+    	this.coleta = coleta;
+        gerarEtiquetaByColeta();  
+        
+        InputStream relatorio = null;   
+        
+        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=etiqueta.pdf");  
+        ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
+        
+        ByteArrayOutputStream Teste = new ByteArrayOutputStream();
+        
+        relatorio = new ByteArrayInputStream(Teste.toByteArray());
+        
+        return new DefaultStreamedContent(relatorio);
+        
+    } 
+    
+    public StreamedContent PDFEtiquetaColecao() throws JRException, IOException{  
+        gerarEtiquetaByColecao();  
         
         InputStream relatorio = null;   
         
@@ -215,28 +259,43 @@ public class ColetaController extends GenericController {
     
     public void cadastrar(){
     	
-    	int i = 0;
-    	/*for (Substrato substrato: substratos){
-    		getDAO().insertSubstratos(novacoleta.getId().intValue(), substrato.getId().intValue(), abundancia.get(i++).intValue());
-        }
-    	getDAO().insertLocal(novacoleta.getId().intValue(), local, tipo);
-    	*/
     	try {
-    		this.adicionarMensagemErro("Informe uma espécie!");
     		coleta.setUsuario(usuario);
         	Coleta novacoleta = getDAO().save(coleta);
+        	int i = 0;
+        	for (Substrato substrato: substratos){
+        		getDAO().insertSubstratos(novacoleta.getId().intValue(), substrato.getId().intValue(), abundancia.get(i++).intValue());
+            }
+        	getDAO().insertLocal(novacoleta.getId().intValue(), local, tipo);
         	
-        	//FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        	
+        	FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			this.adicionarMensagemErro("Informe uma espécie2!");
+			e.printStackTrace();
 		}
     	
     	items = null;
     }
     
     public void remover(){
-    	getDAO().remove(this.coleta);
+	    try{	
+    		List<Colecao> colecaos = colecaoDAO.getColecaoByColeta(coleta.getId());
+	    	for(Colecao colecao: colecaos){
+	    		for(ColecaoImagem imagem: colecaoImagemDAO.findByColecaos(colecao.getId()))
+	    		colecaoImagemDAO.remove(imagem);
+	    	}
+	    	getDAO().deleteColecao(this.coleta.getId());
+	    	getDAO().deleteColetores(this.coleta.getId());
+	    	getDAO().deleteSubstratos(this.coleta.getId());
+	    	getDAO().deleteCarac(this.coleta.getId());
+	    	getDAO().deleteMetodoColetas(this.coleta.getId());
+	    	getDAO().deleteAquatico(this.coleta.getId());
+	    	getDAO().remove(this.coleta);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	coleta = null;
     }
@@ -320,5 +379,23 @@ public class ColetaController extends GenericController {
 	public Boolean validarAlunoColeta(int usuario, int coleta){
 		return coletaDAO.alunoColeta(usuario, coleta);
 	}
+
+	public int getQuantidadeEtiqueta() {
+		return quantidadeEtiqueta;
+	}
+
+	public void setQuantidadeEtiqueta(int quantidadeEtiqueta) {
+		this.quantidadeEtiqueta = quantidadeEtiqueta;
+	}
+
+	public Colecao getColecao() {
+		return colecao;
+	}
+
+	public void setColecao(Colecao colecao) {
+		this.colecao = colecao;
+	}
+	
+	
 
 }

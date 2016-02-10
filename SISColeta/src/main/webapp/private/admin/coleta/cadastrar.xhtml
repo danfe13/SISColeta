@@ -10,8 +10,8 @@
     <ui:define name="title">Cadastrar Coleta</ui:define>
     <ui:define name="cabecalho">Cadastrar Coleta</ui:define>
     <ui:define name="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#">Coleta</a></li>
+			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="/SISColeta/private/admin/coleta/index.jsf">Coleta</a></li>
             <li class="active">Cadastro</li>
 	</ui:define>
     <ui:define name="content">
@@ -34,11 +34,30 @@
  					<div class="col-md-2">
              			<p:outputLabel value="Nome do Ponto:" for="nome" />
                         <p:inputText id="nome" value="#{coletaController.coleta.nome}" title="Nome"/>
+                        <p:message for="nome" />
              		</div>
              		<div class="col-md-2">
              			<p:outputLabel value="Código:" for="cod" />
-                        <p:inputText id="cod" value="#{coletaController.coleta.codColeta}" title="COD. Coleta" /></div>
-                        <p:message for="cod" />
+                        <p:inputText id="cod" value="#{coletaController.coleta.codColeta}" title="COD. Coleta" />
+                    	<p:message for="cod" />
+                    </div>
+                    <div class="col-md-2">
+             			<p:outputLabel value="Datum:" for="datum" />
+                        <p:inputText id="datum" value="#{coletaController.coleta.datum}" title="Datum" />
+                    	<p:message for="datum" />
+                    </div>
+                    <div class="col-md-2">
+             			<p:outputLabel value="Data Inicio:" for="datai" />
+                        <p:calendar id="datai" value="#{coletaController.coleta.dataInicio}" pattern="dd/MM/yyyy" title="Data Inicio"/>
+                    	<p:message for="datai" />
+                    </div>
+                    <div class="col-md-2">
+             			<p:outputLabel value="Data Fim:" for="dataf" />
+             			<p:calendar id="dataf" value="#{coletaController.coleta.dataFim}" pattern="dd/MM/yyyy" title="Data Retirada"/>
+                    	<p:message for="dataf" />
+                    </div>
+                </div>
+                <div class="row">   
              		<div class="col-md-2">
              			<p:outputLabel value="Estado: " for="estado" />
                         <p:selectOneMenu id="estado" value="#{estadoController.estado}" converter="generic" style="width:100%">
@@ -51,7 +70,7 @@
                         </p:selectOneMenu>
              		</div>
              		<div class="col-md-4">
-             			<p:outputLabel value="Cidade: " for="municipio" />
+             			<p:outputLabel value="Cidade:   *" for="municipio" />
                         <p:selectOneMenu id="municipio" value="#{coletaController.coleta.tbMunicipio}" converter="generic" style="width:100%">
                       		<f:selectItem itemValue="null" itemLabel="Selecione Cidade" />
                             <f:selectItems value="#{estadoController.municipios}"
@@ -64,15 +83,16 @@
              	</div>
              	<div class="row">
              		<div class="col-md-2">
-             			<p:outputLabel value="Tipo: " for="local" />
-                        <p:selectOneMenu id="local" value="#{coletaController.tipo}" style="width:100%">
-                        	<f:selectItem itemValue="null" itemLabel="Selecione Local" />
+             			<p:outputLabel value="Tipo:" for="local" />
+                        <p:selectOneMenu id="local" value="#{coletaController.tipo}" required="true" requiredMessage="Campo não pode ser vázio!" style="width:100%">
+                        	<f:selectItem itemValue="#{null}" itemLabel="Selecione Local" />
                             <f:selectItems value="#{tipoAquaticoController.itemsAvailableSelectOne}"
                                            var="localItem"
                                            itemValue="#{localItem.id}"
                                            itemLabel="#{localItem.descricao}"/>      
                              <p:ajax update="aquatico1, aquatico2" event="change" />     
                         </p:selectOneMenu>
+                        <p:message for="local" />
              		</div>
              		<div class="col-md-8">
              		 <p:outputPanel autoUpdate="true">
@@ -108,7 +128,7 @@
                      
                      <h:panelGroup layout="block" rendered="#{coletaController.tipo == 2}" id="aquatico2">  
                     
-	                       <p:outputLabel value="Oceano" for="oceano" />
+	                       <p:outputLabel value="Oceano:" for="oceano" />
 	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" >
 	                        	<f:selectItem itemValue="null" itemLabel="Selecione Oceano" />
 	                            <f:selectItems value="#{oceanoController.itemsAvailableSelectOne}"
@@ -122,50 +142,58 @@
              	</div>
              	<div class="row">
              		<div class="col-md-2">
-             			<p:outputLabel value="Dir. Latitude:" for="dirlatitude" />
+             			<p:outputLabel value="Dir. Latitude:   *" for="dirlatitude" />
                         <p:selectOneMenu id="dirlatitude" value="#{coletaController.coleta.direcaoLatitude}" style="width:100%">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione Direção" />
                       		<f:selectItem itemValue="N" itemLabel="Norte" />
                       		<f:selectItem itemValue="S" itemLabel="Sul" />
                       		<f:selectItem itemValue="E" itemLabel="Leste" />
                       		<f:selectItem itemValue="W" itemLabel="Oeste" />
                         </p:selectOneMenu>
+                        <p:message for="dirlatitude" />
                     </div>
                     <div class="col-md-2">
-                        <p:outputLabel value="Latitude Grau:" for="latgrau" />
+                        <p:outputLabel value="Latitude Grau:   *" for="latgrau" />
                         <p:inputText id="latgrau" value="#{coletaController.coleta.latitudeGrau}" title="Grau" />
+                        <p:message for="latgrau" />
                     </div>
                     <div class="col-md-2">
-                        <p:outputLabel value="Minuto:" for="latminuto" />
+                        <p:outputLabel value="Minuto:   *" for="latminuto" />
                         <p:inputText id="latminuto" value="#{coletaController.coleta.latitudeMinuto}" title="Minuto" />
+                    	<p:message for="latminuto" />
                     </div>
                     <div class="col-md-2">
-                        <p:outputLabel value="Segundos:" for="latsegundos" />
+                        <p:outputLabel value="Segundos:   *" for="latsegundos" />
                         <p:inputText id="latsegundos" value="#{coletaController.coleta.latitudeSegundo}" title="Segundo" />
+                    	<p:message for="latsegundos" />
                     </div>  
                     </div>
                     <div class="row"> 
                     <div class="col-md-2"> 
-                        <p:outputLabel value="Dir. Longitude" for="dirlongitude" />
+                        <p:outputLabel value="Dir. Longitude:   *" for="dirlongitude" />
                         <p:selectOneMenu id="dirlongitude" value="#{coletaController.coleta.direcaoLongitude}" style="width:100%"> 
-                      		<f:selectItem itemValue="null" itemLabel="Selecione Direção" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione Direção" />
                       		<f:selectItem itemValue="N" itemLabel="Norte" />
                       		<f:selectItem itemValue="S" itemLabel="Sul" />
                       		<f:selectItem itemValue="E" itemLabel="Leste" />
                       		<f:selectItem itemValue="W" itemLabel="Oeste" />
                         </p:selectOneMenu>
+                        <p:message for="dirlongitude" />
                    </div>
                    <div class="col-md-2">
-                        <p:outputLabel value="Longitude Grau:" for="longrau" />
+                        <p:outputLabel value="Longitude Grau:   *" for="longrau" />
                         <p:inputText id="longrau" value="#{coletaController.coleta.longitudeGrau}" title="Grau" />
+                  		<p:message for="longrau" />
                   </div>
                   <div class="col-md-2">
-                        <p:outputLabel value="Minuto:" for="lonminuto" />
+                        <p:outputLabel value="Minuto:   *" for="lonminuto" />
                         <p:inputText id="lonminuto" value="#{coletaController.coleta.longitudeMinuto}" title="Minuto" />
+                  		<p:message for="lonminuto" />
                   </div>
                   <div class="col-md-2">
-                        <p:outputLabel value="Segundos:" for="lonsegundos" />
+                        <p:outputLabel value="Segundos:   *" for="lonsegundos" />
                         <p:inputText id="lonsegundos" value="#{coletaController.coleta.longitudeSegundo}" title="Segundo" />
+             			<p:message for="lonsegundos" />
              	</div>
              	</div>
              	<div class="row">
@@ -190,44 +218,48 @@
  				<legend>Mata Auxiliar</legend>
  				<div class="row">
  					 <div class="col-md-2">
- 						<p:outputLabel value="Mata Ciliar ME:" for="mataciliarme" />
+ 						<p:outputLabel value="Mata Ciliar ME:   *" for="mataciliarme" />
                         <p:selectOneMenu id="mataciliarme" value="#{coletaController.coleta.mataCiliarMe}" style="width:100%">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
                       		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
                       		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
                       		<f:selectItem itemValue="2" itemLabel="Pouca" />
                       		<f:selectItem itemValue="3" itemLabel="Muita" />
                         </p:selectOneMenu>
+                        <p:message for="mataciliarme" />
                      </div>
                      <div class="col-md-2">
-                        <p:outputLabel value="Mata Ciliar MD:" for="mataciliarmd" />
+                        <p:outputLabel value="Mata Ciliar MD:   *" for="mataciliarmd" />
                         <p:selectOneMenu id="mataciliarmd" value="#{coletaController.coleta.mataCiliarMd}" style="width:100%">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
                       		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
                       		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
                       		<f:selectItem itemValue="2" itemLabel="Pouca" />
                       		<f:selectItem itemValue="3" itemLabel="Muita" />
                         </p:selectOneMenu>
+                        <p:message for="mataciliarmd" />
                      </div>
                       <div class="col-md-2">
-                        <p:outputLabel value="Veg. Ripariana ME:" for="vegriparianame" />
+                        <p:outputLabel value="Veg. Ripariana ME:   *" for="vegriparianame" />
                         <p:selectOneMenu id="vegriparianame" value="#{coletaController.coleta.vegetacaoRiparianaMe}" style="width:100%">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
                       		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
                       		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
                       		<f:selectItem itemValue="2" itemLabel="Pouca" />
                       		<f:selectItem itemValue="3" itemLabel="Muita" />
                         </p:selectOneMenu>
+                        <p:message for="vegriparianame" />
                      </div>
                       <div class="col-md-2">
-                        <p:outputLabel value="Veg. Ripariana MD:" for="vegriparianamd" />
+                        <p:outputLabel value="Veg. Ripariana MD:   *" for="vegriparianamd" />
                         <p:selectOneMenu id="vegriparianamd" value="#{coletaController.coleta.vegetacaoRiparianaMd}" style="width:100%">
-                      		<f:selectItem itemValue="null" itemLabel="Selecione" />
+                      		<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
                       		<f:selectItem itemValue="0" itemLabel="Nenhuma" />
                       		<f:selectItem itemValue="1" itemLabel="Muito Pouco" />
                       		<f:selectItem itemValue="2" itemLabel="Pouca" />
                       		<f:selectItem itemValue="3" itemLabel="Muita" />
                         </p:selectOneMenu>
+                        <p:message for="vegriparianamd" />
                     </div>
                 </div>
  				</fieldset>
@@ -327,7 +359,7 @@
  				</div>
  				</fieldset>
  				 #{coletaController.insertUsuario(usuarioController.usuarioLogado)}
-                <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" />
+                <p:commandButton actionListener="#{coletaController.cadastrar()}" value="Salvar" ajax="false"/>
              </h:form>
      </div>        
      </div>

@@ -6580,10 +6580,6 @@ button.close {
 	float: left;
 }
 
-.ui-state-error{
-	color: black !important;
-}
-
 .ui-widget-header{
 	background: transparent !important; 
 	border: none !important;
@@ -6594,7 +6590,7 @@ button.close {
 }
 
 .ui-widget-content .ui-icon{
-	margin:0px !important;
+	/*margin:0px !important;*/
 }
 
 .ui-dialog.ui-widget-content {
@@ -6654,6 +6650,10 @@ button.close {
 	top:20% !important;
 }
 
+.ui-confirmdialog-yes.ui-icon-check{
+	margin-top: -8px !important;
+}
+
 .ui-chkbox .ui-chkbox-box{
 	width: 18px !important;
     height: 18px !important;
@@ -6701,12 +6701,20 @@ fieldset{
 	margin-top: 15px !important;
 }
 
-.ui-state-error{
-	background: none !important;
+.ui-outputlabel.ui-state-error{
 	color: #E23232 !important;
 }
 
+.ui-state-error{
+	background: none !important;
+	border-color: #E23232 !important;
+}
+
 .ui-inputfield .ui-inputtext .ui-state-error{
-	border-color: 1px solid #E23232 !important;
+	color: black !important;
+}
+
+.autoCompleteLabel{
+	font-weight: 700; font-size: 1em !important;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 

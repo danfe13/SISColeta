@@ -60,7 +60,12 @@ public class EstadoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.estado);
+    	try{	
+    		getDAO().remove(this.estado);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	estado = null;
     }

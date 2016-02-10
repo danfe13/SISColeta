@@ -72,7 +72,12 @@ public class OrdemController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.ordem);
+    	try{	
+    		getDAO().remove(this.ordem);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	ordem = null;
     }

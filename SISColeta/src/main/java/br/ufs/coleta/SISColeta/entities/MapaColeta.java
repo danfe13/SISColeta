@@ -26,7 +26,7 @@ public class MapaColeta implements Serializable{
 	
 	public void setLatitude(Double grau, Double minuto, Double segundos, Character direcao){
 		double lat = grau * 1 + minuto/60 + segundos/3600;
-		if(direcao == 's'){
+		if(direcao == 'S'){
 			lat *= -1; 
 		}
 		this.latitude = String.valueOf(lat);
@@ -42,7 +42,7 @@ public class MapaColeta implements Serializable{
 	
 	public void setLongitude(Double grau, Double minuto, Double segundos, Character direcao){
 		double lon = grau * 1 + minuto/60 + segundos/3600;
-		if(direcao == 'w' ){
+		if(direcao == 'W' ){
 			lon *= -1; 
 		}
 		this.longitude = String.valueOf(lon);

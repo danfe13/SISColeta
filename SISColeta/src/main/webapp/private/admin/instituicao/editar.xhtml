@@ -10,6 +10,7 @@
 
         <p:dialog id="InstituicaoEditDlg" widgetVar="InstituicaoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="InstituicaoEditForm">
+            #{estadoController.insertEstado(instituicaoController.instituicao.tbMunicipio.tbEstado)}
                 <h:panelGroup id="display" rendered="#{instituicaoController.instituicao != null}" layout="block">
                     <div class="row">
                 		<div class="col-md-12">

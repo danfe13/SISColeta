@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-10-24T23:54:22 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mail_label_5960" language="groovy" pageWidth="612" pageHeight="792" columnWidth="370" columnSpacing="8" leftMargin="13" rightMargin="7" topMargin="36" bottomMargin="20" uuid="8841788f-b309-4d1b-86bf-5cf8c4e99a36">
+<!-- 2016-01-16T22:57:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mail_label_5960" language="groovy" columnCount="2" pageWidth="612" pageHeight="792" columnWidth="290" columnSpacing="8" leftMargin="13" rightMargin="7" topMargin="36" bottomMargin="20" uuid="8841788f-b309-4d1b-86bf-5cf8c4e99a36">
 	<property name="ireport.scriptlethandling" value="2"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLnRiX2VzdGFkbyBBUyAsMjkyLDEwMyw1NjAzMjZjMS0xYzUxLTRkNzctODM0NC0zYTNl&#xA;NzIyNTJlMTA7"/>
@@ -36,52 +36,52 @@ FROM tb_coleta]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="188" splitType="Stretch">
+		<band height="180" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<rectangle>
-				<reportElement x="0" y="-20" width="300" height="168" uuid="6c9cef30-9200-4b2b-83f4-01e1105fca6a"/>
+				<reportElement x="1" y="6" width="285" height="168" uuid="6c9cef30-9200-4b2b-83f4-01e1105fca6a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="-15" width="100" height="23" uuid="048f9a65-487a-414d-b598-1f88d153e7fd">
+				<reportElement x="3" y="11" width="100" height="23" uuid="048f9a65-487a-414d-b598-1f88d153e7fd">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement markup="none">
-					<font fontName="Arial" size="20" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{codColecao}]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style isBold='true' size='16'>"+$F{codColecao}+"</style>"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="13" width="100" height="23" uuid="e388facc-2d4f-482d-9bdf-95e9c554fc29">
+				<reportElement x="3" y="35" width="100" height="23" uuid="e388facc-2d4f-482d-9bdf-95e9c554fc29">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement>
-					<font fontName="Arial" size="20" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{especie}]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style isBold='true' isItalic='true' size='16'>"+$F{especie}+"</style>"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="198" y="-15" width="91" height="19" uuid="d32aa7c7-d672-49ba-a79f-4f828bb9ddea"/>
+				<reportElement x="191" y="11" width="91" height="19" uuid="d32aa7c7-d672-49ba-a79f-4f828bb9ddea"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{familia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="14" width="20" height="16" uuid="78d81fda-c5e4-47bb-884b-ae69981b47af"/>
+				<reportElement x="260" y="32" width="20" height="16" uuid="78d81fda-c5e4-47bb-884b-ae69981b47af"/>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="246" y="13" width="20" height="16" uuid="53991b58-1db6-4599-94e4-db443d91b05a"/>
+				<reportElement x="242" y="32" width="17" height="16" uuid="53991b58-1db6-4599-94e4-db443d91b05a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[N =]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="10" y="42" width="280" height="15" uuid="e2903e6e-18a3-4597-ba5f-faac0f79b6b7">
+				<reportElement x="3" y="67" width="280" height="15" uuid="e2903e6e-18a3-4597-ba5f-faac0f79b6b7">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -90,7 +90,7 @@ FROM tb_coleta]]>
 				<textFieldExpression><![CDATA[$F{localidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="61" width="210" height="15" uuid="1a925d3f-ca99-4b94-be14-c3b29ab3f7ee">
+				<reportElement x="73" y="86" width="210" height="15" uuid="1a925d3f-ca99-4b94-be14-c3b29ab3f7ee">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -99,7 +99,7 @@ FROM tb_coleta]]>
 				<textFieldExpression><![CDATA[$F{coordenada}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="61" width="70" height="15" uuid="d2536891-1edf-4386-81bf-aeca2c2f3f81">
+				<reportElement x="3" y="86" width="70" height="15" uuid="d2536891-1edf-4386-81bf-aeca2c2f3f81">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -108,7 +108,7 @@ FROM tb_coleta]]>
 				<text><![CDATA[Coordenadas:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="97" y="80" width="100" height="15" uuid="4e21c5a8-380e-463a-bb34-6eb77f898eb8">
+				<reportElement x="90" y="105" width="100" height="15" uuid="4e21c5a8-380e-463a-bb34-6eb77f898eb8">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -117,7 +117,7 @@ FROM tb_coleta]]>
 				<textFieldExpression><![CDATA[$F{codColeta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="80" width="90" height="15" uuid="0a9e2ed2-f8b3-46db-9623-ae65fbfeb102">
+				<reportElement x="3" y="105" width="90" height="15" uuid="0a9e2ed2-f8b3-46db-9623-ae65fbfeb102">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -126,7 +126,7 @@ FROM tb_coleta]]>
 				<text><![CDATA[Código de Campo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="60" y="100" width="230" height="15" uuid="159767c0-f180-47ed-96f7-d737d9664090">
+				<reportElement x="53" y="125" width="230" height="24" uuid="159767c0-f180-47ed-96f7-d737d9664090">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -135,7 +135,7 @@ FROM tb_coleta]]>
 				<textFieldExpression><![CDATA[$F{coletor}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="100" width="50" height="15" uuid="ed606954-97cf-4427-ad6f-b83f34ebaab0">
+				<reportElement x="3" y="125" width="50" height="15" uuid="ed606954-97cf-4427-ad6f-b83f34ebaab0">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -144,7 +144,7 @@ FROM tb_coleta]]>
 				<text><![CDATA[Coletores:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="35" y="123" width="100" height="15" uuid="924671f3-8f8d-4994-8f0a-b93ece029b9a">
+				<reportElement x="28" y="154" width="100" height="15" uuid="924671f3-8f8d-4994-8f0a-b93ece029b9a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
@@ -153,7 +153,7 @@ FROM tb_coleta]]>
 				<textFieldExpression><![CDATA[$F{determinador}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="123" width="25" height="15" uuid="34216ecc-cc8f-4b32-9410-2b0f21d31677">
+				<reportElement x="3" y="154" width="25" height="15" uuid="34216ecc-cc8f-4b32-9410-2b0f21d31677">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>

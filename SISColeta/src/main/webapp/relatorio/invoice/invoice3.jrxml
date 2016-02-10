@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-07T23:32:49 -->
+<!-- 2016-01-16T21:11:28 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f65ca3-d077-4e6f-942b-25e80532d684">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -35,11 +35,13 @@
 				</reportElement>
 			</rectangle>
 			<image>
-				<reportElement x="20" y="15" width="90" height="123" uuid="ad2ba815-fd35-43ab-8b17-f14b311e34f4"/>
+				<reportElement x="18" y="16" width="80" height="120" uuid="ad2ba815-fd35-43ab-8b17-f14b311e34f4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<imageExpression><![CDATA["C:/Users/Danilo/JaspersoftWorkspace/MyReports/ufs.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="441" y="18" width="80" height="120" uuid="c5de808d-9092-4fbe-89b8-c48760fc5e88"/>
+				<reportElement x="443" y="16" width="80" height="120" uuid="c5de808d-9092-4fbe-89b8-c48760fc5e88"/>
 				<imageExpression><![CDATA["C:/Users/Danilo/JaspersoftWorkspace/MyReports/te.jpg"]]></imageExpression>
 			</image>
 			<staticText>
@@ -98,7 +100,7 @@
 			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 			<staticText>
 				<reportElement x="10" y="10" width="521" height="52" uuid="397b211e-eed4-44c3-b4fa-f7fd467a2c29"/>
-				<textElement textAlignment="Justified"/>
+				<textElement textAlignment="Justified" markup="styled"/>
 				<text><![CDATA[Pelo presente documento, autorizo o envio, por empréstimo ou doação (ver listagem em anexo), de material biológico coletado por este laboratório, com recursos próprios, para finalidade científica, com autorização do IBAMA. Os exemplares, no caso de empréstimo, deverão ser devolvidos em iguais condições (salvo acordo entre os responsáveis). ]]></text>
 			</staticText>
 			<rectangle>

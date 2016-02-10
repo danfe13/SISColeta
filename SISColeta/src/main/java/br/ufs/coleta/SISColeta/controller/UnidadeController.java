@@ -3,6 +3,7 @@ package br.ufs.coleta.SISColeta.controller;
 import br.ufs.coleta.SISColeta.entities.Unidade;
 import br.ufs.coleta.SISColeta.model.UnidadeDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -66,7 +67,12 @@ public class UnidadeController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.unidade);
+    	try{
+    		getDAO().remove(this.unidade);
+    	}
+    	catch(Exception sqlex){
+    		this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+    	}
     	items = null;
     	unidade = null;
     }

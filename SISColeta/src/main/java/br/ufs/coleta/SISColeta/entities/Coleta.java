@@ -185,7 +185,7 @@ public class Coleta implements GenericEntity {
 	
 	@Column(name = "cod_coleta", length = 20)
 	@NotNull(message = "Campo não pode ser vázio!")
-	@NotEmpty(message = "Não pode ser vázio!")
+	@NotEmpty(message = "Campo não pode ser vázio!")
 	public String getCodColeta() {
 		return this.codColeta;
 	}
@@ -196,7 +196,7 @@ public class Coleta implements GenericEntity {
 
 	@Column(name = "datum", length = 20)
 	@NotNull(message = "Campo não pode ser vázio!")
-	@NotEmpty(message = "Não pode ser vázio!")
+	@NotEmpty(message = "Campo não pode ser vázio!")
 	public String getDatum() {
 		return this.datum;
 	}
@@ -206,6 +206,8 @@ public class Coleta implements GenericEntity {
 	}
 	
 	@Column(name = "nome", length = 45)
+	@NotNull(message = "Campo não pode ser vázio!")
+	@NotEmpty(message = "Campo não pode ser vázio!")
 	public String getNome() {
 		return this.nome;
 	}
@@ -246,6 +248,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "latitude_grau", precision = 17, scale = 17)
+	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLatitudeGrau() {
 		return this.latitudeGrau;
 	}
@@ -433,6 +436,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "mata_ciliar_md")
+	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getMataCiliarMd() {
 		return this.mataCiliarMd;
 	}
@@ -442,6 +446,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "mata_ciliar_me")
+	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getMataCiliarMe() {
 		return this.mataCiliarMe;
 	}
@@ -451,6 +456,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "vegetacao_ripariana_md")
+	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getVegetacaoRiparianaMd() {
 		return this.vegetacaoRiparianaMd;
 	}
@@ -460,6 +466,7 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "vegetacao_ripariana_me")
+	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getVegetacaoRiparianaMe() {
 		return this.vegetacaoRiparianaMe;
 	}

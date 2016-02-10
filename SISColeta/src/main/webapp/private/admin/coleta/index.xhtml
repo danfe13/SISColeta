@@ -9,7 +9,7 @@
 	<ui:define name="title">Coleta</ui:define>
 	<ui:define name="cabecalho">Coleta</ui:define>
 	<ui:define name="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
             <li><a href="#">Táxon</a></li>
             <li class="active">Coleta</li>
 	</ui:define>
@@ -70,7 +70,7 @@
 						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
 					</p:commandLink>
 					<p:commandLink title="Etiqueta" styleClass="fa fa-ticket" ajax="false">
-						<p:fileDownload value="#{coletaController.PDF(coleta)}" />
+						<p:fileDownload value="#{coletaController.PDFEtiquetaColeta(coleta)}" />
 					</p:commandLink>
        			</p:column>
        			<p:rowExpansion>
@@ -107,6 +107,10 @@
 								<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 								<f:setPropertyActionListener value="#{colecao}" target="#{colecaoController.colecao}" />
 							</p:commandLink>
+							<p:commandLink update=":EtiquetaForm" oncomplete="PF('EtiquetaDialog').show()" title="Espécies" styleClass="fa fa-ticket">
+								<f:setPropertyActionListener value="#{colecao}" target="#{coletaController.colecao}" />
+								<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
+							</p:commandLink>
 		       			</p:column>
 					</p:dataTable>
 							
@@ -122,5 +126,6 @@
 	</div>
 	</div>
 	<ui:include src="especie.xhtml"/>
+	<ui:include src="etiqueta.xhtml"/>
 	</ui:define>
 </ui:composition>

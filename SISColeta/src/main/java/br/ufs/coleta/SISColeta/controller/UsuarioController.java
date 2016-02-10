@@ -137,9 +137,14 @@ public class UsuarioController extends GenericController {
     }
     
     public void remover(){
-    	pessoa = this.usuario.getTbPessoa();
-    	getDAOPessoa().remove(this.pessoa);
-    	getDAOUser().remove(this.usuario);
+    	try{
+    		pessoa = this.usuario.getTbPessoa();
+    		getDAOPessoa().remove(this.pessoa);
+    		getDAOUser().remove(this.usuario);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	usuario = null;
     	pessoa = null;

@@ -95,7 +95,12 @@ public class BaciaController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.bacia);
+    	try{
+    		getDAO().remove(this.bacia);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	bacia = null;
     }

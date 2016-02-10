@@ -55,7 +55,12 @@ public class OceanoController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.oceano);
+    	try{	
+    		getDAO().remove(this.oceano);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	oceano = null;
     }

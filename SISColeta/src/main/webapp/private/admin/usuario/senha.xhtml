@@ -14,15 +14,25 @@
                     <div class="row">
                 		<div class="col-md-12">
                         	<p:outputLabel value="Senha" for="senha" />
-                        	<p:inputText id="senha" value="#{usuarioController.usuario.senha}" title="Senha" type="password" />
+                        	<p:password id="senha" value="#{usuarioController.usuario.senha}" match="senha_confirmacao"  title="Senha" />
                     	</div>
                     </div>
                     <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="senha" />
+            			</div>
+            		</div>
+                    <div class="row">
                 		<div class="col-md-12">     
                         	<p:outputLabel value="Confirmar Senha" for="senha_confirmacao" />
-                        	<p:inputText id="senha_confirmacao" value="#{usuarioController.confirmacaosenha}" title="Senha Confirmação" type="password" />
+                        	<p:password id="senha_confirmacao" required="true" requiredMessage="Você deve digitar a senha novamente." value="#{usuarioController.confirmacaosenha}" title="Senha Confirmação" type="password" />
                     	</div>
                     </div>
+                    <div class="row">
+                		<div class="col-md-12"> 
+	                        <p:message for="senha_confirmacao" />
+            			</div>
+            		</div>
                     <p:commandButton actionListener="#{usuarioController.editarSenha()}" value="Salvar" update="display,:UsuarioListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="UsuarioSenhaDialog.hide()"/>
                 </h:panelGroup>

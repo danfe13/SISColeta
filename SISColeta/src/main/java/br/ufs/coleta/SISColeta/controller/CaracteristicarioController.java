@@ -88,7 +88,12 @@ public class CaracteristicarioController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.caracrio);
+    	try{	
+    		getDAO().remove(this.caracrio);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	caracrio = null;
     }

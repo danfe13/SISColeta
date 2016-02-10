@@ -11,30 +11,20 @@
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="UsuarioEditForm">
                <h:panelGroup id="display2" rendered="#{usuarioController.usuario.tbPessoa != null}" layout="block">
-                        <div class="row">
-                		<div class="col-md-12">
+               		<div class="row">
+                		<div class="col-md-4">
 	                        <p:outputLabel value="CPF" for="cpf" />
-	                        <p:inputText id="cpf" value="#{usuarioController.pessoa.cpf}" title="CPF" >
+	                        <p:inputMask id="cpf" required="true" requiredMessage="Campo não pode ser vázio!" mask="999.999.999-99" value="#{usuarioController.pessoa.cpf}" title="CPF" >
 	                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
 								<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
-							</p:inputText>
+							</p:inputMask>
+							<p:message for="cpf" />
 						</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="cpf" />
-                        </div>
-                    </div>
-					<div class="row">
-                		<div class="col-md-12">	
+						<div class="col-md-8">	
 	                        <p:outputLabel value="Nome" for="nome" />
-	                        <p:inputText id="nome" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                        <p:inputText id="nome" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                        <p:message for="nome" />
 	                	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="nome" />
-                        </div>
                     </div>
 	                <div class="row">
                 		<div class="col-md-12">    
@@ -64,18 +54,12 @@
                 </h:panelGroup>
                  <h:panelGroup id="display" rendered="#{usuarioController.usuario != null}" layout="block">
                 	<div class="row">
-                		<div class="col-md-12">        
+                		<div class="col-md-8">        
 	                        <p:outputLabel value="Login" for="login" />
 	                        <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
+	                        <p:message for="login" />
                     	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:message for="login" />
-                        </div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">    
+                    	<div class="col-md-4">    
 	                        <p:outputLabel value="Perfil" for="perfil" />
 	                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic" style="width:100%">
                             <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
@@ -83,12 +67,8 @@
                                            itemValue="#{perfilItem}"
                                            itemLabel="#{perfilItem.descricao}"/>
                         	</p:selectOneMenu>
-                    	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">
                         	<p:message for="perfil" />
-                        </div>
+                    	</div>
                     </div>
                     <div class="row">
                 		<div class="col-md-12">    

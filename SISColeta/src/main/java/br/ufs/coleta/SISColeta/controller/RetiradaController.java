@@ -123,12 +123,21 @@ public class RetiradaController extends GenericController {
     		else if(qntd == (int)qntd){
     			this.adicionarMensagemErro("A Quantidade deve ser um número inteiro!");
     		}
+    		else if(qntd > colecao.getQuantidade()){
+    			this.adicionarMensagemErro("Quantidade superior ao disponível!");
+    		}
     	}
     	
     }
     
     public void remover(){
-    	getDAO().remove(this.retirada);
+    	try{	
+    		getDAO().deleteRetiradaColecao(retirada.getId());
+    		getDAO().remove(this.retirada);
+	    }
+		catch(Exception sqlex){
+			this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+		}
     	items = null;
     	retirada = null;
     }
@@ -163,6 +172,10 @@ public class RetiradaController extends GenericController {
 	
 	public List<Colecao> autoCompleteEspecies(String nome){
 		return colecaoDAO.getColecaoByEspecie(nome);
+	}
+	
+	public void onSelectItem(){
+		this.colecao.setTbColeta(colecaoDAO.getColetabyColecao(this.colecao.getId()));
 	}
 
 	public Colecao getColecao() {

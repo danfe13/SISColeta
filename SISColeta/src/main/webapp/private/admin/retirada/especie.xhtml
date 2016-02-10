@@ -14,10 +14,35 @@
                 <h:panelGroup id="display" rendered="#{retiradaController.retirada != null}" layout="block">
                 	<div class="row">
                 		<div class="col-md-12">       
-                       		<p:outputLabel value="Especie:" for="especie" />
-        					<p:autoComplete id="especie" style="width:100%"  forceSelection="true" maxResults="7" value="#{retiradaController.colecao}" completeMethod="#{retiradaController.autoCompleteEspecies}" 
-        					var="especie" itemLabel="#{especie.tbEspecie.nomeCientifico}" itemValue="#{especie}" converter="generic"/>
+                       		<p:outputLabel value="Espécie:" for="especie" />
+        					<p:autoComplete id="especie" style="width:100%"  forceSelection="true" maxResults="30" value="#{retiradaController.colecao}" completeMethod="#{retiradaController.autoCompleteEspecies}" 
+        					var="especie" itemLabel="#{especie.tbEspecie.nomeCientifico}" itemValue="#{especie}" converter="generic">
+        						<p:column>
+        							<h:outputText value="#{especie.codCampo} -" />
+        							<h:outputText value=" #{especie.tbEspecie.nomeCientifico}." />
+        							<h:outputText value=" Qntd: #{especie.quantidade}" />
+        							<h:outputText value="(#{especie.unidade.descricao})" />
+					            </p:column>
+					            <p:ajax update="display2" event="itemSelect" listener="#{retiradaController.onSelectItem()}" />
+        					</p:autoComplete>
                     	</div>
+	                </div>
+	                <div class="row">
+                		<div class="col-md-12">
+                			<h:panelGroup id="display2">
+                			<div class="panel panel-default">
+							  <div class="panel-body">
+								  <h:panelGroup id="display3" rendered="#{retiradaController.colecao != null}">
+								    <span class="autoCompleteLabel">Espécie:  </span><h:outputText style="text-transform: capitalize" value="#{retiradaController.colecao.tbEspecie.nomeCientifico}"  /><h:outputText value="&lt;br/&gt;" escape="false" />
+								    <span class="autoCompleteLabel">Cód. Campo:  </span><h:outputText value="#{retiradaController.colecao.codCampo}" /><h:outputText value="&lt;br/&gt;" escape="false" />
+								    <span class="autoCompleteLabel">Localidade:  </span><h:outputText value="#{retiradaController.colecao.tbColeta.tbMunicipio.nome}" />/<h:outputText value="#{retiradaController.colecao.tbColeta.tbMunicipio.tbEstado.uf}" /><h:outputText value="&lt;br/&gt;" escape="false" />
+								    <span class="autoCompleteLabel">Quantidade:  </span><h:outputText value="#{retiradaController.colecao.quantidade}" /><h:outputText value="(#{retiradaController.colecao.unidade.descricao})" /><h:outputText value="&lt;br/&gt;" escape="false" />
+								    <span class="autoCompleteLabel">Data de Coleta:  </span><h:outputText value="#{retiradaController.colecao.getTbColeta().dataInicio}" />
+							  	  </h:panelGroup>	
+							  </div>
+							</div>
+	                    	</h:panelGroup>
+	                    </div>
 	                </div>
                     <div class="row">
                 		<div class="col-md-12">

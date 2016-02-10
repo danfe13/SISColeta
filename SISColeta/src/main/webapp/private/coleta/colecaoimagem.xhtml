@@ -5,15 +5,23 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	template="/template/default.xhtml">
-	<ui:define name="title">Coleção</ui:define>
-	
+	template="/template/aluno.xhtml">
+	<ui:define name="title">Coleção Imagem</ui:define>
+	<ui:define name="cabecalho">Coleção Imagem</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="/SISColeta/private/admin/coleta/index.jsf">Coleta</a></li>
+            <li class="active">Imagens</li>
+	</ui:define>
 	<f:metadata>
 		<f:viewParam name="id" value="#{colecaoimagemController.id}" />
 		<f:event type="preRenderView" listener="#{colecaoimagemController.checkList()}" />
 	</f:metadata>
 	
 	<ui:define name="content">
+	<div class="col-md-12">
+              <div class="box">
+                <div class="box-header with-border">
 	<h:form id="ColecaoImagemListForm">
 		<p:dataGrid var="colecaoimagem" value="#{colecaoimagemController.items}" columns="4" layout="grid"
         rows="12" paginator="true" id="colecaoimagens"
@@ -22,7 +30,7 @@
  
         <f:facet name="header">
             <p:outputPanel>
-				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Cadastrar" actionListener="#{colecaoimagemController.prepareCreate()}" update=":ColecaoImagemForm" oncomplete="PF('ColecaoImageDialog').show()"/>
+				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{colecaoimagemController.prepareCreate()}" update=":ColecaoImagemForm" oncomplete="PF('ColecaoImageDialog').show()"/>
 	         </p:outputPanel>
         </f:facet>
         <p:panel header="#{colecaoimagem.id}" style="text-align:center">
@@ -36,6 +44,9 @@
     </p:dataGrid>
     
 	</h:form>
+	</div>
+	</div>
+	</div>
 	<ui:include src="uploadimagem.xhtml"/>
 	</ui:define>
 </ui:composition>

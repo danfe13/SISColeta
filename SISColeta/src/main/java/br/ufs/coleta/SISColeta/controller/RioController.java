@@ -88,7 +88,12 @@ public class RioController extends GenericController {
     }
     
     public void remover(){
-    	getDAO().remove(this.rio);
+    	try{	
+    		getDAO().remove(this.rio);
+    	}
+    	catch(Exception sqlex){
+    		this.adicionarMensagemAlerta("O item está em uso e não pode ser excluido!");
+    	}	
     	items = null;
     	rio = null;
     }

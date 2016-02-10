@@ -241,4 +241,40 @@ public class ColetaDAO extends GenericDAO<Coleta, Long> {
     	query.setParameter("coleta", coleta);
     	return query.getResultList().size() > 0;
     }
+    
+    public void deleteColecao(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_colecao WHERE tb_coleta_id=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
+    
+    public void deleteAquatico(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_aquatico WHERE idtb_coleta=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
+    
+    public void deleteColetores(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_coletor WHERE tb_coleta_id=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
+    
+    public void deleteSubstratos(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_substratos WHERE tb_coleta_id=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
+    
+    public void deleteCarac(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_carac_coleta WHERE tb_coleta_id=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
+    
+    public void deleteMetodoColetas(int id_coleta){
+    	Query query = em.createNativeQuery("DELETE FROM tb_metodo_coletas WHERE tb_coleta_id=?");
+            query.setParameter(1, id_coleta);
+            query.executeUpdate();
+    }
 }
