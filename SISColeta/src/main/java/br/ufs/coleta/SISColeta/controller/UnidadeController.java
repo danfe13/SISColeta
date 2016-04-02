@@ -9,11 +9,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "unidadeController")
-@SessionScoped
+@ViewScoped
 public class UnidadeController extends GenericController {
 
     /**

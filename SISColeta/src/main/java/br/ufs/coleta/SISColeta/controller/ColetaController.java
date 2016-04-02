@@ -28,6 +28,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
@@ -47,7 +48,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 
 @ManagedBean(name = "coletaController")
-@SessionScoped
+@ViewScoped
 public class ColetaController extends GenericController {
 
     /**

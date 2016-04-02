@@ -2,7 +2,6 @@ package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Colecao;
 import br.ufs.coleta.SISColeta.entities.Coleta;
-import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.Invoice;
 import br.ufs.coleta.SISColeta.entities.MetodoColeta;
 import br.ufs.coleta.SISColeta.entities.Retirada;
@@ -26,6 +25,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +41,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name = "retiradaController")
-@SessionScoped
+@ViewScoped
 public class RetiradaController extends GenericController {
 
     /**
@@ -225,7 +225,7 @@ public class RetiradaController extends GenericController {
     		i.setDestinatario(retirada.getTbDestinatario().getNome());
     		i.setUniversidade(retirada.getTbDestinatario().getTbInstituicao().getNome());
     		
-    		String data = new SimpleDateFormat("yyyy-MM-dd").format(retirada.getDataRetirada());
+    		String data = new SimpleDateFormat("dd-MM-yyyy").format(retirada.getDataRetirada());
     		i.setDataEmprestimo(data);
     		
     		i.setCodEmprestimo(retirada.getId().toString());

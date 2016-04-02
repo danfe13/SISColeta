@@ -8,11 +8,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "rioController")
-@SessionScoped
+@ViewScoped
 public class RioController extends GenericController {
 
     /**

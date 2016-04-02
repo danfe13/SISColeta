@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
@@ -12,7 +12,7 @@ import br.ufs.coleta.SISColeta.entities.CaracRio;
 import br.ufs.coleta.SISColeta.model.CaracRioDAO;
 
 @ManagedBean(name = "caracrioController")
-@SessionScoped
+@ViewScoped
 public class CaracteristicarioController extends GenericController {
 
     /**

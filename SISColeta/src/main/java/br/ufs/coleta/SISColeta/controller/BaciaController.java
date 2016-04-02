@@ -11,12 +11,13 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.PrimeFacesContext;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "baciaController")
-@SessionScoped
+@ViewScoped
 public class BaciaController extends GenericController {
 
     /**
