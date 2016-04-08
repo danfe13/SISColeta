@@ -14,6 +14,7 @@
             <li class="active">Coleta</li>
 	</ui:define>
 	<ui:define name="content">
+	
 	<div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
@@ -93,7 +94,7 @@
 						</p:column>
 						<p:column sortBy="#{colecao.quantidade}" >
 							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
-							<h:outputText value="#{colecao.quantidade}" />
+							<h:outputText value="#{colecaoController.getQuantidadeReal(colecao.quantidade, colecao.id)}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total"/>
 						</p:column>
 						<p:column sortBy="#{colecao.destino.descricao}" >
 							<f:facet name="header"><h:outputText value="Destino" /></f:facet>

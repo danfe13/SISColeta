@@ -34,6 +34,10 @@
 	         </p:outputPanel>
         </f:facet>
         <p:panel header="#{especieimagem.id}" style="text-align:center">
+        	<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{especieController.remover}">
+						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+						<f:setPropertyActionListener value="#{especie}" target="#{especieController.especie}" />
+					</p:commandLink>
             <h:panelGrid columns="1" style="width:100%">
                 <p:graphicImage value="#{especieimagemController.imagem}" width="350px" height="250px">
                 	<f:param name="nome" value="#{especieimagem.imagem}" />

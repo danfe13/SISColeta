@@ -6,6 +6,7 @@ import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.ColecaoDAO;
 import br.ufs.coleta.SISColeta.model.EspecieDAO;
+import br.ufs.coleta.SISColeta.model.RetiradaDAO;
 import br.ufs.coleta.SISColeta.model.SubstratoDAO;
 import br.ufs.coleta.SISColeta.model.UsuarioDAO;
 
@@ -29,6 +30,8 @@ public class ColecaoController extends GenericController {
 	@EJB
     private ColecaoDAO colecaoDAO;
 	@EJB
+    private RetiradaDAO retiradaDAO;
+	@EJB
     private UsuarioDAO usuarioDAO;
 	@EJB
     private EspecieDAO especieDAO;
@@ -36,6 +39,7 @@ public class ColecaoController extends GenericController {
     private Colecao colecao;
     private Coleta coleta;
     private Usuario usuario;
+    private String quantidade;
 
     public ColecaoController() {
     }
@@ -116,6 +120,14 @@ public class ColecaoController extends GenericController {
 		
 	}
 	
+	public String getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(String quantidade) {
+		this.quantidade = quantidade;
+	}
+
 	public void insertUsuario(Usuario usuario){
 		this.usuario = usuario;
 	}
@@ -135,7 +147,12 @@ public class ColecaoController extends GenericController {
 	public List<Colecao> getColecaoByColeta(Coleta coleta){
 		return getDAO().getColecaoByColeta(coleta.getId());
 	}
-    
+	
+	public String getQuantidadeReal(int quantidade, int idcolecao){
+		String doacoes = String.valueOf(retiradaDAO.doacoesByColecao(idcolecao));
+		String emprestimos = String.valueOf(retiradaDAO.emprestimosByColecao(idcolecao));
+		return "C="+quantidade+" E="+emprestimos+" D="+doacoes+" T="+(quantidade-(Integer.parseInt(emprestimos)+Integer.parseInt(doacoes)));
+	}
 	
 	
 }

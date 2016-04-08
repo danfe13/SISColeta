@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -110,22 +111,25 @@ public class RetiradaController extends GenericController {
     
     public void cadastrarRetirar(){
     	try{
-    		getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs, qntd);
-    		RequestContext rc = RequestContext.getCurrentInstance();
-            rc.execute("PF('RetiradaColecaoCreateDialog').hide();");
-    	}catch(Exception e){
-    		if(colecao == null){
-    			this.adicionarMensagemErro("Informe uma espécie!");
-    		}
-    		if(qntd == null){
-    			this.adicionarMensagemErro("Informe a Quantidade!");
-    		}
-    		else if(qntd == (int)qntd){
-    			this.adicionarMensagemErro("A Quantidade deve ser um número inteiro!");
-    		}
-    		else if(qntd > colecao.getQuantidade()){
+    		String doacoes = String.valueOf(retiradaDAO.doacoesByColecao(colecao.getId()));
+    		String emprestimos = String.valueOf(retiradaDAO.emprestimosByColecao(colecao.getId()));
+    		if(Integer.parseInt(emprestimos)+Integer.parseInt(doacoes)>qntd){
     			this.adicionarMensagemErro("Quantidade superior ao disponível!");
     		}
+    		else if(colecao == null){
+    			this.adicionarMensagemErro("Informe uma espécie!");
+    		}
+    		else if(qntd == null){
+    			this.adicionarMensagemErro("Informe a Quantidade!");
+    		}
+    		else{
+	    		getDAO().insertRetirada(colecao.getId(), retirada.getId(), obs, qntd);
+	    		RequestContext rc = RequestContext.getCurrentInstance();
+	            rc.execute("PF('RetiradaColecaoCreateDialog').hide();");
+    		}
+    	}
+    	catch(Exception e){
+    		this.adicionarMensagemErro("Essa espécie ja foi adicionada. Adicione uma nova retirada ou edite o item referente a esta espécie!");
     	}
     	
     }

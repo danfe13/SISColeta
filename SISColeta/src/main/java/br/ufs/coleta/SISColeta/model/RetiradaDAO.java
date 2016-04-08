@@ -82,7 +82,19 @@ public class RetiradaDAO extends GenericDAO<Retirada, Long> {
     }
     
     public Object emprestimosCount(){
-    	Query query = em.createNativeQuery("SELECT COUNT(*) FROM tb_retirada_colecao rc LEFT JOIN tb_recebimento re ON (re.tb_retirada_id = rc.tb_retirada_id AND re.tb_colecao_id = rc.tb_colecao_id) WHERE re.idtb_recebimento IS NULL");
+    	Query query = em.createNativeQuery("SELECT SUM(rc.quantd_exemplares) FROM tb_retirada_colecao rc LEFT JOIN tb_recebimento re ON (re.tb_retirada_id = rc.tb_retirada_id AND re.tb_colecao_id = rc.tb_colecao_id) WHERE re.idtb_recebimento IS NULL");
+    	return query.getResultList().get(0);
+    }
+    
+    public Object emprestimosByColecao(int id){
+    	Query query = em.createNativeQuery("SELECT SUM(rc.quantd_exemplares) FROM tb_retirada_colecao rc LEFT JOIN tb_recebimento re ON (re.tb_retirada_id = rc.tb_retirada_id AND re.tb_colecao_id = rc.tb_colecao_id) INNER JOIN tb_retirada rt ON (rt.idtb_retirada = rc.tb_retirada_id) WHERE re.idtb_recebimento IS NULL AND rt.tipo_retirada = 1 AND rc.tb_colecao_id = ?");
+    	query.setParameter(1, id);
+    	return query.getResultList().get(0);
+    }
+    
+    public Object doacoesByColecao(int id){
+    	Query query = em.createNativeQuery("SELECT SUM(rc.quantd_exemplares) FROM tb_retirada_colecao rc LEFT JOIN tb_recebimento re ON (re.tb_retirada_id = rc.tb_retirada_id AND re.tb_colecao_id = rc.tb_colecao_id) INNER JOIN tb_retirada rt ON (rt.idtb_retirada = rc.tb_retirada_id) WHERE re.idtb_recebimento IS NULL AND rt.tipo_retirada = 2 AND rc.tb_colecao_id = ?");
+    	query.setParameter(1, id);
     	return query.getResultList().get(0);
     }
     

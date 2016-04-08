@@ -28,7 +28,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "especieimagemController")
-@ViewScoped
+@SessionScoped
 public class EspecieImagemController extends GenericController {
 
     /**
