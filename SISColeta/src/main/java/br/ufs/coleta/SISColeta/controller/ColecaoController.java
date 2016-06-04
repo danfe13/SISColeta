@@ -5,9 +5,11 @@ import br.ufs.coleta.SISColeta.entities.Coleta;
 import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.Usuario;
 import br.ufs.coleta.SISColeta.model.ColecaoDAO;
+import br.ufs.coleta.SISColeta.model.DestinoDAO;
 import br.ufs.coleta.SISColeta.model.EspecieDAO;
 import br.ufs.coleta.SISColeta.model.RetiradaDAO;
 import br.ufs.coleta.SISColeta.model.SubstratoDAO;
+import br.ufs.coleta.SISColeta.model.UnidadeDAO;
 import br.ufs.coleta.SISColeta.model.UsuarioDAO;
 
 import java.util.List;
@@ -34,12 +36,17 @@ public class ColecaoController extends GenericController {
 	@EJB
     private UsuarioDAO usuarioDAO;
 	@EJB
-    private EspecieDAO especieDAO;
+    private EspecieDAO especieDAO;	
+	@EJB
+    private UnidadeDAO unidadeDAO;
+	@EJB
+    private DestinoDAO destinoDAO;
     private List<Colecao> items = null;
     private Colecao colecao;
     private Coleta coleta;
     private Usuario usuario;
     private String quantidade;
+    private Integer lastCOD;
 
     public ColecaoController() {
     }
@@ -52,7 +59,15 @@ public class ColecaoController extends GenericController {
         this.colecao = selected;
     }
 
-    protected void setEmbeddableKeys() {
+	public Integer getLastCOD() {
+		return lastCOD;
+	}
+
+	public void setLastCOD(Integer lastCOD) {
+		this.lastCOD = lastCOD;
+	}
+
+	protected void setEmbeddableKeys() {
     }
 
     protected void initializeEmbeddableKey() {
@@ -65,12 +80,17 @@ public class ColecaoController extends GenericController {
     public Colecao prepareCreate() {
         colecao = new Colecao();
         initializeEmbeddableKey();
+        String cod = String.valueOf(colecaoDAO.lastCOD());
+        this.lastCOD = Integer.valueOf(cod.substring(5))+1;
         return colecao;
     }
     
     public void cadastrar(){
     	colecao.setTbColeta(coleta);
     	this.colecao.setTbUsuario(usuario);
+    	this.colecao.setDestino(destinoDAO.findFirst());
+    	this.colecao.setUnidade(unidadeDAO.findFirst());
+    	this.colecao.setCodCampo("CIUFS"+this.lastCOD);
     	getDAO().save(colecao);
     	RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('ColecaoDialog').hide();");

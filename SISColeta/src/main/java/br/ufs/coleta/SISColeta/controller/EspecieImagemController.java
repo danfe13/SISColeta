@@ -85,6 +85,8 @@ public class EspecieImagemController extends GenericController {
     }
     
     public void remover(){
+    	File file = new File(diretorio+"/"+this.especieimagem.getImagem());
+		file.delete();
     	getDAO().remove(this.especieimagem);
     	items = null;
     	especieimagem = null;

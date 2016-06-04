@@ -33,6 +33,9 @@
 	                        <p:message for="nomepopular" />
                     	</div>
             		</div>
+            		#{classeController.setOrdem(especieController.especie.tbSubfamilia.tbFamilia.tbOrdem.tbClasse)}
+            		#{ordemController.setFamilia(especieController.especie.tbSubfamilia.tbFamilia.tbOrdem)}
+            		#{familiaController.setSubfamilia(especieController.especie.tbSubfamilia.tbFamilia)}
                     <div class="row">
                 		<div class="col-md-12">	
 	                    	<p:outputLabel value="Classe" for="classe" />
@@ -42,7 +45,7 @@
                                            var="classeItem"
                                            itemValue="#{classeItem}"
                                            itemLabel="#{classeItem.descricao}"/>
-                            <p:ajax update="ordem" event="change"  listener="#{classeController.getOrdem}" />            
+                            <p:ajax update="ordem" event="change"  listener="#{classeController.setOrdem(classeController.classe)}" />            
                         </p:selectOneMenu>
                     	</div>
             		</div>
@@ -55,7 +58,7 @@
                             			   var="ordemItem"
                                            itemValue="#{ordemItem}"
                                            itemLabel="#{ordemItem.descricao}"/>
-                            <p:ajax update="familia" event="change"  listener="#{ordemController.getFamilia}" /> 
+                            <p:ajax update="familia" event="change"  listener="#{ordemController.setFamilia(ordemController.ordem)}" /> 
                         </p:selectOneMenu>
                     	</div>
             		</div>
@@ -68,7 +71,7 @@
                             			   var="familiaItem"
                                            itemValue="#{familiaItem}"
                                            itemLabel="#{familiaItem.descricao}"/>
-                             <p:ajax update="subfamilia" event="change"  listener="#{familiaController.getSubfamilia}" />
+                             <p:ajax update="subfamilia" event="change"  listener="#{familiaController.setSubfamilia(familiaController.familia)}" />
                         </p:selectOneMenu>
                     	</div>
             		</div>

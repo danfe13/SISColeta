@@ -10,7 +10,6 @@
         <p:dialog id="EspecieCreateDlg" widgetVar="EspecieCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="EspecieCreateForm">
                 <h:panelGroup layout="block" id="display" rendered="#{especieController.especie != null}">
-                	<p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
                  	<div class="row">
                 		<div class="col-md-12">       
 	                        <p:outputLabel value="Nome Cientifico" for="nomecientifico" />
@@ -42,7 +41,7 @@
                                            var="classeItem"
                                            itemValue="#{classeItem}"
                                            itemLabel="#{classeItem.descricao}"/>
-                            <p:ajax update="ordem" event="change"  listener="#{classeController.setOrdem(classeController.classe)}" />            
+                            <p:ajax update="ordem" event="change"  listener="#{classeController.getOrdem}" />            
                         </p:selectOneMenu>
                     	</div>
             		</div>
@@ -55,7 +54,7 @@
                             			   var="ordemItem"
                                            itemValue="#{ordemItem}"
                                            itemLabel="#{ordemItem.descricao}"/>
-                            <p:ajax update="familia" event="change"  listener="#{ordemController.setFamilia(ordemController.ordem)}" /> 
+                            <p:ajax update="familia" event="change"  listener="#{ordemController.getFamilia}" /> 
                         </p:selectOneMenu>
                     	</div>
             		</div>
@@ -68,7 +67,7 @@
                             			   var="familiaItem"
                                            itemValue="#{familiaItem}"
                                            itemLabel="#{familiaItem.descricao}"/>
-                             <p:ajax update="subfamilia" event="change"  listener="#{familiaController.setSubfamilia(familiaController.familia)}" />
+                             <p:ajax update="subfamilia" event="change"  listener="#{familiaController.getSubfamilia}" />
                         </p:selectOneMenu>
                     	</div>
             		</div>
@@ -89,11 +88,7 @@
                         	<p:message for="subfamilia" />
                         </div>
             		</div>
-                    <p:commandButton actionListener="#{especieController.cadastrar()}" value="Salvar" update="display,:EspecieListForm:datalist" >
-                    #{classeController.setOrdem2(null)}
-                    #{ordemController.setFamilia2(null)}
-                    #{familiaController.setSubfamilia2(null)}
-            		</p:commandButton>
+                    <p:commandButton actionListener="#{especieController.cadastrar()}" value="Salvar" update="display,:ColecaoForm:especie" />
                     <p:commandButton value="Cancelar" onclick="EspecieCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

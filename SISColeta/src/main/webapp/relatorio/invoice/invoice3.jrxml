@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2016-01-16T21:11:28 -->
+<!-- 2016-04-13T08:19:49 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f65ca3-d077-4e6f-942b-25e80532d684">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -38,60 +38,68 @@
 				<reportElement x="18" y="16" width="80" height="120" uuid="ad2ba815-fd35-43ab-8b17-f14b311e34f4">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<imageExpression><![CDATA["C:/Users/Danilo/JaspersoftWorkspace/MyReports/ufs.png"]]></imageExpression>
+				<imageExpression><![CDATA["ufs.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="443" y="16" width="80" height="120" uuid="c5de808d-9092-4fbe-89b8-c48760fc5e88"/>
-				<imageExpression><![CDATA["C:/Users/Danilo/JaspersoftWorkspace/MyReports/te.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["te.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="174" y="19" width="190" height="15" uuid="6609fce7-8133-40b0-b2a7-af3a5e662a22">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[UNIVERSIDADE FEDERAL DE SERGIPE]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>UNIVERSIDADE FEDERAL DE SERGIPE</style>]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="32" width="260" height="15" uuid="90b4736e-36fd-4aa8-8eab-e7b8627a595c">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[INSTITUTO DE CIÊNCIAS BIOLÓGICAS E DA SAÚDE]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>INSTITUTO DE CIÊNCIAS BIOLÓGICAS E DA SAÚDE</style>]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="190" y="45" width="160" height="15" uuid="495f12c1-631e-4003-8111-6294954178bf">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[DEPARTAMENTO DE BIOLÓGIA]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>DEPARTAMENTO DE BIOLÓGIA</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="58" width="150" height="15" uuid="08b239b1-1d62-4e82-a135-cab9bf693127">
+				<reportElement x="193" y="58" width="156" height="15" uuid="08b239b1-1d62-4e82-a135-cab9bf693127">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[LABORATÓRIO DE ICTIOLOGIA]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>LABORATÓRIO DE ICTIOLOGIA</style>]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="174" y="84" width="206" height="14" uuid="dd040a76-50f1-4572-a052-35a3ad443d11">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Av. Marechal Rondon s/n, Jardim Rosa Elze]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Av. Marechal Rondon s/n, Jardim Rosa Elze</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="228" y="97" width="86" height="14" uuid="9f365a77-7fb7-4449-bdb4-334bc24bbdb1">
+				<reportElement x="228" y="97" width="92" height="14" uuid="9f365a77-7fb7-4449-bdb4-334bc24bbdb1">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[São Cristovão - SE]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>São Cristovão - SE</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="231" y="110" width="73" height="14" uuid="259968af-f608-4970-a79d-f6733e009fec">
+				<reportElement x="236" y="110" width="73" height="14" uuid="259968af-f608-4970-a79d-f6733e009fec">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[CEP 49100-000]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>CEP 49100-000</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="124" width="100" height="14" uuid="5090c44a-adfe-46a8-a346-6e689c5f3999">
+				<reportElement x="225" y="124" width="100" height="14" uuid="5090c44a-adfe-46a8-a346-6e689c5f3999">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[TEL : (79) 2105-6692]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>TEL : (79) 2105-6692</style>]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -99,7 +107,14 @@
 		<band height="282" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 			<staticText>
-				<reportElement x="10" y="10" width="521" height="52" uuid="397b211e-eed4-44c3-b4fa-f7fd467a2c29"/>
+				<reportElement x="10" y="3" width="521" height="20" uuid="397b211e-eed4-44c3-b4fa-f7fd467a2c29"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[<style isBold='true'>Documento de Retirada de Material Biológico</style>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="23" width="521" height="52" uuid="397b211e-eed4-44c3-b4fa-f7fd467a2c29"/>
 				<textElement textAlignment="Justified" markup="styled"/>
 				<text><![CDATA[Pelo presente documento, autorizo o envio, por empréstimo ou doação (ver listagem em anexo), de material biológico coletado por este laboratório, com recursos próprios, para finalidade científica, com autorização do IBAMA. Os exemplares, no caso de empréstimo, deverão ser devolvidos em iguais condições (salvo acordo entre os responsáveis). ]]></text>
 			</staticText>
@@ -116,7 +131,7 @@
 				<textFieldExpression><![CDATA[$F{destinatario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="324" y="192" width="180" height="15" uuid="019df9cd-85cf-481f-a0f4-a752512aeb98">
+				<reportElement x="326" y="187" width="180" height="15" uuid="019df9cd-85cf-481f-a0f4-a752512aeb98">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{remetente}]]></textFieldExpression>
@@ -138,7 +153,8 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Destinatário:]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Destinatário:</style>]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="43" y="187" width="198" height="15" uuid="684d4800-0a05-4aab-b93d-9f9377e06488">
@@ -173,65 +189,72 @@
 				<textFieldExpression><![CDATA[$F{cep}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="341" y="172" width="100" height="15" uuid="a1766c6e-8f6e-45a3-9860-b91a15e99113"/>
-				<textFieldExpression><![CDATA[$F{codEmprestimo}]]></textFieldExpression>
+				<reportElement x="341" y="167" width="100" height="15" uuid="a1766c6e-8f6e-45a3-9860-b91a15e99113"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+$F{codEmprestimo}+"</style>"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="271" y="172" width="70" height="14" uuid="e88bb659-fc40-481a-9898-4d6e9879b937">
+				<reportElement x="271" y="167" width="70" height="14" uuid="e88bb659-fc40-481a-9898-4d6e9879b937">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Empréstimo Nº]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Empréstimo Nº</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="271" y="182" width="29" height="14" uuid="2d0c6328-b52f-4b7c-aafd-b06a7a38d779"/>
-				<text><![CDATA[Data:]]></text>
+				<reportElement x="271" y="177" width="29" height="14" uuid="2d0c6328-b52f-4b7c-aafd-b06a7a38d779"/>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Data:</style>]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="299" y="182" width="76" height="14" uuid="0b204b7c-3684-4532-b22a-9348f5dc1da0">
+				<reportElement x="299" y="177" width="76" height="14" uuid="0b204b7c-3684-4532-b22a-9348f5dc1da0">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{dataEmprestimo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="271" y="192" width="55" height="14" uuid="48763455-4c40-4565-a9c6-cc79953bb444">
+				<reportElement x="271" y="187" width="55" height="14" uuid="48763455-4c40-4565-a9c6-cc79953bb444">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Remetente:]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Remetente:</style>]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="270" y="202" width="73" height="14" uuid="892cf4f0-beee-444a-907e-79a88eae217b">
+				<reportElement x="270" y="197" width="79" height="14" uuid="892cf4f0-beee-444a-907e-79a88eae217b">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Modo de envio:]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Modo de envio:</style>]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="343" y="202" width="128" height="14" uuid="91f4f413-44d0-499b-8f53-64cf79d71735">
+				<reportElement x="343" y="197" width="128" height="14" uuid="91f4f413-44d0-499b-8f53-64cf79d71735">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{metodo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="271" y="212" width="69" height="13" uuid="fb7ff6ee-653e-42a2-9e12-abc13b037c55">
+				<reportElement x="271" y="207" width="74" height="13" uuid="fb7ff6ee-653e-42a2-9e12-abc13b037c55">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<text><![CDATA[Nº de pacotes:]]></text>
+				<textElement markup="styled"/>
+				<text><![CDATA[<style isBold='true'>Nº de pacotes:</style>]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="340" y="212" width="93" height="14" uuid="e6f4a30e-532b-45ab-bc87-901948db2c7d">
+				<reportElement x="340" y="207" width="93" height="14" uuid="e6f4a30e-532b-45ab-bc87-901948db2c7d">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{pacote}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="222" width="91" height="14" uuid="92591538-4919-4c08-bb22-87bee41f558a">
+				<reportElement x="270" y="217" width="91" height="14" uuid="92591538-4919-4c08-bb22-87bee41f558a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{tipoEnvio}]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+$F{tipoEnvio}+"</style>"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -244,10 +267,11 @@
 				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="218" y="23" width="53" height="15" uuid="1c6dc89b-cac3-4ef8-85b7-296173b9bb8c">
+				<reportElement x="218" y="24" width="53" height="15" uuid="1c6dc89b-cac3-4ef8-85b7-296173b9bb8c">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{especie}]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<style isItalic='true'>"+$F{especie}+"</style>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="15" y="43" width="511" height="40" uuid="95d8a27f-59c5-4327-a42a-a3d8e97f3844"/>

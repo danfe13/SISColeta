@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="row">
-                		<div class="col-md-12">
+                		<div class="col-md-11">
 	                        <p:outputLabel value="Destinatario:" for="destinatario" />
 	                        <p:selectOneMenu id="destinatario" value="#{retiradaController.retirada.tbDestinatario}" converter="generic" style="width:100%">
 	                            <f:selectItems value="#{destinatarioController.itemsAvailableSelectOne}"
@@ -35,6 +35,9 @@
 	                                           itemLabel="#{destinatarioItem.nome}"/>
 	                        </p:selectOneMenu>
                     	</div>
+                    	 <div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
+		                  	<p:commandLink update=":DestinatarioCreateForm" process="@this" actionListener="#{destinatarioController.prepareCreate}" oncomplete="PF('DestinatarioCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
+	                    </div>
                     </div>
                     <div class="row">
                 		<div class="col-md-12">
@@ -80,6 +83,6 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
+	<ui:include src="destinatario.xhtml"/>
     </ui:composition>
 </html>

@@ -23,30 +23,33 @@
               <div class="box">
                 <div class="box-header with-border">
 	<h:form id="EspecieImagemListForm">
-		<p:dataGrid var="especieimagem" value="#{especieimagemController.items}" columns="4" layout="grid"
+		<p:dataGrid var="especieimagem" value="#{especieimagemController.items}" columns="3" layout="grid"
         rows="12" paginator="true" id="especiesimagens"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="6,12,16">
  
         <f:facet name="header">
-            <p:outputPanel>
+            <p:outputPanel style="width: 100px;">
 				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{especieimagemController.prepareCreate()}" update=":EspecieImagemForm" oncomplete="PF('EspecieImageDialog').show()"/>
 	         </p:outputPanel>
         </f:facet>
         <p:panel header="#{especieimagem.id}" style="text-align:center">
-        	<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{especieController.remover}">
+            <h:panelGrid columns="1">
+            	<p:commandLink update="especiesimagens" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{especieimagemController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
-						<f:setPropertyActionListener value="#{especie}" target="#{especieController.especie}" />
-					</p:commandLink>
-            <h:panelGrid columns="1" style="width:100%">
-                <p:graphicImage value="#{especieimagemController.imagem}" width="350px" height="250px">
+						<f:setPropertyActionListener value="#{especieimagem}" target="#{especieimagemController.especieImagem}" />
+				</p:commandLink>
+                <p:graphicImage value="#{especieimagemController.imagem}" width="320px" height="230px">
                 	<f:param name="nome" value="#{especieimagem.imagem}" />
                 	<f:param name="extensao" value="#{especieimagem.extensao}" />
             	</p:graphicImage> 
             </h:panelGrid>
         </p:panel>
     </p:dataGrid>
-    
+    <p:confirmDialog global="true">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+    		</p:confirmDialog>
 	</h:form>
 	</div>
 	</div>

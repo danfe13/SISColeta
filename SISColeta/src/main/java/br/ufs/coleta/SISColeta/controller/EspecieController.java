@@ -2,13 +2,16 @@ package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Especie;
 import br.ufs.coleta.SISColeta.entities.EspecieImagem;
+import br.ufs.coleta.SISColeta.entities.Subfamilia;
 import br.ufs.coleta.SISColeta.model.EspecieDAO;
 import br.ufs.coleta.SISColeta.model.EspecieImagemDAO;
+import br.ufs.coleta.SISColeta.model.SubFamiliaDAO;
 
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
@@ -27,6 +30,10 @@ public class EspecieController extends GenericController {
     private EspecieDAO especieDAO;
 	@EJB
 	private EspecieImagemDAO especieimagemDAO;
+	@EJB
+	private SubFamiliaDAO subfamiliaDAO;
+	@ManagedProperty(value="#{familiaController}")
+    private FamiliaController familiaController; // +setter
     private List<Especie> items = null;
     private Especie especie;
 
@@ -58,16 +65,44 @@ public class EspecieController extends GenericController {
     }
     
     public void cadastrar(){
-    		getDAO().save(especie);
-    		RequestContext.getCurrentInstance().execute("PF('EspecieCreateDialog').hide()");
-        	items = null;
+    		if(familiaController.getSubfamilia().isEmpty()){
+    			Subfamilia subfamilia = new Subfamilia();
+    			subfamilia.setTbFamilia(familiaController.getFamilia());
+    			subfamilia.setDescricao(familiaController.getFamilia().getDescricao());
+    			subfamilia = subfamiliaDAO.save(subfamilia);
+    			especie.setTbSubfamilia(subfamilia);
+    		}
+    		else{
+    			if(especie.getTbSubfamilia() == null){
+    				this.adicionarMensagemAlerta("Informe SubFamilia!");
+    			}
+    			else{
+    				getDAO().save(especie);
+    	    		RequestContext.getCurrentInstance().execute("PF('EspecieCreateDialog').hide()");
+    	        	items = null;
+    			}
+    		}
     }
     
     public void editar(){
-		getDAO().save(especie);
-		RequestContext.getCurrentInstance().execute("PF('EspecieEditDialog').hide()");
-    	items = null;
-}
+    	if(familiaController.getSubfamilia().isEmpty()){
+			Subfamilia subfamilia = new Subfamilia();
+			subfamilia.setTbFamilia(familiaController.getFamilia());
+			subfamilia.setDescricao(familiaController.getFamilia().getDescricao());
+			subfamilia = subfamiliaDAO.save(subfamilia);
+			especie.setTbSubfamilia(subfamilia);
+		}
+		else{
+			if(especie.getTbSubfamilia() == null){
+				this.adicionarMensagemAlerta("Informe SubFamilia!");
+			}
+			else{
+				getDAO().save(especie);
+	    		RequestContext.getCurrentInstance().execute("PF('EspecieEditDialog').hide()");
+	        	items = null;
+			}
+		}
+    }
     
     public void remover(){
     	try{	
@@ -101,5 +136,11 @@ public class EspecieController extends GenericController {
     public List<Object[]> getUltimasEspecies(){
     	return especieDAO.getUltimasEspecies();
     }
+
+	public void setFamiliaController(FamiliaController familiaController) {
+		this.familiaController = familiaController;
+	}
+    
+    
 
 }

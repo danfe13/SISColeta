@@ -39,9 +39,9 @@
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{coleta.id}" />
 				</p:column>	
-				<p:column sortBy="#{coleta.datum}" filterBy="#{coleta.datum}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Datum" /></f:facet>
-					<h:outputText value="#{coleta.datum}" />
+				<p:column sortBy="#{coleta.codColeta}" filterBy="#{coleta.codColeta}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Código" /></f:facet>
+					<h:outputText value="#{coleta.codColeta}" />
 				</p:column>
 				<p:column sortBy="#{coleta.tbMunicipio.nome}" filterBy="#{coleta.tbMunicipio.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Municipio" /></f:facet>
@@ -51,27 +51,27 @@
 					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
 					<h:outputText value="#{coleta.tbMunicipio.tbEstado.nome}" />
 				</p:column>
-				<p:column sortBy="#{coleta.dataInicio}" filterBy="#{coleta.dataInicio}" filterMatchMode="contains" style="width:160px">
-					<f:facet name="header"><h:outputText value="Data Inicio" /></f:facet>
-					<h:outputText value="#{coleta.dataInicio}" />
+				<p:column sortBy="#{coleta.usuario.tbPessoa.abreviacao}" filterBy="#{coleta.usuario.tbPessoa.abreviacao}" filterMatchMode="contains" style="width:160px">
+					<f:facet name="header"><h:outputText value="Coletor" /></f:facet>
+					<h:outputText value="#{coleta.usuario.tbPessoa.abreviacao}" />
 				</p:column>
 				<p:column sortBy="#{coleta.dataFim}" filterBy="#{coleta.dataFim}" filterMatchMode="contains" style="width:160px">
 					<f:facet name="header"><h:outputText value="Data Fim" /></f:facet>
 					<h:outputText value="#{coleta.dataFim}" />
 				</p:column>
-				<p:column style="width:80px">
+				<p:column style="width:85px">
+					<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="fa fa-plus-square" style="float:left; margin:2px">
+						<f:setPropertyActionListener value="#{coleta}" target="#{colecaoController.coleta}" />
+					</p:commandLink>
+					<p:commandLink title="Etiqueta" update=":EtiquetaRangeForm" action="#{coletaController.etiquetaRange}" oncomplete="PF('EtiquetaRangeDialog').show()" styleClass="fa fa-ticket" style="float:left; margin:2px">
+						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
+					</p:commandLink>
 					<h:link outcome="editar" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:param name="id" value="#{coleta.id}" />
 					</h:link>
-					<p:commandLink update=":ColecaoForm" oncomplete="PF('ColecaoDialog').show()" title="Espécies" styleClass="fa fa-plus-square">
-						<f:setPropertyActionListener value="#{coleta}" target="#{colecaoController.coleta}" />
-					</p:commandLink>
 					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{coletaController.remover}">
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{coleta}" target="#{coletaController.coleta}" />
-					</p:commandLink>
-					<p:commandLink title="Etiqueta" styleClass="fa fa-ticket" ajax="false">
-						<p:fileDownload value="#{coletaController.PDFEtiquetaColeta(coleta)}" />
 					</p:commandLink>
        			</p:column>
        			<p:rowExpansion>
@@ -94,7 +94,7 @@
 						</p:column>
 						<p:column sortBy="#{colecao.quantidade}" >
 							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
-							<h:outputText value="#{colecaoController.getQuantidadeReal(colecao.quantidade, colecao.id)}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total"/>
+							<h:outputText value="#{colecao.quantidade}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total"/>
 						</p:column>
 						<p:column sortBy="#{colecao.destino.descricao}" >
 							<f:facet name="header"><h:outputText value="Destino" /></f:facet>
@@ -128,5 +128,6 @@
 	</div>
 	<ui:include src="especie.xhtml"/>
 	<ui:include src="etiqueta.xhtml"/>
+	<ui:include src="etiquetarange.xhtml"/>
 	</ui:define>
 </ui:composition>

@@ -31,6 +31,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 	@NamedQuery(name="Colecao.findByColeta", query="SELECT c FROM Colecao c WHERE c.tbColeta.id = :idcoleta"),
 	@NamedQuery(name="Colecao.findByEspecie", query="SELECT c FROM Colecao c INNER JOIN c.tbEspecie e WHERE UPPER(e.nomeCientifico) LIKE :nome OR UPPER(e.nomePopular) LIKE :nome "),
 	@NamedQuery(name="Colecao.getColeta", query="SELECT c FROM Coleta c INNER JOIN c.tbColecaos co WHERE co.id = :id "),	
+	@NamedQuery(name="Colecao.lastId", query="SELECT MAX(c.id) FROM Colecao c"),
 })
 public class Colecao implements GenericEntity {
 

@@ -9,11 +9,12 @@
     <ui:composition>
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
             <h:form id="UsuarioCreateForm">
+            	<p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
             	<h:panelGroup id="display2" rendered="#{usuarioController.pessoa != null}" layout="block">
             		<div class="row">
                 		<div class="col-md-4">
 	                        <p:outputLabel value="CPF" for="cpf" />
-	                        <p:inputMask id="cpf" required="true" requiredMessage="Campo não pode ser vázio!" mask="999.999.999-99" value="#{usuarioController.pessoa.cpf}" title="CPF" >
+	                        <p:inputMask id="cpf" required="true" mask="999.999.999-99" value="#{usuarioController.pessoa.cpf}" title="CPF" >
 	                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
 								<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
 							</p:inputMask>
@@ -21,7 +22,7 @@
 						</div>
 						<div class="col-md-8">	
 	                        <p:outputLabel value="Nome" for="nome" />
-	                        <p:inputText id="nome" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.nome}" title="Nome" />
+	                        <p:inputText id="nome" required="true" value="#{usuarioController.pessoa.nome}" title="Nome" />
 	                        <p:message for="nome" />
 	                	</div>
                     </div>
@@ -39,9 +40,9 @@
                     <div class="row">
                 		<div class="col-md-12">    
 	                        <p:outputLabel value="Email" for="email" />
-	                        <p:inputText id="email" required="true" requiredMessage="Campo não pode ser vázio!" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
+	                        <p:inputText id="email" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
                         	<f:passThroughAttribute name="type" value="email" />
-							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							<f:validateRegex pattern="^\s*$|[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							</p:inputText>	
                 		</div>
                     </div>

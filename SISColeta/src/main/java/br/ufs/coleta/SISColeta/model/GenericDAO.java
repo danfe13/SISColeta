@@ -56,6 +56,14 @@ private Class<T> entityClass;
 		q.setFirstResult(range[0]);
 		return q.getResultList();
 	}
+	
+	public T findFirst() {
+		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+		cq.select(cq.from(entityClass));
+		Query q = getEntityManager().createQuery(cq);
+		q.setMaxResults(1);
+		return (T) q.getSingleResult();
+	}
 
 	public int count() {
 		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();

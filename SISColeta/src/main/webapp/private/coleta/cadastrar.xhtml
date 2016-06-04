@@ -11,7 +11,7 @@
     <ui:define name="cabecalho">Cadastrar Coleta</ui:define>
     <ui:define name="breadcrumb">
 			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="/SISColeta/private/admin/coleta/index.jsf">Coleta</a></li>
+            <li><a href="/SISColeta/private/index.jsf">Coleta</a></li>
             <li class="active">Cadastro</li>
 	</ui:define>
     <ui:define name="content">
@@ -21,11 +21,6 @@
     <div class="box-header with-border">
     <f:metadata>    
     	<f:event type="preRenderView" listener="#{coletaController.prepareCreate()}"/>    
-    	<f:event type="preRenderView" listener="#{baciaController.prepareCreate2()}"/>   
-    	<f:event type="preRenderView" listener="#{rioController.prepareCreate2()}"/>   
-    	<f:event type="preRenderView" listener="#{metodoColetaController.prepareCreate2()}"/>   
-    	<f:event type="preRenderView" listener="#{caracrioController.prepareCreate2()}"/>   
-    	<f:event type="preRenderView" listener="#{substratoController.prepareCreate2()}"/>   
 	</f:metadata> 
              <h:form id="ColetaCreateForm">
              	<fieldset>
@@ -97,7 +92,7 @@
              		<div class="col-md-8">
              		 <p:outputPanel autoUpdate="true">
              			<h:panelGroup layout="block" rendered="#{coletaController.tipo == 1}" id="aquatico1">  
-                    		<div class="col-md-3" style="padding-left: 0px; width: 24%">
+                    		<div class="col-md-4" style="padding-left: 0px; width: 24%">
 		                        <p:outputLabel value="Bacia:" for="bacia" />
 		                        <p:selectOneMenu id="bacia" value="#{baciaController.bacia}" converter="generic" style="width:100%">
 		                        	<f:selectItem itemValue="null" itemLabel="Selecione Bacia" />
@@ -108,10 +103,7 @@
 		                            <p:ajax update="rio" event="change"  listener="#{baciaController.getRio}" />    
 		                        </p:selectOneMenu>
 		                    </div>
-		                    <div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
-		                    	<p:commandLink update=":ColetaBaciaCadastroForm" actionListener="#{baciaController.prepareCreate2}" oncomplete="PF('ColetaBaciaCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
-	                        </div>
-	                        <div class="col-md-3" style="padding-left: 5px;">
+	                        <div class="col-md-4" style="padding-left: 5px;">
 	                        <p:outputLabel value="Rio:" for="rio" />
 	                        <p:selectOneMenu id="rio" value="#{coletaController.local}" style="width:100%">
 	                        	<f:selectItem itemValue="null" itemLabel="Selecione Rio" />
@@ -121,15 +113,12 @@
 	                                           itemLabel="#{rioItem.descricao}"/>                 
 	                        </p:selectOneMenu>
                      		</div>
-                     		<div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
-		                    	<p:commandLink update=":ColetaRioCadastroForm" actionListener="#{rioController.prepareCreate2}" oncomplete="PF('ColetaRioCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
-	                        </div>
                      </h:panelGroup>  
                      
                      <h:panelGroup layout="block" rendered="#{coletaController.tipo == 2}" id="aquatico2">  
                     
 	                       <p:outputLabel value="Oceano:" for="oceano" />
-	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" >
+	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" style="width:100%">
 	                        	<f:selectItem itemValue="null" itemLabel="Selecione Oceano" />
 	                            <f:selectItems value="#{oceanoController.itemsAvailableSelectOne}"
 	                                           var="oceanoItem"
@@ -208,11 +197,24 @@
              	</div>
              	</fieldset>
              	<fieldset>
- 				<legend>Coletores</legend>
-             	<p:selectManyCheckbox id="coletor" value="#{coletaController.coleta.tbColetors}" converter="generic">
-                			<f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" var="usuario"
-                				itemLabel="#{usuario.tbPessoa.nome}" itemValue="#{usuario}"  />
-            			</p:selectManyCheckbox>
+ 				<legend>Coletores
+ 				</legend>
+ 				<div class="row">
+             		<div class="col-md-6">
+             		<p:outputLabel value="#{coletaController.local}" />
+				        <p:pickList id="pickcoletores" value="#{coletaController.coletores}" var="coletor" converter="pick"
+					                itemValue="#{coletor}" itemLabel="#{coletor.tbPessoa.nome}" showCheckbox="true"
+					                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+					 
+					        <f:facet name="sourceCaption">Disponível</f:facet>
+					        <f:facet name="targetCaption">Selecionados</f:facet>
+					 
+					        <p:column style="width:85%">
+					            <h:outputText value="#{coletor.tbPessoa.nome}" />
+					        </p:column>
+					    </p:pickList>
+					</div> 
+             	</div>
             	</fieldset>
              	<fieldset>
  				<legend>Mata Auxiliar</legend>
@@ -265,9 +267,7 @@
  				</fieldset>
  				<fieldset>
  				<legend>
- 					Caracteristica do Local
-	           		<p:commandLink update=":CaracteristicarioCreateForm" actionListener="#{caracrioController.prepareCreate2}" oncomplete="PF('CaracteristicarioCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />	           			
-	           </legend>
+ 					Caracteristica do Local  </legend>
  					<div class="row">
  					<div class="col-md-8">
                     	<p:selectManyCheckbox id="caracrio" value="#{coletaController.coleta.tbCaracRios}" converter="generic">
@@ -326,9 +326,7 @@
              	</fieldset>
              	<fieldset>
  				<legend>
- 				Substratos
- 				<p:commandLink update=":SubstratoCreateForm" actionListener="#{substratoController.prepareCreate2}" oncomplete="PF('SubstratoCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
- 				</legend>
+ 				Substratos</legend>
  					<div class="row">
  						<p:outputPanel id="substratoslist">
  							<ui:repeat value="#{coletaController.substratos}" varStatus="loop">
@@ -342,9 +340,7 @@
  				</fieldset>
  				<fieldset>
  				<legend>
- 				Metodo Coleta
- 				<p:commandLink update=":MetodoColetaCreateForm" actionListener="#{metodoColetaController.prepareCreate2}" oncomplete="PF('MetodoColetaCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
- 				</legend>
+ 				Metodo Coleta</legend>
  				<div class="row">
  					<p:selectManyCheckbox id="metodo" value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
                 			<f:selectItems value="#{metodoColetaController.itemsAvailableSelectMany}" var="metodo"
@@ -365,11 +361,6 @@
      </div>
      </div>
      </div>
-     <ui:include src="bacia.xhtml"/>
-     <ui:include src="rio.xhtml"/>
-     <ui:include src="metodo.xhtml"/>
-     <ui:include src="caracteristica.xhtml"/>
-     <ui:include src="substratos.xhtml"/>
 	</ui:define>
     </ui:composition>
 </html>

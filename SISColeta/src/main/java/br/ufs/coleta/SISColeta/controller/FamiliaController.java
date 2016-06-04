@@ -99,10 +99,20 @@ public class FamiliaController extends GenericController {
     }
     
     public List<Subfamilia> getSubfamilia() {
-    	if(this.familia != null){
-    		this.subfamilia = subfamiliaDAO.getbyFamilia(this.familia.getId());
-    	}
     	return this.subfamilia;
     } 
+    
+    public void setSubfamilia(Familia familia){
+    	if(familia != null){
+    		this.familia = new Familia();
+    		this.familia.setDescricao(familia.getDescricao());
+    		this.familia.setId(familia.getId());
+    		this.familia.setTbOrdem(familia.getTbOrdem());
+    		this.subfamilia = subfamiliaDAO.getbyFamilia(familia.getId());
+    	}
+    }
 
+    public void setSubfamilia2(List<Subfamilia> subfamilia){
+    	this.subfamilia = subfamilia;
+    }
 }

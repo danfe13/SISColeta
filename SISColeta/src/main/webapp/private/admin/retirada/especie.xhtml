@@ -36,7 +36,7 @@
 								    <span class="autoCompleteLabel">Espécie:  </span><h:outputText style="text-transform: capitalize" value="#{retiradaController.colecao.tbEspecie.nomeCientifico}"  /><h:outputText value="&lt;br/&gt;" escape="false" />
 								    <span class="autoCompleteLabel">Cód. Campo:  </span><h:outputText value="#{retiradaController.colecao.codCampo}" /><h:outputText value="&lt;br/&gt;" escape="false" />
 								    <span class="autoCompleteLabel">Localidade:  </span><h:outputText value="#{retiradaController.colecao.tbColeta.tbMunicipio.nome}" />/<h:outputText value="#{retiradaController.colecao.tbColeta.tbMunicipio.tbEstado.uf}" /><h:outputText value="&lt;br/&gt;" escape="false" />
-								    <span class="autoCompleteLabel">Quantidade:  </span><h:outputText value="#{colecaoController.getQuantidadeReal(retiradaController.colecao.quantidade, retiradaController.colecao.id)}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total" /><h:outputText value="&lt;br/&gt;" escape="false" />
+								    <span class="autoCompleteLabel">Quantidade:  </span><h:outputText value="#{retiradaController.colecao.quantidade}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total" /><h:outputText value="&lt;br/&gt;" escape="false" />
 								    <span class="autoCompleteLabel">Data de Coleta:  </span><h:outputText value="#{retiradaController.colecao.getTbColeta().dataInicio}" />
 							  	  </h:panelGroup>	
 							  </div>

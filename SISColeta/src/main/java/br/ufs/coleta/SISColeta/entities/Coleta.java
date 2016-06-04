@@ -150,7 +150,7 @@ public class Coleta implements GenericEntity {
 		this.colecaos = colecaos;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_usuario_id", nullable = true)
 	public Usuario getUsuario() {
 		return this.usuario;
@@ -206,8 +206,6 @@ public class Coleta implements GenericEntity {
 	}
 	
 	@Column(name = "nome", length = 45)
-	@NotNull(message = "Campo não pode ser vázio!")
-	@NotEmpty(message = "Campo não pode ser vázio!")
 	public String getNome() {
 		return this.nome;
 	}
@@ -248,7 +246,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "latitude_grau", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLatitudeGrau() {
 		return this.latitudeGrau;
 	}
@@ -258,7 +255,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "direcao_latitude", length = 1)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Character getDirecaoLatitude() {
 		return this.direcaoLatitude;
 	}
@@ -268,7 +264,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "latitude_minuto", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLatitudeMinuto() {
 		return this.latitudeMinuto;
 	}
@@ -278,7 +273,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "latitude_segundo", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLatitudeSegundo() {
 		return this.latitudeSegundo;
 	}
@@ -288,7 +282,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "longitude_grau", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLongitudeGrau() {
 		return this.longitudeGrau;
 	}
@@ -298,7 +291,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "direcao_longitude", length = 1)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Character getDirecaoLongitude() {
 		return this.direcaoLongitude;
 	}
@@ -308,7 +300,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "longitude_minuto", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLongitudeMinuto() {
 		return this.longitudeMinuto;
 	}
@@ -318,7 +309,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "longitude_segundo", precision = 17, scale = 17)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Double getLongitudeSegundo() {
 		return this.longitudeSegundo;
 	}
@@ -436,7 +426,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "mata_ciliar_md")
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getMataCiliarMd() {
 		return this.mataCiliarMd;
 	}
@@ -446,7 +435,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "mata_ciliar_me")
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getMataCiliarMe() {
 		return this.mataCiliarMe;
 	}
@@ -456,7 +444,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "vegetacao_ripariana_md")
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getVegetacaoRiparianaMd() {
 		return this.vegetacaoRiparianaMd;
 	}
@@ -466,7 +453,6 @@ public class Coleta implements GenericEntity {
 	}
 
 	@Column(name = "vegetacao_ripariana_me")
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Integer getVegetacaoRiparianaMe() {
 		return this.vegetacaoRiparianaMe;
 	}

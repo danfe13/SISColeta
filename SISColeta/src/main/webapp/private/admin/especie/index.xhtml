@@ -33,7 +33,7 @@
 						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{especieController.prepareCreate()}" update=":EspecieCreateForm" oncomplete="PF('EspecieCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
-				<p:column sortBy="#{especie.id}" filterBy="#{especie.id}" filterMatchMode="contains" style="width:150px">
+				<p:column sortBy="#{especie.id}" filterBy="#{especie.id}" filterMatchMode="contains" style="width:80px">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{especie.id}" />
 				</p:column>	
@@ -44,6 +44,18 @@
 				<p:column sortBy="#{especie.nomePopular}" filterBy="#{especie.nomePopular}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Nome Popular" /></f:facet>
 					<h:outputText value="#{especie.nomePopular}" />
+				</p:column>
+				<p:column sortBy="#{especie.tbSubfamilia.tbFamilia.descricao}" filterBy="#{especie.tbSubfamilia.tbFamilia.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Família" /></f:facet>
+					<h:outputText value="#{especie.tbSubfamilia.tbFamilia.descricao}" />
+				</p:column>
+				<p:column sortBy="#{especie.tbSubfamilia.tbFamilia.tbOrdem.descricao}" filterBy="#{especie.tbSubfamilia.tbFamilia.tbOrdem.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					<h:outputText value="#{especie.tbSubfamilia.tbFamilia.tbOrdem.descricao}" />
+				</p:column>
+				<p:column sortBy="#{especie.tbSubfamilia.tbFamilia.tbOrdem.tbClasse.descricao}" filterBy="#{especie.tbSubfamilia.tbFamilia.tbOrdem.tbClasse.descricao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Classe" /></f:facet>
+					<h:outputText value="#{especie.tbSubfamilia.tbFamilia.tbOrdem.tbClasse.descricao}" />
 				</p:column>
 				<p:column style="width:80px">
 					<p:commandLink update=":EspecieEditForm" oncomplete="PF('EspecieEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">

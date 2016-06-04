@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DestinatarioCreateDlg" widgetVar="DestinatarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
+            <h:form id="DestinatarioCreateForm">
+                <h:panelGroup id="display" rendered="#{destinatarioController.destinatario != null}" layout="block" >
+                    <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Nome" for="nome" />
+	                        <p:inputText id="nome" value="#{destinatarioController.destinatario.nome}" title="Nome" />
+	                    </div>
+	               </div>
+	               <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="nome" />
+	                    </div>
+	               </div>
+	               <div class="row">
+                		<div class="col-md-11">
+	                        <p:outputLabel value="Instituição" for="instituicao" />
+	                        <p:selectOneMenu id="instituicao" value="#{destinatarioController.destinatario.tbInstituicao}" converter="generic" style="width:100%">
+	                            <f:selectItems value="#{instituicaoController.itemsAvailableSelectOne}"
+	                                           var="instituicaoItem"
+	                                           itemValue="#{instituicaoItem}"
+	                                           itemLabel="#{instituicaoItem.nome}"/>
+	                        </p:selectOneMenu>
+	                   </div>
+	                   <div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
+		                  	<p:commandLink update=":InstituicaoCreateForm" process="@this" actionListener="#{instituicaoController.prepareCreate}" oncomplete="PF('InstituicaoCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
+	                    </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="instituicao" />
+	                    </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:outputLabel value="Departamento" for="departamento" />
+	                        <p:inputText id="departamento" value="#{destinatarioController.destinatario.departamento}" title="Departamento" />
+	                    </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="departamento" />
+	            		</div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">		
+	                        <p:outputLabel value="Centro" for="centro" />
+	                        <p:inputText id="centro" value="#{destinatarioController.destinatario.centro}" title="Centro" />
+                        </div>
+	              </div>
+	              <div class="row">
+                		<div class="col-md-12">
+	                        <p:message for="centro" />
+	            		</div>
+	              </div>
+                    <p:commandButton actionListener="#{destinatarioController.cadastrar()}" value="Salvar" update="display,:RetiradaCreateForm:destinatario" />
+                    <p:commandButton value="Cancelar" onclick="DestinatarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+	<ui:include src="instituicao.xhtml"/>
+    </ui:composition>
+</html>

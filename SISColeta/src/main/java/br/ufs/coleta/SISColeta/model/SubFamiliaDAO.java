@@ -39,4 +39,5 @@ public class SubFamiliaDAO extends GenericDAO<Subfamilia, Long> {
     	return results;
 	}
     
+    
 }

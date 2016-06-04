@@ -68,19 +68,19 @@
 		            <f:facet name="header"><h:outputText value="Tipo Retirada" /></f:facet>
 					<h:outputText value="#{retirada.tipoRetirada == 1 ? 'Emprestimo':'Doação'}" />
 				</p:column>
-				<p:column style="width:75px">
-					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="fa fa-plus-square">
+				<p:column style="width:85px">
+					<p:commandLink update=":RetiradaColecaoCreateForm" oncomplete="PF('RetiradaColecaoCreateDialog').show()" title="Especie" styleClass="fa fa-plus-square" style="float:left; margin:2px" >
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>
-					<p:commandLink update=":RetiradaEditForm" oncomplete="PF('RetiradaEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
+					<p:commandLink title="Invoice" styleClass="fa fa-file-text" ajax="false" style="float:left; margin:2px">
+						<p:fileDownload value="#{retiradaController.PDF(retirada)}" />
+					</p:commandLink>
+					<p:commandLink update=":RetiradaEditForm" oncomplete="PF('RetiradaEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil" >
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
 					</p:commandLink>
-					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{retiradaController.remover}">
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{retiradaController.remover}" >
 						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 						<f:setPropertyActionListener value="#{retirada}" target="#{retiradaController.retirada}" />
-					</p:commandLink>
-					<p:commandLink title="Invoice" styleClass="fa fa-file-text" ajax="false">
-						<p:fileDownload value="#{retiradaController.PDF(retirada)}" />
 					</p:commandLink>
        			</p:column>
        			<p:rowExpansion>
@@ -89,16 +89,30 @@
 					var="retiradaColecao" selection="#{retiradaController.retiradaColecao}"
                     rowKey="#{retiradaColecao.tbColecao.id}"
 					emptyMessage="Nenhum resultado encontrado.">
-						<p:column sortBy="#{retiradaColecao.tbColecao.tbEspecie.nomeCientifico}" >
+						<p:column sortBy="#{retiradaColecao.tbColecao.tbEspecie.nomePopular}" >
 							<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+							<h:outputText value="#{retiradaColecao.tbColecao.tbEspecie.nomePopular}" />
+						</p:column>
+						<p:column sortBy="#{retiradaColecao.tbColecao.tbEspecie.nomeCientifico}" >
+							<f:facet name="header"><h:outputText value="Científico" /></f:facet>
 							<h:outputText value="#{retiradaColecao.tbColecao.tbEspecie.nomeCientifico}" />
+						</p:column>
+						<p:column sortBy="#{retiradaColecao.tbColecao.tbEspecie.tbSubfamilia.tbFamilia.descricao}" >
+							<f:facet name="header"><h:outputText value="Família" /></f:facet>
+							<h:outputText value="#{retiradaColecao.tbColecao.tbEspecie.tbSubfamilia.tbFamilia.descricao}" />
+						</p:column>
+						<p:column sortBy="#{retiradaColecao.quantdExemplares}" >
+							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
+							<h:outputText value="#{retiradaColecao.quantdExemplares}" />
 						</p:column>
 						
 						<p:column style="width:62px">
-							<p:commandLink rendered="#{recebimentoController.confirmarRecebimento(retirada, retiradaColecao.tbColecao.id)}" update=":RecebimentoCreateForm" actionListener="#{recebimentoController.prepareCreate()}" oncomplete="PF('RecebimentoCreateDialog').show()" title="Recebimento" styleClass="ui-icon ui-icon-pencil">
+							<p:commandLink rendered="#{recebimentoController.confirmarRecebimento(retirada, retiradaColecao.tbColecao.id)}" update=":RecebimentoCreateForm" actionListener="#{recebimentoController.prepareCreate()}" oncomplete="PF('RecebimentoCreateDialog').show()" title="Recebimento">
+								 <img src="/SISColeta/resources/default/bootstrap/imagens/box.png" height="16px" width="16px" />
 								<f:setPropertyActionListener value="#{retiradaColecao}" target="#{recebimentoController.retiradaColecao}" />
 							</p:commandLink>
-							<p:commandLink rendered="#{recebimentoController.excluirRecebimento(retirada, retiradaColecao.tbColecao.id)}" update="datalist2" title="Excluir Recebimento" styleClass="ui-icon ui-icon-trash" action="#{recebimentoController.remover}">
+							<p:commandLink rendered="#{recebimentoController.excluirRecebimento(retirada, retiradaColecao.tbColecao.id)}" update="datalist2" title="Excluir Recebimento" action="#{recebimentoController.remover}">
+								<img src="/SISColeta/resources/default/bootstrap/imagens/arrow.png" height="16px" width="16px" />
 								<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
 								<f:setPropertyActionListener value="#{recebimentoController.getRecebimento(retirada.id, retiradaColecao.tbColecao.id)}" target="#{recebimentoController.recebimento}" />
 							</p:commandLink>

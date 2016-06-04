@@ -31,6 +31,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "tb_usuario", schema = "public")
 @NamedQueries({
 	@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u "),
+	@NamedQuery(name="Usuario.findUsuario", query="SELECT u FROM Usuario u WHERE u.tbPerfil is not null"),
 	@NamedQuery(name="Usuario.findColetores", query="SELECT u FROM Usuario u INNER JOIN u.tbColetas c WHERE c.id = :idcoleta"),
 	@NamedQuery(name="Usuario.findExistente", query="SELECT u FROM Usuario u JOIN FETCH u.tbPessoa WHERE 1 = 1 AND u.id <> :idUsuario AND ( UPPER(u.login) = UPPER(:login) OR u.tbPessoa.cpf = :cpf OR UPPER(u.tbPessoa.email) = UPPER(:email) )"),
 })
@@ -83,7 +84,6 @@ public class Usuario implements GenericEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_perfil_id", nullable = false)
-	@NotNull(message = "Campo não pode ser vázio!")
 	public Perfil getTbPerfil() {
 		return this.perfil;
 	}
@@ -94,7 +94,6 @@ public class Usuario implements GenericEntity {
 
 	@Column(name = "login", length = 45)
 	@NotNull(message = "Campo não pode ser vázio!")
-	@NotEmpty(message = "Não pode ser vázio!")
 	public String getLogin() {
 		return this.login;
 	}
@@ -105,7 +104,6 @@ public class Usuario implements GenericEntity {
 
 	@Column(name = "senha")
 	@NotNull(message = "Campo não pode ser vázio!")
-	@NotEmpty(message = "Não pode ser vázio!")
 	public String getSenha() {
 		return this.senha;
 	}
@@ -133,7 +131,7 @@ public class Usuario implements GenericEntity {
 		this.coletas = coletas;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "tbUsuario")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "tbUsuario", orphanRemoval=true)
 	public Pessoa getTbPessoa() {
 		return this.pessoa;
 	}

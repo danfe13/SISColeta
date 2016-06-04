@@ -16,6 +16,7 @@ import br.ufs.coleta.SISColeta.model.ColetaDAO;
 import br.ufs.coleta.SISColeta.model.MarDAO;
 import br.ufs.coleta.SISColeta.model.RioDAO;
 import br.ufs.coleta.SISColeta.model.SubstratoDAO;
+import br.ufs.coleta.SISColeta.model.UsuarioDAO;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -34,7 +36,10 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.StreamedContent;
 
 import net.sf.jasperreports.engine.JRException;
@@ -58,6 +63,8 @@ public class ColetaController extends GenericController {
 	@EJB
     private ColetaDAO coletaDAO;
 	@EJB
+    private UsuarioDAO usuarioDAO;
+	@EJB
     private SubstratoDAO substratoDAO;
 	@EJB
 	private ColecaoDAO colecaoDAO;
@@ -80,6 +87,8 @@ public class ColetaController extends GenericController {
 	private List<Etiqueta> etiqueta;
 	private int quantidadeEtiqueta;
 	private Colecao colecao;
+	private DualListModel<Usuario> coletores;
+	private DualListModel<Colecao> colecoes;
 
     public ColetaController() {
     }
@@ -101,10 +110,43 @@ public class ColetaController extends GenericController {
         return substratos;
     }
 
-    protected void setEmbeddableKeys() {
+    public DualListModel<Usuario> getColetores() {
+    	List<Usuario> source = new ArrayList<Usuario>(usuarioDAO.findAll());
+		List<Usuario> target = new ArrayList<Usuario>(coleta.getTbColetors());
+		
+		source.removeAll(target);
+		
+		coletores.setSource(source);
+		coletores.setTarget(target);
+		return coletores;
+	}
+
+	public void setColetores(DualListModel<Usuario> coletores) {
+		this.coletores = coletores;
+	}
+
+	public DualListModel<Colecao> getColecoes() {
+		return colecoes;
+	}
+
+	public void setColecoes(DualListModel<Colecao> colecoes) {
+		this.colecoes = colecoes;
+	}
+	
+	public void etiquetaRange(){
+		List<Colecao> source = new ArrayList<Colecao>(colecaoDAO.getColecaoByColeta(coleta.getId()));
+		List<Colecao> target = new ArrayList<Colecao>();
+		
+		colecoes = new DualListModel<Colecao>(source, target);
+	}
+
+	protected void setEmbeddableKeys() {
     }
 
     protected void initializeEmbeddableKey() {
+    	List<Usuario> source = new ArrayList<Usuario>();
+		List<Usuario> target = new ArrayList<Usuario>();
+		coletores = new DualListModel<Usuario>(source, target);
     }
     
     public void etiquetaFormato(Colecao colecao){
@@ -112,7 +154,7 @@ public class ColetaController extends GenericController {
 		e.setCodColecao(colecao.getCodCampo());
 		e.setEspecie(colecao.getTbEspecie().getNomeCientifico());
 		e.setQuantidade(colecao.getQuantidade());
-		e.setFamilia(colecao.getTbEspecie().getTbSubfamilia().getDescricao());
+		e.setFamilia(colecao.getTbEspecie().getTbSubfamilia().getTbFamilia().getDescricao());
 		
 		String coletores = "";
 		int i = 0;
@@ -156,7 +198,7 @@ public class ColetaController extends GenericController {
     	etiqueta = new ArrayList<Etiqueta>();
     	coleta.setTbColetors(getDAO().getByColetor(coleta.getId()));
     	coleta.setTbAquatico(getDAO().getByAquatico(coleta.getId()));
-    	List<Colecao> colecaos = colecaoDAO.getColecaoByColeta(coleta.getId());
+    	List<Colecao> colecaos = this.colecoes.getTarget();
     	
     	
     	for(Colecao colecao: colecaos){
@@ -182,8 +224,7 @@ public class ColetaController extends GenericController {
         jasperPrint=JasperFillManager.fillReport(reportPath, new HashMap(),beanCollectionDataSource);  
     } 
     
-    public StreamedContent PDFEtiquetaColeta(Coleta coleta) throws JRException, IOException{  
-    	this.coleta = coleta;
+    public StreamedContent PDFEtiquetaColeta() throws JRException, IOException{  
         gerarEtiquetaByColeta();  
         
         InputStream relatorio = null;   
@@ -242,6 +283,8 @@ public class ColetaController extends GenericController {
         coleta.setTbMetodoColetas(getDAO().getByMetodo(id));
         coleta.setTbSubstratos(getDAO().getBySubstratos(id));
         coleta.setTbAquatico(getDAO().getByAquatico(id));
+        this.tipo = coleta.getTbAquatico().getTbTipoAquaticoLocal().getId();
+        this.local = coleta.getTbAquatico().getIdLocalAquatico();
         
         this.setSubstratosedit(new ArrayList<Substratos>(coleta.getTbSubstratos()));
     	
@@ -250,18 +293,24 @@ public class ColetaController extends GenericController {
     }
     
     public void update(){
-    	getDAO().save(coleta);
-    	coleta.setTbSubstratos(this.substratosedit);
-    	for (Substratos substrato: substratosedit){
-    		getDAO().updateSubstratos(substrato);
-        }
-    	getDAO().updateLocal(coleta.getTbAquatico());
+    	try {
+    		getDAO().save(coleta);
+    		coleta.setTbSubstratos(this.substratosedit);
+    		for (Substratos substrato: substratosedit){
+    			getDAO().updateSubstratos(substrato);
+    		}
+    		getDAO().updateLocal(coleta.getTbAquatico());
+    	
+    		FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    	} catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
     
     public void cadastrar(){
-    	
     	try {
     		coleta.setUsuario(usuario);
+    		coleta.setTbColetors(coletores.getTarget());
         	Coleta novacoleta = getDAO().save(coleta);
         	int i = 0;
         	for (Substrato substrato: substratos){
@@ -269,10 +318,8 @@ public class ColetaController extends GenericController {
             }
         	getDAO().insertLocal(novacoleta.getId().intValue(), local, tipo);
         	
-        	
         	FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	

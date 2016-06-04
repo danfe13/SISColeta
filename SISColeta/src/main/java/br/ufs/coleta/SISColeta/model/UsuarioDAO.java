@@ -35,7 +35,7 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     	super(Usuario.class);
     }
     
-    public Usuario getExistente(Usuario usuario, Pessoa pessoa) {
+    public List<Usuario> getExistente(Usuario usuario, Pessoa pessoa) {
     	if(usuario.getId() == null){
     		usuario.setId(0);
     	}
@@ -45,8 +45,7 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     	query.setParameter("cpf", pessoa.getCpf());
     	query.setParameter("email", pessoa.getEmail());
     	try{
-    		Usuario results = query.getSingleResult();
-    		return results;
+    		return query.getResultList();
     	}catch(NoResultException e){
     		return null;
     	}	
@@ -56,6 +55,17 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     
     	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findColetores", Usuario.class);
     	query.setParameter("idcoleta", coleta.getId());
+    	try{
+    		List<Usuario> results = query.getResultList();
+    		return results;
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
+    
+    public List<Usuario> findUsuario() {
+        
+    	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findUsuario", Usuario.class);
     	try{
     		List<Usuario> results = query.getResultList();
     		return results;

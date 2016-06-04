@@ -6599,7 +6599,7 @@ button.close {
     border-top: 3px solid #d2d6de !important;
     box-shadow: 0 1px 1px rgba(0,0,0,0.05) !important;
     border-top-color: #3c8dbc !important;
-    width: 500px !important;
+    min-width: 500px !important;
     min-height: 200px !important;
 }
 
@@ -6636,18 +6636,6 @@ button.close {
     background-color: #fff !important;
     background-image: none !important;
     border-radius: 0 !important;
-}
-
-.ui-fileupload-choose .ui-button-icon-left{
-	top:20% !important;
-}
-
-.ui-icon-arrowreturnthick-1-n{
-	top:20% !important;
-}
-
-.ui-icon-cancel{
-	top:20% !important;
 }
 
 .ui-confirmdialog-yes.ui-icon-check{

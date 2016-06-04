@@ -10,12 +10,11 @@
 
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar">
             <h:form id="UsuarioEditForm">
-            <p:messages id="messages2" showDetail="true" autoUpdate="true" closable="true" globalOnly="true"/>
-               <h:panelGroup id="display2" rendered="#{usuarioController.usuario.tbPessoa != null}" layout="block">
+               <h:panelGroup id="display" rendered="#{usuarioController.usuario.tbPessoa != null}" layout="block">
                		<div class="row">
                 		<div class="col-md-4">
 	                        <p:outputLabel value="CPF" for="cpf" />
-	                        <p:inputMask id="cpf" required="true" mask="999.999.999-99" value="#{usuarioController.usuario.tbPessoa.cpf}" title="CPF" >
+	                        <p:inputMask id="cpf" required="true" requiredMessage="Não pode ser vázio!" mask="999.999.999-99" value="#{usuarioController.usuario.tbPessoa.cpf}" title="CPF" >
 	                        	<f:passThroughAttribute name="placeholder" value="000.000.000-00" />
 								<f:validateRegex pattern="[0-9][0-9][0-9]\.[0-9][0-9][0-9]\.[0-9][0-9][0-9]-[0-9][0-9]" />
 							</p:inputMask>
@@ -23,14 +22,14 @@
 						</div>
 						<div class="col-md-8">	
 	                        <p:outputLabel value="Nome" for="nome" />
-	                        <p:inputText id="nome" required="true" value="#{usuarioController.usuario.tbPessoa.nome}" title="Nome" />
+	                        <p:inputText id="nome" required="true" requiredMessage="Não pode ser vázio!" value="#{usuarioController.usuario.tbPessoa.nome}" title="Nome" />
 	                        <p:message for="nome" />
 	                	</div>
                     </div>
 	                <div class="row">
                 		<div class="col-md-12">    
 		                    <p:outputLabel value="Abreviação" for="abreviacao" />
-	                        <p:inputText id="abreviacao" value="#{usuarioController.usuario.tbPessoa.abreviacao}" title="Abreviacao" />
+	                        <p:inputText id="abreviacao" value="#{usuarioController.usuario.tbPessoa.abreviacao}" title="Abreviacao" required="true"  requiredMessage="Não pode ser vázio!"/>
                     	</div>
                     </div>
                     <div class="row">
@@ -52,31 +51,6 @@
                         	<p:message for="email" />
                         </div>
                     </div>	
-                </h:panelGroup>
-                 <h:panelGroup id="display" rendered="#{usuarioController.usuario != null}" layout="block">
-                	<div class="row">
-                		<div class="col-md-8">        
-	                        <p:outputLabel value="Login" for="login" />
-	                        <p:inputText id="login" value="#{usuarioController.usuario.login}" title="Login" />
-	                        <p:message for="login" />
-                    	</div>
-                    	<div class="col-md-4">    
-	                        <p:outputLabel value="Perfil" for="perfil" />
-	                        <p:selectOneMenu id="perfil" value="#{usuarioController.usuario.tbPerfil}" converter="generic" style="width:100%">
-                            <f:selectItems value="#{perfilController.itemsAvailableSelectOne}"
-                                           var="perfilItem"
-                                           itemValue="#{perfilItem}"
-                                           itemLabel="#{perfilItem.descricao}"/>
-                        	</p:selectOneMenu>
-                        	<p:message for="perfil" />
-                    	</div>
-                    </div>
-                    <div class="row">
-                		<div class="col-md-12">    
-	                        <p:outputLabel value="Ativo" for="ativo" />
-	                        <p:selectBooleanCheckbox id="ativo" value="#{usuarioController.usuario.ativo}" style="margin-left:10px; margin-top:5px" />
-                    	</div>
-                    </div>
                     <p:commandButton actionListener="#{usuarioController.editar()}" value="Salvar" update="display,:UsuarioListForm:datalist"/>
                     <p:commandButton value="Cancelar" onclick="UsuarioCreateDialog.hide()"/>
                 </h:panelGroup>

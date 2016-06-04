@@ -3,14 +3,20 @@ package br.ufs.coleta.SISColeta.controller;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public abstract class GenericController implements Serializable {
+	
 	
 	private void adicionarMensagem(FacesMessage.Severity tipo, String titulo,
 			String mensagem) {
 		FacesContext.getCurrentInstance().
 				addMessage(null, new FacesMessage(tipo, titulo, mensagem));
+	}
+	
+	public void adicionarMensagemErroComponente(UIComponent component, String message){
+		FacesContext.getCurrentInstance().addMessage(component.getClientId(), new FacesMessage(FacesMessage.SEVERITY_ERROR, "", message));
 	}
 	
 	public void adicionarMensagemAviso(String titulo, String mensagem) {

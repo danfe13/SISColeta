@@ -26,6 +26,7 @@
     	<f:event type="preRenderView" listener="#{metodoColetaController.prepareCreate2()}"/>   
     	<f:event type="preRenderView" listener="#{caracrioController.prepareCreate2()}"/>   
     	<f:event type="preRenderView" listener="#{substratoController.prepareCreate2()}"/>   
+    	<f:event type="preRenderView" listener="#{usuarioController.prepareCreate()}"/>   
 	</f:metadata> 
              <h:form id="ColetaCreateForm">
              	<fieldset>
@@ -109,7 +110,7 @@
 		                        </p:selectOneMenu>
 		                    </div>
 		                    <div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
-		                    	<p:commandLink update=":ColetaBaciaCadastroForm" actionListener="#{baciaController.prepareCreate2}" oncomplete="PF('ColetaBaciaCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
+		                    	<p:commandLink update=":ColetaBaciaCadastroForm" process="@this" actionListener="#{baciaController.prepareCreate2}" oncomplete="PF('ColetaBaciaCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
 	                        </div>
 	                        <div class="col-md-3" style="padding-left: 5px;">
 	                        <p:outputLabel value="Rio:" for="rio" />
@@ -122,14 +123,14 @@
 	                        </p:selectOneMenu>
                      		</div>
                      		<div class="col-md-1" style="width: 10px; margin-top: 30px; padding-left: 5px; padding-right: 5px">
-		                    	<p:commandLink update=":ColetaRioCadastroForm" actionListener="#{rioController.prepareCreate2}" oncomplete="PF('ColetaRioCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
+		                    	<p:commandLink update=":ColetaRioCadastroForm" process="@this" actionListener="#{rioController.prepareCreate2}" oncomplete="PF('ColetaRioCadastroDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" style="float:right" />		        
 	                        </div>
                      </h:panelGroup>  
                      
                      <h:panelGroup layout="block" rendered="#{coletaController.tipo == 2}" id="aquatico2">  
                     
 	                       <p:outputLabel value="Oceano:" for="oceano" />
-	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" >
+	                        <p:selectOneMenu id="oceano" value="#{coletaController.local}" style="width:100%">
 	                        	<f:selectItem itemValue="null" itemLabel="Selecione Oceano" />
 	                            <f:selectItems value="#{oceanoController.itemsAvailableSelectOne}"
 	                                           var="oceanoItem"
@@ -208,11 +209,25 @@
              	</div>
              	</fieldset>
              	<fieldset>
- 				<legend>Coletores</legend>
-             	<p:selectManyCheckbox id="coletor" value="#{coletaController.coleta.tbColetors}" converter="generic">
-                			<f:selectItems value="#{usuarioController.itemsAvailableSelectMany}" var="usuario"
-                				itemLabel="#{usuario.tbPessoa.nome}" itemValue="#{usuario}"  />
-            			</p:selectManyCheckbox>
+ 				<legend>Coletores
+ 				<p:commandLink update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()" process="@this" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
+ 				</legend>
+ 				<div class="row">
+             		<div class="col-md-6">
+             		<p:outputLabel value="#{coletaController.local}" />
+				        <p:pickList id="pickcoletores" value="#{coletaController.coletores}" var="coletor" converter="pick"
+					                itemValue="#{coletor}" itemLabel="#{coletor.tbPessoa.nome}" showCheckbox="true"
+					                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
+					 
+					        <f:facet name="sourceCaption">Disponível</f:facet>
+					        <f:facet name="targetCaption">Selecionados</f:facet>
+					 
+					        <p:column style="width:85%">
+					            <h:outputText value="#{coletor.tbPessoa.nome}" />
+					        </p:column>
+					    </p:pickList>
+					</div> 
+             	</div>
             	</fieldset>
              	<fieldset>
  				<legend>Mata Auxiliar</legend>
@@ -266,7 +281,7 @@
  				<fieldset>
  				<legend>
  					Caracteristica do Local
-	           		<p:commandLink update=":CaracteristicarioCreateForm" actionListener="#{caracrioController.prepareCreate2}" oncomplete="PF('CaracteristicarioCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />	           			
+	           		<p:commandLink update=":CaracteristicarioCreateForm" process="@this" actionListener="#{caracrioController.prepareCreate2}" oncomplete="PF('CaracteristicarioCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />	           			
 	           </legend>
  					<div class="row">
  					<div class="col-md-8">
@@ -327,7 +342,7 @@
              	<fieldset>
  				<legend>
  				Substratos
- 				<p:commandLink update=":SubstratoCreateForm" actionListener="#{substratoController.prepareCreate2}" oncomplete="PF('SubstratoCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
+ 				<p:commandLink update=":SubstratoCreateForm" process="@this" actionListener="#{substratoController.prepareCreate2}" oncomplete="PF('SubstratoCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
  				</legend>
  					<div class="row">
  						<p:outputPanel id="substratoslist">
@@ -343,7 +358,7 @@
  				<fieldset>
  				<legend>
  				Metodo Coleta
- 				<p:commandLink update=":MetodoColetaCreateForm" actionListener="#{metodoColetaController.prepareCreate2}" oncomplete="PF('MetodoColetaCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
+ 				<p:commandLink update=":MetodoColetaCreateForm" process="@this" actionListener="#{metodoColetaController.prepareCreate2}" oncomplete="PF('MetodoColetaCreateDialog').show()" title="Adicionar" styleClass="ui-icon ui-icon-plus" />
  				</legend>
  				<div class="row">
  					<p:selectManyCheckbox id="metodo" value="#{coletaController.coleta.tbMetodoColetas}" converter="generic">
@@ -370,6 +385,7 @@
      <ui:include src="metodo.xhtml"/>
      <ui:include src="caracteristica.xhtml"/>
      <ui:include src="substratos.xhtml"/>
+     <ui:include src="coletor.xhtml"/>
 	</ui:define>
     </ui:composition>
 </html>

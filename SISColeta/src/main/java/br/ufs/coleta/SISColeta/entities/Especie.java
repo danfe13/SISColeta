@@ -76,8 +76,7 @@ public class Especie implements GenericEntity {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "tb_subfamilia_id",referencedColumnName = "idtb_subfamilia", nullable = false)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@JoinColumn(name = "tb_subfamilia_id",referencedColumnName = "idtb_subfamilia", nullable = true)
 	public Subfamilia getTbSubfamilia() {
 		return this.subfamilia;
 	}

@@ -63,7 +63,7 @@ public class Pessoa implements GenericEntity{
 		this.id = id;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, orphanRemoval=true)
 	@PrimaryKeyJoinColumn
 	public Usuario getTbUsuario() {
 		return this.usuario;
@@ -74,7 +74,6 @@ public class Pessoa implements GenericEntity{
 	}
 
 	@Column(name = "nome", length = 95)
-	@NotEmpty(message = "Não pode ser vázio!")
 	public String getNome() {
 		return this.nome;
 	}
@@ -84,7 +83,6 @@ public class Pessoa implements GenericEntity{
 	}
 
 	@Column(name = "email", length = 245)
-	@NotEmpty(message = "Não pode ser vázio!")
 	public String getEmail() {
 		return this.email;
 	}
@@ -94,7 +92,6 @@ public class Pessoa implements GenericEntity{
 	}
 
 	@Column(name = "cpf", length = 14)
-	@NotEmpty(message = "Não pode ser vázio!")
 	public String getCpf() {
 		return this.cpf;
 	}

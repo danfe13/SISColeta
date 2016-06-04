@@ -23,26 +23,33 @@
               <div class="box">
                 <div class="box-header with-border">
 	<h:form id="ColecaoImagemListForm">
-		<p:dataGrid var="colecaoimagem" value="#{colecaoimagemController.items}" columns="4" layout="grid"
+		<p:dataGrid var="colecaoimagem" value="#{colecaoimagemController.items}" columns="3" layout="grid"
         rows="12" paginator="true" id="colecaoimagens"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="6,12,16">
  
         <f:facet name="header">
-            <p:outputPanel>
+            <p:outputPanel style="width: 100px;">
 				<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{colecaoimagemController.prepareCreate()}" update=":ColecaoImagemForm" oncomplete="PF('ColecaoImageDialog').show()"/>
 	         </p:outputPanel>
         </f:facet>
         <p:panel header="#{colecaoimagem.id}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <p:graphicImage value="#{colecaoimagemController.imagem}" width="350px" height="250px">
+            <h:panelGrid columns="1">
+            	<p:commandLink update="colecaoimagens" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{colecaoimagemController.remover}">
+						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+						<f:setPropertyActionListener value="#{colecaoimagem}" target="#{colecaoimagemController.colecaoImagem}" />
+				</p:commandLink>
+                <p:graphicImage value="#{colecaoimagemController.imagem}" width="320px" height="230px">
                 	<f:param name="nome" value="#{colecaoimagem.imagem}" />
                 	<f:param name="extensao" value="#{colecaoimagem.extensao}" />
             	</p:graphicImage> 
             </h:panelGrid>
         </p:panel>
     </p:dataGrid>
-    
+    <p:confirmDialog global="true">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+    		</p:confirmDialog>
 	</h:form>
 	</div>
 	</div>

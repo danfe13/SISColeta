@@ -71,7 +71,7 @@ public class Instituicao implements GenericEntity {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tb_municipio_id", nullable = false)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@NotNull(message = "Não pode ser vázio!")
 	public Municipio getTbMunicipio() {
 		return this.municipio;
 	}
@@ -81,7 +81,7 @@ public class Instituicao implements GenericEntity {
 	}
 
 	@Column(name = "nome", length = 85)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@NotNull(message = "Não pode ser vázio!")
 	@NotEmpty(message = "Não pode ser vázio!")
 	public String getNome() {
 		return this.nome;
@@ -92,7 +92,7 @@ public class Instituicao implements GenericEntity {
 	}
 
 	@Column(name = "endereco", length = 75)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@NotNull(message = "Não pode ser vázio!")
 	@NotEmpty(message = "Não pode ser vázio!")
 	public String getEndereco() {
 		return this.endereco;
@@ -103,7 +103,7 @@ public class Instituicao implements GenericEntity {
 	}
 
 	@Column(name = "bairro", length = 75)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@NotNull(message = "Não pode ser vázio!")
 	@NotEmpty(message = "Não pode ser vázio!")
 	public String getBairro() {
 		return this.bairro;
@@ -114,7 +114,7 @@ public class Instituicao implements GenericEntity {
 	}
 
 	@Column(name = "cep", length = 20)
-	@NotNull(message = "Campo não pode ser vázio!")
+	@NotNull(message = "Não pode ser vázio!")
 	@NotEmpty(message = "Não pode ser vázio!")
 	public String getCep() {
 		return this.cep;

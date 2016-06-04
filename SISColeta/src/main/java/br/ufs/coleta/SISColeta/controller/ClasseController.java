@@ -98,10 +98,21 @@ public class ClasseController extends GenericController {
     }
     
     public List<Ordem> getOrdem() {
-    	if(this.classe != null){
-    		this.ordem = ordemDAO.getbyClasse(this.classe.getId());
-    	}
     	return this.ordem;
     } 
+    
+    public void setOrdem(Classe classe){
+    	if(classe != null){
+    		this.classe = new Classe();
+	    	this.classe.setId(classe.getId());
+	    	this.classe.setDescricao(classe.getDescricao());
+	    	this.classe.setTbOrdems(classe.getTbOrdems());
+	    	this.ordem = ordemDAO.getbyClasse(classe.getId());
+    	}
+    }
+    
+    public void setOrdem2(List<Ordem> ordem){
+    	this.ordem = ordem;
+    }
 
 }

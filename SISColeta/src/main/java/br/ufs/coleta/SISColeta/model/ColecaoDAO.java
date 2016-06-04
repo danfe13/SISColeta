@@ -77,6 +77,14 @@ public class ColecaoDAO extends GenericDAO<Colecao, Integer> {
     	return query.getResultList().get(0);
     }
     
+    public Object lastCOD(){
+    	Query query = em.createNativeQuery("SELECT c.cod_campo FROM tb_colecao c order by idtb_colecao desc");
+    	if(!query.getResultList().isEmpty())
+    		return query.getResultList().get(0);
+    	else
+    		return "CIUFS1";
+    }
+    
     public Coleta getColetabyColecao(Integer id){
     	TypedQuery<Coleta> query = em.createNamedQuery("Colecao.getColeta", Coleta.class);
     	query.setParameter("id", id);

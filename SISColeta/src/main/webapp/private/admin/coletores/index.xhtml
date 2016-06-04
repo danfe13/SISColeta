@@ -6,18 +6,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/template/default.xhtml">
-	<ui:define name="title">Usuário</ui:define>
-	<ui:define name="cabecalho">Usuário</ui:define>
+	<ui:define name="title">Coletores</ui:define>
+	<ui:define name="cabecalho">Coletores</ui:define>
 	<ui:define name="breadcrumb">
 			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
-            <li class="active">Usuário</li>
+            <li class="active">Coletores</li>
 	</ui:define>
 	<ui:define name="content">
 	<div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
 	<h:form id="UsuarioListForm">
-		<p:dataTable id="datalist" value="#{usuarioController.itemsUsuario}"
+		<p:dataTable id="datalist" value="#{usuarioController.items}"
 					widgetVar="usuarioTable"
 					var="usuario" selection="#{usuarioController.usuario}"
                     paginator="true"
@@ -32,40 +32,27 @@
 						<p:commandButton id="createButton" icon="ui-icon-plus"   value="Novo" actionListener="#{usuarioController.prepareCreate()}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
 	                </p:outputPanel>
         		</f:facet>
-				<p:column sortBy="#{usuario.id}" filterBy="#{usuario.id}" filterMatchMode="contains" style="width:150px">
+        		<p:column style="width:80px" sortBy="#{usuario.tbPessoa.id}" filterBy="#{usuario.tbPessoa.id}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="ID" /></f:facet>
 					<h:outputText value="#{usuario.id}" />
-				</p:column>	
-				<p:column sortBy="#{usuario.tbPerfil.descricao}" filterBy="#{usuario.tbPerfil.descricao}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Perfil" /></f:facet>
-					<h:outputText value="#{usuario.tbPerfil.descricao}" />
+				</p:column>
+				<p:column sortBy="#{usuario.tbPessoa.cpf}" filterBy="#{usuario.tbPessoa.cpf}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+					<h:outputText value="#{usuario.tbPessoa.cpf}" />
 				</p:column>
 				<p:column sortBy="#{usuario.tbPessoa.nome}" filterBy="#{usuario.tbPessoa.nome}" filterMatchMode="contains">
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					<h:outputText value="#{usuario.tbPessoa.nome}" />
 				</p:column>
-				<p:column sortBy="#{usuario.login}" filterBy="#{usuario.login}" filterMatchMode="contains">
-					<f:facet name="header"><h:outputText value="Login" /></f:facet>
-					<h:outputText value="#{usuario.login}" />
+				<p:column sortBy="#{usuario.tbPessoa.abreviacao}" filterBy="#{usuario.tbPessoa.abreviacao}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Abreviação" /></f:facet>
+					<h:outputText value="#{usuario.tbPessoa.abreviacao}" />
 				</p:column>
-				<p:column sortBy="#{usuario.ativo}" filterBy="#{usuario.ativo}" filterMatchMode="contains">
-					<f:facet name="filter">
-		                <p:selectOneButton onchange="PF('usuarioTable').filter()">
-		                    <f:converter converterId="javax.faces.Boolean" />
-		                    <f:selectItem itemLabel="T" itemValue="" />
-		                    <f:selectItem itemLabel="S" itemValue="true" />
-		                    <f:selectItem itemLabel="N" itemValue="false" />
-		                </p:selectOneButton>
-		            </f:facet>
-					<f:facet name="header"><h:outputText value="Ativo" /></f:facet>
-					<h:outputText value="#{usuario.ativo ? 'Sim': 'Não'}" />
+				<p:column sortBy="#{usuario.tbPessoa.email}" filterBy="#{usuario.tbPessoa.email}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Email" /></f:facet>
+					<h:outputText value="#{usuario.tbPessoa.email}" />
 				</p:column>
 				<p:column style="width:120px">
-					<p:commandLink update=":UsuarioSenhaForm" oncomplete="PF('UsuarioSenhaDialog').show()" action="#{usuarioController.prepareToNovaSenha(usuario)}" title="Alterar Senha" styleClass="ui-icon ui-icon-key">
-					</p:commandLink>
-					<p:commandLink update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" title="Visualizar" styleClass="ui-icon ui-icon-search">
-						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuario}" />
-					</p:commandLink>
 					<p:commandLink update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" title="Editar" styleClass="ui-icon ui-icon-pencil">
 						<f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.usuario}" />
 					</p:commandLink>
@@ -86,7 +73,5 @@
 	</div>
 	<ui:include src="cadastrar.xhtml"/>
 	<ui:include src="editar.xhtml"/>
-	<ui:include src="senha.xhtml"/>
-	<ui:include src="view.xhtml"/>
 	</ui:define>
 </ui:composition>

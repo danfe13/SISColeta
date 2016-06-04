@@ -111,12 +111,9 @@ public class RetiradaController extends GenericController {
     
     public void cadastrarRetirar(){
     	try{
-    		String doacoes = String.valueOf(retiradaDAO.doacoesByColecao(colecao.getId()));
-    		String emprestimos = String.valueOf(retiradaDAO.emprestimosByColecao(colecao.getId()));
-    		if(Integer.parseInt(emprestimos)+Integer.parseInt(doacoes)>qntd){
-    			this.adicionarMensagemErro("Quantidade superior ao disponível!");
-    		}
-    		else if(colecao == null){
+    		//String doacoes = String.valueOf(retiradaDAO.doacoesByColecao(colecao.getId()));
+    		//String emprestimos = String.valueOf(retiradaDAO.emprestimosByColecao(colecao.getId()));
+    		if(colecao == null){
     			this.adicionarMensagemErro("Informe uma espécie!");
     		}
     		else if(qntd == null){
@@ -129,7 +126,7 @@ public class RetiradaController extends GenericController {
     		}
     	}
     	catch(Exception e){
-    		this.adicionarMensagemErro("Essa espécie ja foi adicionada. Adicione uma nova retirada ou edite o item referente a esta espécie!");
+    		this.adicionarMensagemErro(e.getMessage());
     	}
     	
     }
@@ -245,10 +242,14 @@ public class RetiradaController extends GenericController {
     			i.setTipoEnvio("Doação");
     		
     		i.setEspecie(retiradacolecao.getTbColecao().getTbEspecie().getNomeCientifico());
-     		i.setCodColeta(retiradacolecao.getTbColecao().getCodCampo());
+     		
     		i.setQuantidade("("+retiradacolecao.getQuantdExemplares().toString()+" exemplares)");
 
     		Coleta coleta = colecaoDAO.getColetabyColecao(retiradacolecao.getTbColecao().getId());
+    		
+    		i.setCodColeta(coleta.getCodColeta());
+    		//i.setLote(retiradacolecao.getTbColecao().getCodCampo());
+    		
     		coleta.setTbColetors(coletaDAO.getByColetor(coleta.getId()));
     		coleta.setTbAquatico(coletaDAO.getByAquatico(coleta.getId()));
     		coleta.setTbMetodoColetas(coletaDAO.getByMetodo(retiradacolecao.getTbColecao().getId()));

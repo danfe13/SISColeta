@@ -2,6 +2,7 @@ package br.ufs.coleta.SISColeta.controller;
 
 import br.ufs.coleta.SISColeta.entities.Pessoa;
 import br.ufs.coleta.SISColeta.entities.Usuario;
+import br.ufs.coleta.SISColeta.model.PerfilDAO;
 import br.ufs.coleta.SISColeta.model.PessoaDAO;
 import br.ufs.coleta.SISColeta.model.UsuarioDAO;
 import br.ufs.coleta.SISColeta.util.HashGenerator;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -28,6 +30,8 @@ public class UsuarioController extends GenericController {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private UsuarioDAO usuarioDAO;
+	@EJB
+    private PerfilDAO perfilDAO;
 	@EJB
     private PessoaDAO pessoaDAO;
     private List<Usuario> items = null;
@@ -46,7 +50,7 @@ public class UsuarioController extends GenericController {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-	
+
 	public Usuario getUsuarioLogado() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
@@ -114,6 +118,21 @@ public class UsuarioController extends GenericController {
     	}
     }
     
+    public void cadastrarPessoa(){
+	    	usuario.setSenha("");
+	    	usuario.setAtivo(false);
+	    	usuario.setLogin("");
+	    	usuario.setTbPerfil(perfilDAO.findFirst());
+	    	Usuario u = getDAOUser().save(usuario);
+	    	pessoa.setTbUsuario(u);
+	    	getDAOPessoa().save(pessoa);
+	    	RequestContext rc = RequestContext.getCurrentInstance();
+	        rc.execute("PF('UsuarioCreateDialog').hide();");
+	    	items = null;
+	    	u = null;
+	    	this.confirmacaosenha = null;
+    }
+    
     public void editar(){
     	if(this.validarUsuario(usuario, usuario.getTbPessoa())){
 	    	getDAOUser().save(usuario);
@@ -138,8 +157,6 @@ public class UsuarioController extends GenericController {
     
     public void remover(){
     	try{
-    		pessoa = this.usuario.getTbPessoa();
-    		getDAOPessoa().remove(this.pessoa);
     		getDAOUser().remove(this.usuario);
 	    }
 		catch(Exception sqlex){
@@ -151,10 +168,11 @@ public class UsuarioController extends GenericController {
     }
 
     public List<Usuario> getItems() {
-        if (items == null) {
-    		items = getDAOUser().findAll();
-        } 
-        return items;
+        return getDAOUser().findAll();
+    }
+    
+    public List<Usuario> getItemsUsuario() {
+        return getDAOUser().findUsuario();
     }
 
     public List<Usuario> getItemsAvailableSelectMany() {
@@ -167,16 +185,22 @@ public class UsuarioController extends GenericController {
     
     private boolean validarUsuario(Usuario usuario, Pessoa pessoa) {
 		boolean resultado = true;
-		Usuario usuarioExistente = getDAOUser().getExistente(usuario, pessoa);
-		if (usuarioExistente != null) {
-			if (usuarioExistente.getLogin().toLowerCase().equals(usuario.getLogin().toLowerCase())) {
-				adicionarMensagemErro("Já existe um usuário com este login.");
-			}
-			if (usuarioExistente.getTbPessoa().getEmail().toLowerCase().equals(pessoa.getEmail().toLowerCase())) {
-				adicionarMensagemErro("Já existe um usuário com este e-mail.");
-			}
-			if (usuarioExistente.getTbPessoa().getCpf().toLowerCase().equals(pessoa.getCpf())) {
-				adicionarMensagemErro("Já existe um usuário com este CPF.");
+		List<Usuario> usuarioExistente = getDAOUser().getExistente(usuario, pessoa);
+		if (!usuarioExistente.isEmpty()) {
+			boolean login = false, cpf = false, email = false;
+			for(Usuario user: usuarioExistente){
+				if (!login && user.getLogin().toLowerCase().equals(usuario.getLogin().toLowerCase())) {
+					adicionarMensagemErro("Já existe um usuário com este login.");
+					login = true;
+				}
+				if (!email && user.getTbPessoa().getEmail().toLowerCase().equals(pessoa.getEmail().toLowerCase())) {
+					adicionarMensagemErro("Já existe um usuário com este e-mail.");
+					email = true;
+				}
+				if (!cpf && user.getTbPessoa().getCpf().toLowerCase().equals(pessoa.getCpf())) {
+					adicionarMensagemErro("Já existe um usuário com este CPF.");
+					cpf = true;
+				}
 			}
 			resultado = false;
 		}

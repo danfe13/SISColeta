@@ -10,20 +10,9 @@
 	<f:metadata>    
     	<f:event type="preRenderView" listener="#{colecaoController.prepareCreate()}"/>    
 	</f:metadata>
-        <p:dialog id="ColecaoDlg" widgetVar="ColecaoDialog" modal="true" resizable="false" appendTo="@(body)" header="Coleta">
+        <p:dialog id="ColecaoDlg" widgetVar="ColecaoDialog" modal="true" resizable="false" appendTo="@(body)" header="CIUFS#{colecaoController.lastCOD}" dynamic="true">
             <h:form id="ColecaoForm">
                 <h:panelGroup id="displayespecies" rendered="#{colecaoController.coleta != null}">
-                	<div class="row">
-                		<div class="col-md-12">
-                        	<p:outputLabel value="Cod. Coleção:" for="codcolecao" />
-                        	<p:inputText id="codcolecao" value="#{colecaoController.colecao.codCampo}" title="Cod. Coleção"/>
-                    	</div>
-            		</div>
-                    <div class="row">
-                		<div class="col-md-12"> 
-	                        <p:message for="codcolecao" />
-            			</div>
-            		</div> 
             		<div class="row">
                 		<div class="col-md-12">
                         	<p:outputLabel value="Especie:" for="especie" />
@@ -40,7 +29,7 @@
                 		<div class="col-md-12">
                         	<p:outputLabel value="Determinador:" for="determinador" />
                         	<p:selectOneMenu id="determinador" style="width:100%" value="#{colecaoController.colecao.determinador}" converter="generic">
-                        		<f:selectItem itemValue="null" itemLabel="Selecione Unidade"  />
+                        		<f:selectItem itemValue="null" itemLabel="Selecione Usuário"  />
                             	<f:selectItems value="#{colecaoController.coletores}"
                                            var="usuarioItem"
                                            itemValue="#{usuarioItem}"
@@ -52,24 +41,7 @@
                 		<div class="col-md-12"> 
 	                        <p:message for="determinador" />
             			</div>
-            		</div> 	
-                    <div class="row">
-                		<div class="col-md-12">
-                        	<p:outputLabel value="Unidade:" for="unidade" />
-                        	<p:selectOneMenu id="unidade" style="width:100%" value="#{colecaoController.colecao.unidade}" converter="generic">
-                        		<f:selectItem itemValue="null" itemLabel="Selecione Unidade"  />
-                            	<f:selectItems value="#{unidadeController.itemsAvailableSelectOne}"
-                                           var="unidadeItem"
-                                           itemValue="#{unidadeItem}"
-                                           itemLabel="#{unidadeItem.descricao}"/>       
-                        	</p:selectOneMenu>
-                        </div>
             		</div>
-                    <div class="row">
-                		<div class="col-md-12"> 
-	                        <p:message for="unidade" />
-            			</div>
-            		</div> 	
                     <div class="row">
                 		<div class="col-md-12">
                         	<p:outputLabel value="Quantidade:" for="quantidade" />
@@ -80,24 +52,7 @@
                 		<div class="col-md-12"> 
 	                        <p:message for="quantidade" />
             			</div>
-            		</div> 	   
-            		<div class="row">
-                		<div class="col-md-12">
-                        	<p:outputLabel value="Destino:" for="destino" />
-                        	<p:selectOneMenu id="destino" style="width:100%" value="#{colecaoController.colecao.destino}" converter="generic">
-                        		<f:selectItem itemValue="null" itemLabel="Selecione Destino"  />
-                            	<f:selectItems value="#{destinoController.itemsAvailableSelectOne}"
-                                           var="destinoItem"
-                                           itemValue="#{destinoItem}"
-                                           itemLabel="#{destinoItem.descricao}"/>       
-                        	</p:selectOneMenu>
-                        </div>
-            		</div>
-                    <div class="row">
-                		<div class="col-md-12"> 
-	                        <p:message for="destino" />
-            			</div>
-            		</div> 	 
+            		</div> 	
                         
                      #{colecaoController.insertUsuario(usuarioController.usuarioLogado)}
                     <p:commandButton actionListener="#{colecaoController.cadastrar()}" value="Salvar" update="displayespecies,:ColetaListForm:datalist"/>
@@ -105,6 +60,5 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

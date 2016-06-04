@@ -44,8 +44,6 @@ public class EspecieImagemDAO extends GenericDAO<EspecieImagem, Long> {
     
     @Override
     public void remove(EspecieImagem imagem){
-		File file = new File("imagens_especies/"+imagem.getImagem());
-		file.delete();
     	Query delete = em.createNativeQuery("DELETE FROM tb_especie_imagem WHERE idtb_especie_imagem=?");
         delete.setParameter(1, imagem.getId());
         delete.executeUpdate();

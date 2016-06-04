@@ -99,10 +99,21 @@ public class OrdemController extends GenericController {
     }
     
     public List<Familia> getFamilia() {
-    	if(this.ordem != null){
-    		this.familia = familiaDAO.getbyOrdem(this.ordem.getId());
-    	}
     	return this.familia;
     } 
+    
+    public void setFamilia(Ordem ordem){
+    	if(ordem != null){
+    		this.ordem = new Ordem();
+    		this.ordem.setDescricao(ordem.getDescricao());
+    		this.ordem.setTbClasse(ordem.getTbClasse());
+    		this.ordem.setId(ordem.getId());
+    		this.familia = familiaDAO.getbyOrdem(ordem.getId());
+    	}
+    }
+    
+    public void setFamilia2(List<Familia> familia){
+    	this.familia = familia;
+    }
 
 }
