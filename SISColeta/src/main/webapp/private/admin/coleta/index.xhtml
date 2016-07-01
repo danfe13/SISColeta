@@ -81,16 +81,12 @@
                     rowKey="#{colecao.id}"
 					emptyMessage="Nenhum resultado encontrado.">
 						<p:column sortBy="#{colecao.id}" >
-							<f:facet name="header"><h:outputText value="ID" /></f:facet>
-							<h:outputText value="#{colecao.id}" />
+							<f:facet name="header"><h:outputText value="COD" /></f:facet>
+							<h:outputText value="#{colecao.codCampo}" />
 						</p:column>
 						<p:column sortBy="#{colecao.tbEspecie.nomeCientifico}" >
 							<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 							<h:outputText value="#{colecao.tbEspecie.nomeCientifico}" />
-						</p:column>
-						<p:column sortBy="#{colecao.unidade.descricao}" >
-							<f:facet name="header"><h:outputText value="Unidade" /></f:facet>
-							<h:outputText value="#{colecao.unidade.descricao}" />
 						</p:column>
 						<p:column sortBy="#{colecao.quantidade}" >
 							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>

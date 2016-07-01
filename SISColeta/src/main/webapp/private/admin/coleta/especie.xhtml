@@ -10,7 +10,7 @@
 	<f:metadata>    
     	<f:event type="preRenderView" listener="#{colecaoController.prepareCreate()}"/>    
 	</f:metadata>
-        <p:dialog id="ColecaoDlg" widgetVar="ColecaoDialog" modal="true" resizable="false" appendTo="@(body)" header="CIUFS#{colecaoController.lastCOD}" dynamic="true">
+        <p:dialog id="ColecaoDlg" widgetVar="ColecaoDialog" modal="true" resizable="false" appendTo="@(body)" header="CIUFS #{colecaoController.lastCOD}" dynamic="true">
             <h:form id="ColecaoForm">
                 <h:panelGroup id="displayespecies" rendered="#{colecaoController.coleta != null}">
             		<div class="row">

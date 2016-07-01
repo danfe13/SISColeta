@@ -248,7 +248,7 @@ public class RetiradaController extends GenericController {
     		Coleta coleta = colecaoDAO.getColetabyColecao(retiradacolecao.getTbColecao().getId());
     		
     		i.setCodColeta(coleta.getCodColeta());
-    		//i.setLote(retiradacolecao.getTbColecao().getCodCampo());
+    		i.setLote(retiradacolecao.getTbColecao().getCodCampo());
     		
     		coleta.setTbColetors(coletaDAO.getByColetor(coleta.getId()));
     		coleta.setTbAquatico(coletaDAO.getByAquatico(coleta.getId()));

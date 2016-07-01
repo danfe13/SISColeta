@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
   <ui:composition>
-        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar">
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Cadastrar Coletor">
             <h:form id="UsuarioCreateForm">
             	<h:panelGroup id="display" rendered="#{usuarioController.pessoa != null}" layout="block">
             		<div class="row">
@@ -41,7 +41,7 @@
 	                        <p:outputLabel value="Email" for="email" />
 	                        <p:inputText id="email" required="true" value="#{usuarioController.pessoa.email}" title="Email" validatorMessage="Email Inválido." >
                         	<f:passThroughAttribute name="type" value="email" />
-							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							<f:validateRegex pattern="^\s*$|[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							</p:inputText>	
                 		</div>
                     </div>

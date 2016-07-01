@@ -266,6 +266,7 @@ public class ColetaController extends GenericController {
 
     public Coleta prepareCreate() {
         coleta = new Coleta();
+        coleta.setDatum("SAD-69");
         getSubstratos();
         abundancia = new ArrayList<Integer>();
         for (Substrato substrato: substratos){
