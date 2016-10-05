@@ -30,7 +30,7 @@ import br.ufs.coleta.SISColeta.entities.Usuario;
  * @author danilo
  */
 @Stateless
-public class ColetaDAO extends GenericDAO<Coleta, Long> {
+public class ColetaDAO extends GenericDAO<Coleta, Integer> {
 	@PersistenceContext
     private EntityManager em;
 

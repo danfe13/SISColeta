@@ -82,7 +82,7 @@ public class ColecaoDAO extends GenericDAO<Colecao, Integer> {
     	if(!query.getResultList().isEmpty())
     		return query.getResultList().get(0);
     	else
-    		return "CIUFS1";
+    		return "1";
     }
     
     public Coleta getColetabyColecao(Integer id){

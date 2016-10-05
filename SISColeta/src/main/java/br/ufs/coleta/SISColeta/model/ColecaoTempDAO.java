@@ -13,14 +13,17 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.ufs.coleta.SISColeta.entities.MetodoColeta;
+import br.ufs.coleta.SISColeta.entities.Colecao;
+import br.ufs.coleta.SISColeta.entities.ColecaoTemp;
+import br.ufs.coleta.SISColeta.entities.ColetaTemp;
+import br.ufs.coleta.SISColeta.entities.Instituicao;
 
 /**
  *
  * @author danilo
  */
 @Stateless
-public class MetodoColetaDAO extends GenericDAO<MetodoColeta, Long> {
+public class ColecaoTempDAO extends GenericDAO<ColecaoTemp, Long> {
 	@PersistenceContext
     private EntityManager em;
 
@@ -29,17 +32,20 @@ public class MetodoColetaDAO extends GenericDAO<MetodoColeta, Long> {
         return em;
     }
 
-    public MetodoColetaDAO() {
-    	super(MetodoColeta.class);
+    public ColecaoTempDAO() {
+    	super(ColecaoTemp.class);
     }
     
-    public List<MetodoColeta> getMetodosApartirDe(int id) {
-    	TypedQuery<MetodoColeta> query = em.createNamedQuery("MetodoColeta.findApartirDe", MetodoColeta.class);
-    	query.setParameter("id", id);
+    public List<ColecaoTemp> getColecaoByColeta(Integer id) {
+        
+    	TypedQuery<ColecaoTemp> query = em.createNamedQuery("ColecaoTemp.findByColeta", ColecaoTemp.class);
+    	query.setParameter("idcoleta", id);
     	try{
-    		return query.getResultList();
+    		List<ColecaoTemp> results = query.getResultList();
+    		return results;
     	}catch(NoResultException e){
     		return null;
     	}	
 	}
+    
 }

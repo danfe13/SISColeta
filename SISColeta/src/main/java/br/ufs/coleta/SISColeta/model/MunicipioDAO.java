@@ -18,7 +18,7 @@ import br.ufs.coleta.SISColeta.entities.Municipio;
  * @author danilo
  */
 @Stateless
-public class MunicipioDAO extends GenericDAO<Municipio, Long> {
+public class MunicipioDAO extends GenericDAO<Municipio, Integer> {
 	@PersistenceContext
     private EntityManager em;
 

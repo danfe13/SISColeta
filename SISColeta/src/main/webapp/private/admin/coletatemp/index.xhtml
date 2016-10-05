@@ -1,0 +1,102 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/template/default.xhtml">
+	<ui:define name="title">Dados Movel</ui:define>
+	<ui:define name="cabecalho">Dados Movel</ui:define>
+	<ui:define name="breadcrumb">
+			<li><a href="/SISColeta/private/admin/index.jsf"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Carregamento</a></li>
+            <li class="active">Dados Movel</li>
+	</ui:define>
+	<ui:define name="content">
+	
+	<div class="col-md-12">
+              <div class="box">
+                <div class="box-header with-border">
+	<h:form id="ColetaListForm">
+		<p:dataTable id="datalist" value="#{coletaTempController.items}"
+					widgetVar="coletaTable"
+					var="coleta" selection="#{coletaTempController.coleta}"
+                    paginator="true"
+                    paginatorPosition="bottom"
+                    rowKey="#{coleta.id}"
+                    rows="10"
+                    rowsPerPageTemplate="10,20,30,40,50"
+					emptyMessage="Nenhum resultado encontrado.">
+				
+				<f:facet name="header">
+					<h:commandButton value="Carregar" action="#{coletaTempController.carregarColetas()}"/>
+        		</f:facet>
+        		<p:column style="width:30px; padding: 4px 5px;">
+            		<p:rowToggler />
+        		</p:column>
+				<p:column sortBy="#{coleta.id}" filterBy="#{coleta.id}" filterMatchMode="contains" style="width:100px">
+					<f:facet name="header"><h:outputText value="ID" /></f:facet>
+					<h:outputText value="#{coleta.id}" />
+				</p:column>	
+				<p:column sortBy="#{coleta.codColeta}" filterBy="#{coleta.codColeta}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Código" /></f:facet>
+					<h:outputText value="#{coleta.codColeta}" />
+				</p:column>
+				<p:column sortBy="#{coleta.tbMunicipio.nome}" filterBy="#{coleta.tbMunicipio.nome}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Municipio" /></f:facet>
+					<h:outputText value="#{coleta.tbMunicipio.nome}" />
+				</p:column>
+				<p:column sortBy="#{coleta.tbMunicipio.tbEstado.nome}" filterBy="#{coleta.tbMunicipio.tbEstado.nome}" filterMatchMode="contains">
+					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
+					<h:outputText value="#{coleta.tbMunicipio.tbEstado.nome}" />
+				</p:column>
+				<p:column sortBy="#{coleta.usuario.tbPessoa.abreviacao}" filterBy="#{coleta.usuario.tbPessoa.abreviacao}" filterMatchMode="contains" style="width:160px">
+					<f:facet name="header"><h:outputText value="Coletor" /></f:facet>
+					<h:outputText value="#{coleta.usuario.tbPessoa.abreviacao}" />
+				</p:column>
+				<p:column sortBy="#{coleta.dataFim}" filterBy="#{coleta.dataFim}" filterMatchMode="contains" style="width:160px">
+					<f:facet name="header"><h:outputText value="Data Fim" /></f:facet>
+					<h:outputText value="#{coleta.dataFim}" />
+				</p:column>
+				<p:column style="width:85px">
+					<p:commandLink update="datalist" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{coletaTempController.remover}">
+						<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+						<f:setPropertyActionListener value="#{coleta}" target="#{coletaTempController.coleta}" />
+					</p:commandLink>
+       			</p:column>
+       			<p:rowExpansion>
+       				<p:dataTable id="datalist2" value="#{colecaoTempController.getColecaoByColeta(coleta)}"
+					widgetVar="colecaoTable"
+					var="colecao" selection="#{colecaoController.colecao}"
+                    rowKey="#{colecao.id}"
+					emptyMessage="Nenhum resultado encontrado.">
+						<p:column sortBy="#{colecao.tbEspecie.nomeCientifico}" >
+							<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+							<h:outputText value="#{colecao.tbEspecie.nomeCientifico}" />
+						</p:column>
+						<p:column sortBy="#{colecao.quantidade}" >
+							<f:facet name="header"><h:outputText value="Quantidade" /></f:facet>
+							<h:outputText value="#{colecao.quantidade}" title="C=Coletado; E=Emprestimos; D=Doações; T=Total"/>
+						</p:column>
+						<p:column style="width:62px">
+							<p:commandLink update="datalist2" title="Excluir" styleClass="ui-icon ui-icon-trash" action="#{colecaoTempController.remover}">
+								<p:confirm header="Confirmação" message="Você tem certeza disso?" icon="ui-icon-alert"/>
+								<f:setPropertyActionListener value="#{colecao}" target="#{colecaoTempController.colecao}" />
+							</p:commandLink>
+		       			</p:column>
+					</p:dataTable>
+							
+        		</p:rowExpansion>
+			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+        		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+       	 		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+    		</p:confirmDialog>
+	</h:form>
+	</div>
+	</div>
+	</div>
+	</ui:define>
+</ui:composition>

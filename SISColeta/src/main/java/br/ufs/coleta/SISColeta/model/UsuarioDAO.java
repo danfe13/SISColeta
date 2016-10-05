@@ -51,6 +51,16 @@ public class UsuarioDAO extends GenericDAO<Usuario, Long> {
     	}	
 	}
     
+    public Usuario getUsuarioFone(String telefone) {
+    	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findFone", Usuario.class);
+    	query.setParameter("telefone", telefone);
+    	try{
+    		return query.getResultList().get(0);
+    	}catch(NoResultException e){
+    		return null;
+    	}	
+	}
+    
     public List<Usuario> getUsuarios(Coleta coleta) {
     
     	TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findColetores", Usuario.class);
