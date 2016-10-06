@@ -186,9 +186,7 @@ public class ColetaTempController extends GenericController {
     	
     	for(ColecaoTemp colecaotemp: colecoestemps){
     		Colecao colecao = new Colecao();
-    		String cod = String.valueOf(colecaoDAO.lastCOD());
-    	    int lastCOD = Integer.valueOf(cod.substring(5))+1;
-    		colecao.setCodCampo("CIUFS"+lastCOD);
+    		colecao.setCodCampo("CIUFS"+colecaoDAO.lastCOD());
     		colecao.setDestino(destinoDAO.findFirst());
         	colecao.setUnidade(unidadeDAO.findFirst());
         	colecao.setTbUsuario(colecaotemp.getTbUsuario());

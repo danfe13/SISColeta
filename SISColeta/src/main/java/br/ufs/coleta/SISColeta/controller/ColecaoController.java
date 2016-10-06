@@ -80,8 +80,7 @@ public class ColecaoController extends GenericController {
     public Colecao prepareCreate() {
         colecao = new Colecao();
         initializeEmbeddableKey();
-        String cod = String.valueOf(colecaoDAO.lastCOD());
-        this.lastCOD = Integer.valueOf(cod.substring(5))+1;
+        this.lastCOD = colecaoDAO.lastCOD();
         return colecao;
     }
     
